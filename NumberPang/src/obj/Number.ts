@@ -47,6 +47,41 @@ export /*default*/ class Number extends Phaser.GameObjects.Graphics{
 
       this.destroy(true);
    }
+
+   Get_LT(): Phaser.Math.Vector2 {
+      let ret = new Phaser.Math.Vector2(0, 0);
+
+      ret.x = this.POSITION.x - NumberRadius;
+      ret.y = this.POSITION.y - NumberRadius;
+
+      return ret;
+   }
+
+   Get_RB(): Phaser.Math.Vector2 {
+      let ret = new Phaser.Math.Vector2(0, 0);
+
+      ret.x = this.POSITION.x + NumberRadius;
+      ret.y = this.POSITION.y + NumberRadius;
+
+      return ret;
+   }
+
+   Is_Collision(__pos: Phaser.Math.Vector2): boolean {
+
+      let lt = this.Get_LT();
+      let rb = this.Get_RB();
+
+      if(
+         lt.x < __pos.x
+         && rb.x > __pos.x
+         && lt.y < __pos.y
+         && rb.y > __pos.y
+         ) {
+         return true;
+      }
+
+      return false;
+   }
 }
 
 const NumberRadius: number = 24;

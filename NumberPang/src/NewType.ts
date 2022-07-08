@@ -1,9 +1,7 @@
-
-// type Position = {
-//    x: number,
-//    y: number,
+// interface Dict_KeyNum<T> {
+//    [key: number]: T;
 // }
 
 export {
-   // Position,
+   // Dict_KeyNum,
 }

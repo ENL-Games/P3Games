@@ -1,11 +1,15 @@
 import Phaser from 'phaser';
 
-import Number from '../obj/Number';
+import { Number, NumberRadius } from '../obj/Number';
 
 export default class GameScene extends Phaser.Scene {
 
-   private _canvasWidth: number = 0;
-   private _canvasHeight: number = 0;
+   CanvasWidth: number = 0;
+   CanvasHeight: number = 0;
+
+   _lastNum: number = 0;
+
+   _dict_Number!: Map<number, Number>;
 
    constructor() {
       super({ key: 'GameScene' })
@@ -16,19 +20,84 @@ export default class GameScene extends Phaser.Scene {
    }
 
    create() {
-      this._canvasWidth = this.sys.canvas.width;
-      this._canvasHeight = this.sys.canvas.height;
+      this.CanvasWidth = this.sys.canvas.width;
+      this.CanvasHeight = this.sys.canvas.height;
 
-      this.add.image(this._canvasWidth / 2, this._canvasHeight / 2, 'bg');
+      this.add.image(this.CanvasWidth / 2, this.CanvasHeight / 2, 'bg');
 
+      this._dict_Number = new Map();
+
+      this.Game_Start();
+   }
+
+   private Game_Start() {
+      let initCount = Phaser.Math.Between(1, 5);
+      initCount = 100;
+      for(var n=0; n<initCount; n++) {
+         this.Generate_Number();
+      }
+   }
+
+   private Generate_Number(): Number {
+
+      this._lastNum += 1;
+      let number = this.Make_Number(this._lastNum);
+
+      this._dict_Number.set(this._lastNum, number);
+
+      for(const [key, values] of this._dict_Number) {
+         console.log(`[${key}] = ${values}`);
+      }
+
+      return number;
+   }
+
+   private Make_Number(__number: number): Number {
       let number = new Number(this);
-      number.Setup(2, new Phaser.Math.Vector2(100, 100));
 
-      number = new Number(this);
-      number.Setup(8, new Phaser.Math.Vector2(300, 200));
+      let pos = this.Get_Position();
+      number.Setup(__number, pos);
+
+      return number;
+   }
+
+   private Get_Position(): Phaser.Math.Vector2 {
+      let pos = new  Phaser.Math.Vector2(0, 0);
+
+      while (true) {
+         pos = this.Get_RandomPosition();
+
+         let isCollision = false;
+         for (const [key, values] of this._dict_Number) {
+            // console.log(`[${key}] = ${values}`);
+
+            if (values.Is_Collision(pos)) {
+               isCollision = true;
+               break;
+            }
+         }
+
+         if(!isCollision)
+            break;
+      }
+
+      return pos;
+   }
+
+   private Get_RandomPosition(): Phaser.Math.Vector2 {
+
+      let minmin = 0 + NumberRadius;
+      let maxX = this.CanvasWidth - NumberRadius;
+      let maxY = this.CanvasHeight - NumberRadius;
+
+      let pos = new  Phaser.Math.Vector2(0, 0);
+      pos.x = Phaser.Math.Between(minmin, maxX);
+      pos.y = Phaser.Math.Between(minmin, maxY);
+
+      return pos;
    }
 
    HitTheNumber(__number: number) {
-      console.log("HitTheNumber(" + __number + ")");
+      console.log(`HitTheNumber(${__number})`);
    }
 }
