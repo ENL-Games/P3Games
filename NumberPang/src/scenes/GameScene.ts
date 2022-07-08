@@ -31,7 +31,7 @@ export default class GameScene extends Phaser.Scene {
    }
 
    private Game_Start() {
-      let initCount = Phaser.Math.Between(1, 5);
+      let initCount = Phaser.Math.Between(3, 5);
 
       // { initCount = 100; }//TEST
       // { initCount = 2; }//TEST
@@ -110,6 +110,21 @@ export default class GameScene extends Phaser.Scene {
    }
 
    HitTheNumber(__number: number) {
-      console.log(`HitTheNumber(${__number})`);
+      // console.log(`HitTheNumber(${__number})`);
+
+      // let log = 'BEFORE';
+      // for(const [key, values] of this._dict_Number) {
+      //    log += `\n\t[${key}] = ${values}`;
+      // }
+
+      this._dict_Number.delete(__number);
+
+      // log += '\nAFTER';
+      // for(const [key, values] of this._dict_Number) {
+      //    log += `\n\t[${key}] = ${values}`;
+      // }
+      // console.log(log);
+
+      this.Generate_Number();
    }
 }
