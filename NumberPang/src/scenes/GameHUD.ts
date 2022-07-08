@@ -134,6 +134,15 @@ export default class GameHUD extends Phaser.Scene {
       this._text_Timer.setText(this._sec.toString());
    }
 
+   Bonus() {
+      this._sec += 1;
+      if(FullTimeSeconds < this._sec) {
+         this._sec = FullTimeSeconds;
+      }
+
+      this.Update_TimerText();
+   }
+
    Enable_Curtain(__state: HUD_Curatin_State) {
       console.log(`Enable_Curtain(${__state})`);
 

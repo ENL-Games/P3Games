@@ -166,6 +166,9 @@ export default class GameScene extends Phaser.Scene {
          return;
       }
 
+      this.Get_GameHUD()
+         .Bonus();
+
       this._dict_Number.get(__number)?.Destory();
       this._dict_Number.delete(__number);
 
