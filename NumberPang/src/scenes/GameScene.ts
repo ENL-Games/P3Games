@@ -34,6 +34,21 @@ export default class GameScene extends Phaser.Scene {
       this.Game_Start();
    }
 
+   Retry_Game() {
+      if(0 < this._dict_Number.size) {
+         for(const [key, values] of this._dict_Number) {
+            values.Destory();
+         }
+
+         this._dict_Number.clear();
+      }
+
+      this._firstNum = 1;
+      this._lastNum = 0;
+
+      this.Game_Start();
+   }
+
    private Game_Start() {
       this._firstNum = 1;
       

@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import GameScene from './GameScene';
 
 enum HUD_Curatin_State { NONE = 0,
 	weak, default
@@ -16,6 +17,9 @@ export default class GameHUD extends Phaser.Scene {
 
    private _curtain!: Phaser.GameObjects.Rectangle;
 
+   private _text_GameOver!: Phaser.GameObjects.Text;
+   private _text_Retry!: Phaser.GameObjects.Text;
+
    constructor() {
       super({ key: 'GameHUD' });
    }
@@ -32,9 +36,6 @@ export default class GameHUD extends Phaser.Scene {
          });
       }
 
-      this._sec = FullTimeSeconds;
-      this.Update_TimerText();
-
       this._curtain = this.add.rectangle(this.sys.canvas.width / 2, this.sys.canvas.height / 2
          , this.sys.canvas.width, this.sys.canvas.height
          , 0x000000);
@@ -42,10 +43,46 @@ export default class GameHUD extends Phaser.Scene {
          this._curtain.setInteractive().on('pointerdown', (pointer, localX, localY) => {
             // console.log("예외처리");
          });//이벤트 처리
-         
-         this.Enable_Curtain(HUD_Curatin_State.NONE);
       }
 
+      this._text_GameOver = this.add.text(this.sys.canvas.width / 2, 230, "Game Over");
+      {
+         this._text_GameOver.setColor(`#ff0000`);
+         this._text_GameOver.setOrigin(0.5, 0.5);
+         this._text_GameOver.setStyle({
+            font: "bold 100px Arial"
+         });
+
+         this._text_GameOver.setVisible(false);
+      }
+
+      this._text_Retry = this.add.text(this.sys.canvas.width / 2, 500, "Retry");
+      {
+         this._text_Retry.setOrigin(0.5, 0.5);
+         this._text_Retry.setStyle({
+            font: "bold 80px Arial"
+         });
+
+         this._text_Retry.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+            this.Ready_Game();
+         });//이벤트 처리
+
+         this._text_Retry.setVisible(false);
+      }
+
+      this.Ready_Game();
+   }
+
+   private Ready_Game() {
+
+      var core = this.scene.get('GameScene') as GameScene;
+      core.Retry_Game();
+
+      this._sec = FullTimeSeconds;
+      this.Update_TimerText();
+
+      this.Enable_GameOver(false);
+      
       this.Run_Tick();
    }
 
@@ -73,10 +110,20 @@ export default class GameHUD extends Phaser.Scene {
       this.Update_TimerText();
 
       if(isGameOver) {
-         this.time.removeEvent(this._timer);
-         
-         this.Enable_Curtain(HUD_Curatin_State.default);
+         this.Enable_GameOver(true);
       }
+   }
+
+   private Enable_GameOver(__enable: boolean) {
+
+      if(__enable)
+         this.time.removeEvent(this._timer);
+      
+      let curtainState = (__enable ? HUD_Curatin_State.default : HUD_Curatin_State.NONE);
+      this.Enable_Curtain(curtainState);
+
+      this._text_GameOver.setVisible(__enable);
+      this._text_Retry.setVisible(__enable);
    }
 
    Is_GameOver(): boolean {
@@ -111,4 +158,4 @@ export default class GameHUD extends Phaser.Scene {
    }
 }
 
-const FullTimeSeconds: number = 15;
+const FullTimeSeconds: number = 5;
