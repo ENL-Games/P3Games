@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 
 import { Number, NumberRadius } from '../obj/Number';
+import GameHUD, { HUD_Curatin_State } from './GameHUD';
 
 export default class GameScene extends Phaser.Scene {
 
@@ -21,7 +22,7 @@ export default class GameScene extends Phaser.Scene {
    }
 
    create() {
-      this.scene.run('GameHUD')
+      this.scene.run('GameHUD');      
 
       this.CanvasWidth = this.sys.canvas.width;
       this.CanvasHeight = this.sys.canvas.height;
@@ -114,6 +115,15 @@ export default class GameScene extends Phaser.Scene {
       return pos;
    }
 
+   private Diasble_HUD_Curtain() {
+      this.Get_GameHUD()
+         .Enable_Curtain(HUD_Curatin_State.NONE);
+   }
+
+   private Get_GameHUD(): GameHUD {
+      return this.scene.get('GameHUD') as GameHUD;
+   }
+
    HitTheNumber(__number: number) {
       // console.log(`HitTheNumber(${__number})`);
 
@@ -124,6 +134,17 @@ export default class GameScene extends Phaser.Scene {
 
       if(this._firstNum != __number) {
          // console.log("Wrong~~");
+         
+         var HUD = this.scene.get('GameHUD') as GameHUD;
+         // console.log(HUD);
+         this.Get_GameHUD()
+            .Enable_Curtain(HUD_Curatin_State.weak);
+
+         this.time.addEvent({
+            delay: 1000,
+            callback: this.Diasble_HUD_Curtain,
+            callbackScope: this,
+         });
          return;
       }
 
