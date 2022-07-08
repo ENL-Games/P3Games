@@ -6,6 +6,8 @@ export default class GameHUD extends Phaser.Scene {
    private _text_Timer!: Phaser.GameObjects.Text;
    private _sec: number = 0;
 
+   private _curtain!: Phaser.GameObjects.Rectangle;
+
    constructor() {
       super({ key: 'GameHUD' })
    }
@@ -24,7 +26,19 @@ export default class GameHUD extends Phaser.Scene {
 
       this._sec = FullTimeSeconds;
       this.Update_TimerText();
-      
+
+      this._curtain = this.add.rectangle(this.sys.canvas.width / 2, this.sys.canvas.height / 2
+         , this.sys.canvas.width, this.sys.canvas.height
+         , 0x000000);
+      {
+         this._curtain.setAlpha(0.75);
+         this._curtain.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+            // console.log("예외처리");
+         });//이벤트 처리
+         
+         this.Enable_Curtain(false);
+      }
+
       this.Run_Tick();
    }
 
@@ -53,12 +67,18 @@ export default class GameHUD extends Phaser.Scene {
 
       if(isGameOver) {
          this.time.removeEvent(this._timer);
+         
+         this.Enable_Curtain(true);
       }
    }
 
    private Update_TimerText() {
       this._text_Timer.setText(this._sec.toString());
    }
+
+   Enable_Curtain(__show: boolean) {
+      this._curtain.setVisible(__show);
+   }
 }
 
-const FullTimeSeconds: number = 100;
+const FullTimeSeconds: number = 5;
