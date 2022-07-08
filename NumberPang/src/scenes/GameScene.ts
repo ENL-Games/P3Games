@@ -137,11 +137,14 @@ export default class GameScene extends Phaser.Scene {
          
          var HUD = this.scene.get('GameHUD') as GameHUD;
          // console.log(HUD);
+
+         this.cameras.main.shake(TimeOfShake, 0.02);
+
          this.Get_GameHUD()
             .Enable_Curtain(HUD_Curatin_State.weak);
 
          this.time.addEvent({
-            delay: 1000,
+            delay: TimeOfShake,
             callback: this.Diasble_HUD_Curtain,
             callbackScope: this,
          });
@@ -161,3 +164,5 @@ export default class GameScene extends Phaser.Scene {
       this.Generate_Number();
    }
 }
+
+const TimeOfShake:number = 300;
