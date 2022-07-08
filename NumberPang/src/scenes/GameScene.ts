@@ -111,13 +111,14 @@ export default class GameScene extends Phaser.Scene {
 
    private Get_RandomPosition(): Phaser.Math.Vector2 {
 
-      let minmin = 0 + NumberRadius;
-      let maxX = this.CanvasWidth - NumberRadius;
-      let maxY = this.CanvasHeight - NumberRadius;
+      let minX = 400 + NumberRadius;
+      let maxX = 880 - NumberRadius;
+      let minY = 80 + NumberRadius;
+      let maxY = 650 - NumberRadius;
 
       let pos = new  Phaser.Math.Vector2(0, 0);
-      pos.x = Phaser.Math.Between(minmin, maxX);
-      pos.y = Phaser.Math.Between(minmin, maxY);
+      pos.x = Phaser.Math.Between(minX, maxX);
+      pos.y = Phaser.Math.Between(minY, maxY);
 
       // {//TEST - collision
       //    let posList = [
