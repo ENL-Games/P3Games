@@ -55,6 +55,10 @@ export /*default*/ class Number extends Phaser.GameObjects.Graphics{
    Hit() {
       let gamescene = this.scene as GameScene;
       gamescene.HitTheNumber(this._num);
+   }
+
+   Destory() {
+      // console.log(`[${this._num}] Destory`);
 
       this._outline.destroy(true);
       this._text.destroy(true);
