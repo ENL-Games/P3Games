@@ -1,16 +1,14 @@
 import Phaser from 'phaser';
 import GameScene from '~/scenes/GameScene';
 
-const NumberRadius: number = 24;
-
-export default class Number extends Phaser.GameObjects.Graphics{
+export /*default*/ class Number extends Phaser.GameObjects.Graphics{
 
    private _num: number = 0;
 
    POSITION!: Phaser.Math.Vector2;
 
    private _outline!: Phaser.GameObjects.Arc;
-   private _text!: Phaser.GameObjects.Text;
+   private _text!: Phaser.GameObjects.Text;   
    
    constructor(__scene) {
       super(__scene);
@@ -23,7 +21,7 @@ export default class Number extends Phaser.GameObjects.Graphics{
 
       this._outline = this.scene.add.circle(__position.x, __position.y, NumberRadius);
       {
-         this._outline.setStrokeStyle(4, 0xffffff);
+         this._outline.setStrokeStyle(4, NumberColor2.color);
 
          this._outline.setInteractive().on('pointerdown', (pointer, localX, localY) => {
             this.Hit();
@@ -36,6 +34,7 @@ export default class Number extends Phaser.GameObjects.Graphics{
          this._text.setStyle({
             font: "bold 30px Arial"
          });
+         this._text.setColor(NumberColor2.rgba);
       }
    }
 
@@ -48,4 +47,11 @@ export default class Number extends Phaser.GameObjects.Graphics{
 
       this.destroy(true);
    }
+}
+
+const NumberRadius: number = 24;
+const NumberColor2 = Phaser.Display.Color.IntegerToColor(0xff0000);
+
+export {
+	NumberRadius
 }
