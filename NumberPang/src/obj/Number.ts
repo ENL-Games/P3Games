@@ -7,6 +7,9 @@ export /*default*/ class Number extends Phaser.GameObjects.Graphics{
 
    POSITION!: Phaser.Math.Vector2;
 
+   private LT!: Phaser.Math.Vector2;
+   private RB!: Phaser.Math.Vector2;
+
    private _outline!: Phaser.GameObjects.Arc;
    private _text!: Phaser.GameObjects.Text;   
    
@@ -18,6 +21,17 @@ export /*default*/ class Number extends Phaser.GameObjects.Graphics{
 
       this._num = __number;
       this.POSITION = __position;
+      {
+         this.LT = new Phaser.Math.Vector2(0, 0);
+
+         let Radius_Correction = (NumberRadius * 2) + /*5*/10;//범위 보정값
+         this.LT.x = this.POSITION.x - Radius_Correction;
+         this.LT.y = this.POSITION.y - Radius_Correction;
+
+         this.RB = new Phaser.Math.Vector2(0, 0);
+         this.RB.x = this.POSITION.x + Radius_Correction;
+         this.RB.y = this.POSITION.y + Radius_Correction;
+      }
 
       this._outline = this.scene.add.circle(__position.x, __position.y, NumberRadius);
       {
@@ -48,39 +62,23 @@ export /*default*/ class Number extends Phaser.GameObjects.Graphics{
       this.destroy(true);
    }
 
-   Get_LT(): Phaser.Math.Vector2 {
-      let ret = new Phaser.Math.Vector2(0, 0);
-
-      ret.x = this.POSITION.x - NumberRadius;
-      ret.y = this.POSITION.y - NumberRadius;
-
-      return ret;
-   }
-
-   Get_RB(): Phaser.Math.Vector2 {
-      let ret = new Phaser.Math.Vector2(0, 0);
-
-      ret.x = this.POSITION.x + NumberRadius;
-      ret.y = this.POSITION.y + NumberRadius;
-
-      return ret;
-   }
-
    Is_Collision(__pos: Phaser.Math.Vector2): boolean {
 
-      let lt = this.Get_LT();
-      let rb = this.Get_RB();
+      // console.log(`pos= ${__pos.x}, ${__pos.y}\tLT= ${this.LT.x}, ${this.LT.y}\tRB= ${this.RB.x}, ${this.RB.y}`);
 
+      let ret = false;
       if(
-         lt.x < __pos.x
-         && rb.x > __pos.x
-         && lt.y < __pos.y
-         && rb.y > __pos.y
+         this.LT.x < __pos.x
+         && this.RB.x > __pos.x
+         && this.LT.y < __pos.y
+         && this.RB.y > __pos.y
          ) {
-         return true;
+         ret = true;
       }
 
-      return false;
+      // console.log(ret);
+
+      return ret;
    }
 }
 
