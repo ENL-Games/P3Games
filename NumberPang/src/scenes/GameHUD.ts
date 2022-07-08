@@ -1,5 +1,13 @@
 import Phaser from 'phaser';
 
+enum HUD_Curatin_State { NONE = 0,
+	weak, default
+}
+
+export {
+   HUD_Curatin_State,
+}
+
 export default class GameHUD extends Phaser.Scene {
 
    private _timer!: Phaser.Time.TimerEvent;
@@ -9,7 +17,7 @@ export default class GameHUD extends Phaser.Scene {
    private _curtain!: Phaser.GameObjects.Rectangle;
 
    constructor() {
-      super({ key: 'GameHUD' })
+      super({ key: 'GameHUD' });
    }
 
    preload() {
@@ -31,12 +39,11 @@ export default class GameHUD extends Phaser.Scene {
          , this.sys.canvas.width, this.sys.canvas.height
          , 0x000000);
       {
-         this._curtain.setAlpha(0.75);
          this._curtain.setInteractive().on('pointerdown', (pointer, localX, localY) => {
             // console.log("예외처리");
          });//이벤트 처리
          
-         this.Enable_Curtain(false);
+         this.Enable_Curtain(HUD_Curatin_State.NONE);
       }
 
       this.Run_Tick();
@@ -68,7 +75,7 @@ export default class GameHUD extends Phaser.Scene {
       if(isGameOver) {
          this.time.removeEvent(this._timer);
          
-         this.Enable_Curtain(true);
+         this.Enable_Curtain(HUD_Curatin_State.default);
       }
    }
 
@@ -76,9 +83,21 @@ export default class GameHUD extends Phaser.Scene {
       this._text_Timer.setText(this._sec.toString());
    }
 
-   Enable_Curtain(__show: boolean) {
-      this._curtain.setVisible(__show);
+   Enable_Curtain(__state: HUD_Curatin_State) {
+      console.log(`Enable_Curtain(${__state})`);
+
+      let show = (HUD_Curatin_State.NONE == __state
+         ? false
+         : true);
+      
+      this._curtain.setVisible(show);
+      if(show) {
+         let alpha = (HUD_Curatin_State.weak == __state
+            ? 0.01
+            : 0.75);
+         this._curtain.setAlpha(alpha);
+      }
    }
 }
 
-const FullTimeSeconds: number = 5;
+const FullTimeSeconds: number = 10;
