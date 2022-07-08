@@ -21,6 +21,7 @@ export default class GameHUD extends Phaser.Scene {
    private _curtain!: Phaser.GameObjects.Rectangle;
 
    private _text_GameOver!: Phaser.GameObjects.Text;
+   private _text_FinalScore!: Phaser.GameObjects.Text;
    private _text_Retry!: Phaser.GameObjects.Text;
 
    constructor() {
@@ -67,8 +68,18 @@ export default class GameHUD extends Phaser.Scene {
 
          this._text_GameOver.setVisible(false);
       }
+      this._text_FinalScore = this.add.text(this.sys.canvas.width / 2, this.sys.canvas.height / 2, "0");
+      {
+         this._text_FinalScore.setColor(`#ffff00`);
+         this._text_FinalScore.setOrigin(0.5, 0.5);
+         this._text_FinalScore.setStyle({
+            font: "bold 90px Arial"
+         });
 
-      this._text_Retry = this.add.text(this.sys.canvas.width / 2, 500, "Retry");
+         this._text_FinalScore.setVisible(false);
+      }
+
+      this._text_Retry = this.add.text(this.sys.canvas.width / 2, 600, "Retry");
       {
          this._text_Retry.setOrigin(0.5, 0.5);
          this._text_Retry.setStyle({
@@ -136,6 +147,10 @@ export default class GameHUD extends Phaser.Scene {
       let curtainState = (__enable ? HUD_Curatin_State.default : HUD_Curatin_State.NONE);
       this.Enable_Curtain(curtainState);
 
+      this._text_FinalScore.setVisible(__enable);
+      if(__enable) {
+         this._text_FinalScore.setText(this._socre.toString());
+      }
       this._text_GameOver.setVisible(__enable);
       this._text_Retry.setVisible(__enable);
    }
