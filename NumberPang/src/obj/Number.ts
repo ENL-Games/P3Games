@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
 import GameScene from '~/scenes/GameScene';
 
+const NumberRadius: number = 24;
+
 export default class Number extends Phaser.GameObjects.Graphics{
 
    private _num: number = 0;
@@ -19,7 +21,7 @@ export default class Number extends Phaser.GameObjects.Graphics{
       this._num = __number;
       this.POSITION = __position;
 
-      this._outline = this.scene.add.circle(__position.x, __position.y, 24);
+      this._outline = this.scene.add.circle(__position.x, __position.y, NumberRadius);
       {
          this._outline.setStrokeStyle(4, 0xffffff);
 
