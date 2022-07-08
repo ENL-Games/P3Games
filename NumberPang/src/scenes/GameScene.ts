@@ -22,10 +22,10 @@ export default class GameScene extends Phaser.Scene {
       this.add.image(this._canvasWidth / 2, this._canvasHeight / 2, 'bg');
 
       let number = new Number(this);
-      number.Setup(2, 100, 100);
+      number.Setup(2, new Phaser.Math.Vector2(100, 100));
 
       number = new Number(this);
-      number.Setup(8, 300, 200);
+      number.Setup(8, new Phaser.Math.Vector2(300, 200));
    }
 
    HitTheNumber(__number: number) {
