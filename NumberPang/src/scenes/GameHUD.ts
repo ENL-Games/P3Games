@@ -65,7 +65,7 @@ export default class GameHUD extends Phaser.Scene {
       this._sec -= 1;
 
       let isGameOver = false;
-      if(0 >= this._sec) {
+      if(this.Is_GameOver()) {
          this._sec = 0;
          isGameOver = true;
       }      
@@ -79,6 +79,10 @@ export default class GameHUD extends Phaser.Scene {
       }
    }
 
+   Is_GameOver(): boolean {
+      return (0 >= this._sec);
+   }
+
    private Update_TimerText() {
       this._text_Timer.setText(this._sec.toString());
    }
@@ -89,6 +93,13 @@ export default class GameHUD extends Phaser.Scene {
       let show = (HUD_Curatin_State.NONE == __state
          ? false
          : true);
+
+      if(!show
+         && this.Is_GameOver()
+         ) {
+            show = true;
+            __state = HUD_Curatin_State.default;
+      }
       
       this._curtain.setVisible(show);
       if(show) {
@@ -100,4 +111,4 @@ export default class GameHUD extends Phaser.Scene {
    }
 }
 
-const FullTimeSeconds: number = 10;
+const FullTimeSeconds: number = 15;
