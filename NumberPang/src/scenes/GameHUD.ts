@@ -15,6 +15,9 @@ export default class GameHUD extends Phaser.Scene {
    private _text_Timer!: Phaser.GameObjects.Text;
    private _sec: number = 0;
 
+   private _text_Score!: Phaser.GameObjects.Text;
+   private _socre: number = 0;
+
    private _curtain!: Phaser.GameObjects.Rectangle;
 
    private _text_GameOver!: Phaser.GameObjects.Text;
@@ -33,6 +36,15 @@ export default class GameHUD extends Phaser.Scene {
          this._text_Timer.setOrigin(0.5, 0.5);
          this._text_Timer.setStyle({
             font: "bold 50px Arial"
+         });
+      }
+
+      this._text_Score = this.add.text(this.sys.canvas.width - 20, 50, "0");
+      {
+         this._text_Score.setColor(`#ffff00`)
+         this._text_Score.setOrigin(1, 0.5);
+         this._text_Score.setStyle({
+            font: "bold 75px Arial"
          });
       }
 
@@ -74,6 +86,8 @@ export default class GameHUD extends Phaser.Scene {
    }
 
    private Ready_Game() {
+
+      this.Set_Score(0);
 
       var core = this.scene.get('GameScene') as GameScene;
       core.Retry_Game();
@@ -132,6 +146,11 @@ export default class GameHUD extends Phaser.Scene {
 
    private Update_TimerText() {
       this._text_Timer.setText(this._sec.toString());
+   }
+
+   Set_Score(__score: number) {
+      this._socre = __score;
+      this._text_Score.setText(__score.toString());
    }
 
    Bonus() {

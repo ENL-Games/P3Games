@@ -148,10 +148,10 @@ export default class GameScene extends Phaser.Scene {
       //    log += `\n\t[${key}] = ${values}`;
       // }
 
+      let HUD = this.Get_GameHUD();
       if(this._firstNum != __number) {
          // console.log("Wrong~~");
          
-         var HUD = this.scene.get('GameHUD') as GameHUD;
          // console.log(HUD);
 
          this.cameras.main.shake(TimeOfShake, 0.02);
@@ -167,9 +167,6 @@ export default class GameScene extends Phaser.Scene {
          return;
       }
 
-      this.Get_GameHUD()
-         .Bonus();
-
       this._dict_Number.get(__number)?.Destory();
       this._dict_Number.delete(__number);
 
@@ -178,6 +175,9 @@ export default class GameScene extends Phaser.Scene {
       //    log += `\n\t[${key}] = ${values}`;
       // }
       // console.log(log);
+
+      HUD.Bonus();
+      HUD.Set_Score(this._firstNum);
 
       this._firstNum += 1;
       this.Generate_Number();
