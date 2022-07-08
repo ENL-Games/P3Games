@@ -21,6 +21,8 @@ export default class GameScene extends Phaser.Scene {
    }
 
    create() {
+      this.scene.run('GameHUD')
+
       this.CanvasWidth = this.sys.canvas.width;
       this.CanvasHeight = this.sys.canvas.height;
 
