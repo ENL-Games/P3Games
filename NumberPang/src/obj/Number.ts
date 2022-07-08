@@ -1,12 +1,11 @@
 import Phaser from 'phaser';
-import { Position } from '~/NewType';
 import GameScene from '~/scenes/GameScene';
 
 export default class Number extends Phaser.GameObjects.Graphics{
 
    private _num: number = 0;
 
-   POSITION: Position = { x:0, y:0 };
+   POSITION!: Phaser.Math.Vector2;
 
    private _outline!: Phaser.GameObjects.Arc;
    private _text!: Phaser.GameObjects.Text;
@@ -15,11 +14,10 @@ export default class Number extends Phaser.GameObjects.Graphics{
       super(__scene);
    }
 
-   Setup(__number: number, __position: Position) {
+   Setup(__number: number, __position: Phaser.Math.Vector2) {
 
       this._num = __number;
-      this.POSITION.x = __position.x;
-      this.POSITION.y = __position.y;
+      this.POSITION = __position;
 
       this._outline = this.scene.add.circle(__position.x, __position.y, 24);
       {
