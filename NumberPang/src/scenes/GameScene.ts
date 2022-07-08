@@ -7,6 +7,7 @@ export default class GameScene extends Phaser.Scene {
    CanvasWidth: number = 0;
    CanvasHeight: number = 0;
 
+   _firstNum: number = 0;
    _lastNum: number = 0;
 
    _dict_Number!: Map<number, Number>;
@@ -31,6 +32,8 @@ export default class GameScene extends Phaser.Scene {
    }
 
    private Game_Start() {
+      this._firstNum = 1;
+      
       let initCount = Phaser.Math.Between(3, 5);
 
       // { initCount = 100; }//TEST
@@ -117,6 +120,12 @@ export default class GameScene extends Phaser.Scene {
       //    log += `\n\t[${key}] = ${values}`;
       // }
 
+      if(this._firstNum != __number) {
+         // console.log("Wrong~~");
+         return;
+      }
+
+      this._dict_Number.get(__number)?.Destory();
       this._dict_Number.delete(__number);
 
       // log += '\nAFTER';
@@ -125,6 +134,7 @@ export default class GameScene extends Phaser.Scene {
       // }
       // console.log(log);
 
+      this._firstNum += 1;
       this.Generate_Number();
    }
 }
