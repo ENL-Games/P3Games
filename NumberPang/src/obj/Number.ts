@@ -87,7 +87,7 @@ export /*default*/ class Number extends Phaser.GameObjects.Graphics{
 }
 
 const NumberRadius: number = 24;
-const NumberColor2 = Phaser.Display.Color.IntegerToColor(0xff0000);
+const NumberColor2 = Phaser.Display.Color.IntegerToColor(0x00ff00);
 
 export {
 	NumberRadius
