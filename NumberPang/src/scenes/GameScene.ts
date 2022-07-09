@@ -18,7 +18,7 @@ export default class GameScene extends Phaser.Scene {
    }
 
    preload() {
-      this.load.image('bg', 'assets/bg.png');
+      this.load.image('bg', 'assets/bg-dend.png');
    }
 
    create() {
@@ -111,10 +111,10 @@ export default class GameScene extends Phaser.Scene {
 
    private Get_RandomPosition(): Phaser.Math.Vector2 {
 
-      let minX = 400 + NumberRadius;
-      let maxX = 880 - NumberRadius;
-      let minY = 80 + NumberRadius;
-      let maxY = 650 - NumberRadius;
+      let minX = 460 + NumberRadius;
+      let maxX = 1140 - NumberRadius;
+      let minY = 230 + NumberRadius;
+      let maxY = 900 - NumberRadius;
 
       let pos = new  Phaser.Math.Vector2(0, 0);
       pos.x = Phaser.Math.Between(minX, maxX);

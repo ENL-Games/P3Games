@@ -8,9 +8,9 @@ const config: Phaser.Types.Core.GameConfig = {
 	backgroundColor: '#4e4e4e',
 
 	scale: {
-		mode: Phaser.Scale.NONE,
-		width: 1280,
-		height: 720,
+		mode: Phaser.Scale.FIT,
+		width: 1600,
+		height: 1000,
 	},
 
 	// physics: {

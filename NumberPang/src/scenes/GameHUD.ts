@@ -32,20 +32,20 @@ export default class GameHUD extends Phaser.Scene {
    }
 
    create() {
-      this._text_Timer = this.add.text(this.sys.canvas.width / 2, 54, "0");
+      this._text_Timer = this.add.text(this.sys.canvas.width / 2, 58, "0");
       {
          this._text_Timer.setOrigin(0.5, 0.5);
          this._text_Timer.setStyle({
-            font: "bold 50px Arial"
+            font: "bold 64px Arial"
          });
       }
 
-      this._text_Score = this.add.text(this.sys.canvas.width - 20, 50, "0");
+      this._text_Score = this.add.text(this.sys.canvas.width - 20, 60, "0");
       {
          this._text_Score.setColor(`#ffff00`)
          this._text_Score.setOrigin(1, 0.5);
          this._text_Score.setStyle({
-            font: "bold 75px Arial"
+            font: "bold 100px Arial"
          });
       }
 
@@ -58,12 +58,12 @@ export default class GameHUD extends Phaser.Scene {
          });//이벤트 처리
       }
 
-      this._text_GameOver = this.add.text(this.sys.canvas.width / 2, 230, "Game Over");
+      this._text_GameOver = this.add.text(this.sys.canvas.width / 2, 280, "Game Over");
       {
          this._text_GameOver.setColor(`#ff0000`);
          this._text_GameOver.setOrigin(0.5, 0.5);
          this._text_GameOver.setStyle({
-            font: "bold 100px Arial"
+            font: "bold 160px Arial"
          });
 
          this._text_GameOver.setVisible(false);
@@ -73,17 +73,17 @@ export default class GameHUD extends Phaser.Scene {
          this._text_FinalScore.setColor(`#ffff00`);
          this._text_FinalScore.setOrigin(0.5, 0.5);
          this._text_FinalScore.setStyle({
-            font: "bold 90px Arial"
+            font: "bold 120px Arial"
          });
 
          this._text_FinalScore.setVisible(false);
       }
 
-      this._text_Retry = this.add.text(this.sys.canvas.width / 2, 600, "Retry");
+      this._text_Retry = this.add.text(this.sys.canvas.width / 2, 720, "Retry");
       {
          this._text_Retry.setOrigin(0.5, 0.5);
          this._text_Retry.setStyle({
-            font: "bold 80px Arial"
+            font: "bold 100px Arial"
          });
 
          this._text_Retry.setInteractive().on('pointerdown', (pointer, localX, localY) => {
@@ -201,4 +201,4 @@ export default class GameHUD extends Phaser.Scene {
    }
 }
 
-const FullTimeSeconds: number = 5;
+const FullTimeSeconds: number = 3;
