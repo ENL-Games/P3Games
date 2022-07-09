@@ -178,7 +178,7 @@ export default class GameHUD extends Phaser.Scene {
    }
 
    Enable_Curtain(__state: HUD_Curatin_State) {
-      console.log(`Enable_Curtain(${__state})`);
+      // console.log(`Enable_Curtain(${__state})`);
 
       let show = (HUD_Curatin_State.NONE == __state
          ? false

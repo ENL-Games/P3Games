@@ -13,12 +13,22 @@ export default class GameScene extends Phaser.Scene {
 
    _dict_Number!: Map<number, Number>;
 
+   _bgs!: Phaser.GameObjects.Image[];
+
+   KeysBG = [
+      "bg-dend",
+      "bg-sindo",
+      "bg-taw",
+   ];
+
    constructor() {
       super({ key: 'GameScene' })
    }
 
    preload() {
-      this.load.image('bg', 'assets/bg-dend.png');
+      this.load.image(this.KeysBG[0], 'assets/bg-dend.png');
+      this.load.image(this.KeysBG[1], 'assets/bg-sindo.png');
+      this.load.image(this.KeysBG[2], 'assets/bg-taw.png');
    }
 
    create() {
@@ -27,11 +37,25 @@ export default class GameScene extends Phaser.Scene {
       this.CanvasWidth = this.sys.canvas.width;
       this.CanvasHeight = this.sys.canvas.height;
 
-      this.add.image(this.CanvasWidth / 2, this.CanvasHeight / 2, 'bg');
+      this._bgs = [];
+      for(var n=0; n<this.KeysBG.length; n++) {
+         this._bgs.push(this.add.image(this.CanvasWidth / 2, this.CanvasHeight / 2
+            , this.KeysBG[n]));
+      }
 
       this._dict_Number = new Map();
 
       this.Game_Start();
+   }
+
+   private Choose_BG() {
+      let rnd = Phaser.Math.Between(0, this._bgs.length - 1);
+
+      for(var n=0; n<this._bgs.length; n++) {
+         let visible = (rnd == n ? true : false);
+
+         this._bgs[n].setVisible(visible);
+      }
    }
 
    Retry_Game() {
@@ -50,6 +74,8 @@ export default class GameScene extends Phaser.Scene {
    }
 
    private Game_Start() {
+      this.Choose_BG();
+
       this._firstNum = 1;
       
       let initCount = Phaser.Math.Between(3, 5);
