@@ -40,6 +40,7 @@ export /*default*/ class Number extends Phaser.GameObjects.Graphics{
             font: "bold 48px Arial"
          });
          this._text.setColor(NumberColor2.rgba);
+         this._text.setStroke(`#000000`, 8);
       }
 
       this._outline = this.scene.add.circle(__position.x, __position.y, NumberRadius);
@@ -49,6 +50,11 @@ export /*default*/ class Number extends Phaser.GameObjects.Graphics{
          this._outline.setInteractive().on('pointerdown', (pointer, localX, localY) => {
             this.Hit();
          });//이벤트 처리
+
+         // {//outline of outline
+         //    let tt = this.scene.add.circle(__position.x, __position.y, NumberRadius + 2);
+         //    tt.setStrokeStyle(4, 0x000000);
+         // }
       }
    }
 
