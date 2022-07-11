@@ -187,13 +187,7 @@ export default class GameScene extends Phaser.Scene {
          this.cameras.main.shake(TimeOfShake, 0.02);
 
          this.Get_GameHUD()
-            .Enable_Curtain(HUD_Curatin_State.weak);
-
-         this.time.addEvent({
-            delay: TimeOfShake,
-            callback: this.Diasble_HUD_Curtain,
-            callbackScope: this,
-         });
+            .Enable_GameOver(true);
          return;
       }
 
