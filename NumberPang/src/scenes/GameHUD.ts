@@ -154,7 +154,25 @@ export default class GameHUD extends Phaser.Scene {
          this._text_FinalScore.setText(this._socre.toString());
       }
       this._text_GameOver.setVisible(__enable);
-      this._text_Retry.setVisible(__enable);
+
+      this._text_Retry.setVisible(false);
+
+      if(__enable) {
+         this.Show_RetryButton();
+      }
+   }
+
+   private Show_RetryButton() {
+      // console.log(`Show_RetryButton`);
+
+      this.time.addEvent({
+         delay: 1000,
+         callback: () => {
+            // console.log("Show_RetryButton complete ~~!!");
+            this._text_Retry.setVisible(true);
+         },
+         callbackScope: this,
+      });
    }
 
    Is_GameOver(): boolean {
