@@ -59,9 +59,11 @@ export default class GameScene extends Phaser.Scene {
    }
 
    Retry_Game() {
+      //console.log(`Retry_Game()`);
+
       if(0 < this._dict_Number.size) {
          for(const [key, values] of this._dict_Number) {
-            values.Destory();
+            values.destroy();
          }
 
          this._dict_Number.clear();
@@ -107,6 +109,7 @@ export default class GameScene extends Phaser.Scene {
 
       let pos = this.Get_Position();
       // console.log(`[${__number}] pos= ${pos.x}, ${pos.y}`);
+
       number.Setup(__number, pos);
 
       return number;
@@ -193,7 +196,7 @@ export default class GameScene extends Phaser.Scene {
          return;
       }
 
-      this._dict_Number.get(__number)?.Destory();
+      this._dict_Number.get(__number)?.destroy();
       this._dict_Number.delete(__number);
 
       // log += '\nAFTER';

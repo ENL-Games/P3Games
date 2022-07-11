@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import GameScene from '~/scenes/GameScene';
 
-export /*default*/ class Number extends Phaser.GameObjects.Graphics{
+export /*default*/ class Number extends Phaser.GameObjects.Container {
 
    private _num: number = 0;
 
@@ -10,16 +10,17 @@ export /*default*/ class Number extends Phaser.GameObjects.Graphics{
    private LT!: Phaser.Math.Vector2;
    private RB!: Phaser.Math.Vector2;
 
-   private _outline!: Phaser.GameObjects.Arc;
-   private _text!: Phaser.GameObjects.Text;   
-   
    constructor(__scene) {
       super(__scene);
+      __scene.add.existing(this);
    }
 
-   Setup(__number: number, __position: Phaser.Math.Vector2) {
+   private Add_ContainerItem(__item: Phaser.GameObjects.GameObject) {
+      this.add(__item);
+   }
 
-      this._num = __number;
+   private Set_Position(__position: Phaser.Math.Vector2) {
+
       this.POSITION = __position;
       {
          this.LT = new Phaser.Math.Vector2(0, 0);
@@ -33,29 +34,50 @@ export /*default*/ class Number extends Phaser.GameObjects.Graphics{
          this.RB.y = this.POSITION.y + Radius_Correction;
       }
 
-      this._text = this.scene.add.text(__position.x, __position.y, __number.toString());
-      {
-         this._text.setOrigin(0.5, 0.5);
-         this._text.setStyle({
-            font: "bold 48px Arial"
-         });
-         this._text.setColor(NumberColor2.rgba);
-         this._text.setStroke(`#000000`, 8);
+      super.setPosition(__position.x, __position.y);
+   }
+
+   Setup(__number: number, __position: Phaser.Math.Vector2) {
+
+      // console.log(`Number.Setup(${__number})`);
+
+      this._num = __number;
+
+      {//outline of outline
+         let outoutline = this.scene.add.circle(0, 0, NumberRadius + 6);
+         outoutline.setStrokeStyle(2, 0x000000);
+
+         this.Add_ContainerItem(outoutline);
+
+         outoutline = this.scene.add.circle(0, 0, NumberRadius - 6);
+         outoutline.setStrokeStyle(2, 0x000000);
+
+         this.Add_ContainerItem(outoutline);
       }
 
-      this._outline = this.scene.add.circle(__position.x, __position.y, NumberRadius);
+      let outline = this.scene.add.circle(0, 0, NumberRadius);
       {
-         this._outline.setStrokeStyle(8, NumberColor2.color);
+         outline.setStrokeStyle(8, NumberColor2.color);
 
-         this._outline.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+         outline.setInteractive().on('pointerdown', (pointer, localX, localY) => {
             this.Hit();
          });//이벤트 처리
-
-         // {//outline of outline
-         //    let tt = this.scene.add.circle(__position.x, __position.y, NumberRadius + 2);
-         //    tt.setStrokeStyle(4, 0x000000);
-         // }
       }
+      this.Add_ContainerItem(outline);
+
+      let text = this.scene.add.text(0, 0, __number.toString());
+      {
+         text.setOrigin(0.5, 0.5);
+         text.setStyle({
+            font: "bold 48px Arial"
+         });
+         text.setColor(NumberColor2.rgba);
+         text.setStroke(`#000000`, 8);
+      }
+      // this.add(text);
+      this.Add_ContainerItem(text);
+
+      this.Set_Position(__position);
    }
 
    Hit() {
@@ -63,13 +85,8 @@ export /*default*/ class Number extends Phaser.GameObjects.Graphics{
       gamescene.HitTheNumber(this._num);
    }
 
-   Destory() {
-      // console.log(`[${this._num}] Destory`);
-
-      this._outline.destroy(true);
-      this._text.destroy(true);
-
-      this.destroy(true);
+   destroy(fromScene?: boolean | undefined): void {
+      super.destroy(fromScene);
    }
 
    Is_Collision(__pos: Phaser.Math.Vector2): boolean {
