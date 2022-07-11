@@ -94,8 +94,23 @@ export /*default*/ class Number extends Phaser.GameObjects.Container {
             this.setScale(0, 0);
          },
 
-         ononComplete: () => {
+         onComplete: () => {
             this.Enable_Collider();
+         }
+      });
+   }
+   private Tween_Scale_x0() {
+      this.scene.tweens.add({
+         targets: this,
+         scale: 0,
+         duration: 100,
+
+         onStart: () => {
+            this.setScale(1, 1);
+         },
+
+         onComplete: () => {
+            this.destroy();
          }
       });
    }
@@ -106,16 +121,18 @@ export /*default*/ class Number extends Phaser.GameObjects.Container {
       });//이벤트 처리
    }
 
-   private EndTween_Scale1() {
-      console.log(`EndTween_Scale1() <= ${this._num}`);
-   }
-
    Hit() {
       let gamescene = this.scene as GameScene;
       gamescene.HitTheNumber(this._num);
    }
 
+   Remove() {
+      this.Tween_Scale_x0();
+   }
+
    destroy(fromScene?: boolean | undefined): void {
+      // console.log(`destroy() <= ${this._num}`);
+
       super.destroy(fromScene);
    }
 

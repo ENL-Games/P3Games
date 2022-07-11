@@ -197,7 +197,7 @@ export default class GameScene extends Phaser.Scene {
          return;
       }
 
-      this._dict_Number.get(__number)?.destroy();
+      this._dict_Number.get(__number)?.Remove();
       this._dict_Number.delete(__number);
 
       // log += '\nAFTER';
