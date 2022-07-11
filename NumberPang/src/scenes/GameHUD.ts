@@ -141,7 +141,7 @@ export default class GameHUD extends Phaser.Scene {
       }
    }
 
-   private Enable_GameOver(__enable: boolean) {
+   Enable_GameOver(__enable: boolean) {
 
       if(__enable)
          this.time.removeEvent(this._timer);
