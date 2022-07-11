@@ -10,6 +10,8 @@ export /*default*/ class Number extends Phaser.GameObjects.Container {
    private LT!: Phaser.Math.Vector2;
    private RB!: Phaser.Math.Vector2;
 
+   private _Outline!: Phaser.GameObjects.Arc;
+
    constructor(__scene) {
       super(__scene);
       __scene.add.existing(this);
@@ -37,7 +39,7 @@ export /*default*/ class Number extends Phaser.GameObjects.Container {
       super.setPosition(__position.x, __position.y);
    }
 
-   Setup(__number: number, __position: Phaser.Math.Vector2) {
+   Setup(__number: number, __position: Phaser.Math.Vector2, __isAutoMaked: boolean) {
 
       // console.log(`Number.Setup(${__number})`);
 
@@ -55,15 +57,11 @@ export /*default*/ class Number extends Phaser.GameObjects.Container {
          this.Add_ContainerItem(outoutline);
       }
 
-      let outline = this.scene.add.circle(0, 0, NumberRadius);
+      this._Outline = this.scene.add.circle(0, 0, NumberRadius);
       {
-         outline.setStrokeStyle(8, NumberColor2.color);
-
-         outline.setInteractive().on('pointerdown', (pointer, localX, localY) => {
-            this.Hit();
-         });//이벤트 처리
+         this._Outline.setStrokeStyle(8, NumberColor2.color);
       }
-      this.Add_ContainerItem(outline);
+      this.Add_ContainerItem(this._Outline);
 
       let text = this.scene.add.text(0, 0, __number.toString());
       {
@@ -77,6 +75,39 @@ export /*default*/ class Number extends Phaser.GameObjects.Container {
       this.Add_ContainerItem(text);
 
       this.Set_Position(__position);
+
+      if(!__isAutoMaked) {
+         this.Tween_Scale_x1();
+      }
+      else {
+         this.Enable_Collider();
+      }
+   }
+
+   private Tween_Scale_x1() {
+      this.scene.tweens.add({
+         targets: this,
+         scale: 1,
+         duration: 150,
+
+         onStart: () => {
+            this.setScale(0, 0);
+         },
+
+         ononComplete: () => {
+            this.Enable_Collider();
+         }
+      });
+   }
+
+   private Enable_Collider() {
+      this._Outline.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+         this.Hit();
+      });//이벤트 처리
+   }
+
+   private EndTween_Scale1() {
+      console.log(`EndTween_Scale1() <= ${this._num}`);
    }
 
    Hit() {

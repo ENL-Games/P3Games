@@ -10,6 +10,7 @@ export default class GameScene extends Phaser.Scene {
 
    _firstNum: number = 0;
    _lastNum: number = 0;
+   _initCount: number = 0;
 
    _dict_Number!: Map<number, Number>;
 
@@ -86,14 +87,14 @@ export default class GameScene extends Phaser.Scene {
       // { initCount = 2; }//TEST
 
       for(var n=0; n<initCount; n++) {
-         this.Generate_Number();
+         this.Generate_Number(true);
       }
    }
 
-   private Generate_Number(): Number {
+   private Generate_Number(__isAutoMaked: boolean): Number {
 
       this._lastNum += 1;
-      let number = this.Make_Number(this._lastNum);
+      let number = this.Make_Number(this._lastNum, __isAutoMaked);
 
       this._dict_Number.set(this._lastNum, number);
 
@@ -104,13 +105,13 @@ export default class GameScene extends Phaser.Scene {
       return number;
    }
 
-   private Make_Number(__number: number): Number {
+   private Make_Number(__number: number, __isAutoMaked: boolean): Number {
       let number = new Number(this);
 
       let pos = this.Get_Position();
       // console.log(`[${__number}] pos= ${pos.x}, ${pos.y}`);
 
-      number.Setup(__number, pos);
+      number.Setup(__number, pos, __isAutoMaked);
 
       return number;
    }
@@ -209,7 +210,7 @@ export default class GameScene extends Phaser.Scene {
       HUD.Set_Score(this._firstNum);
 
       this._firstNum += 1;
-      this.Generate_Number();
+      this.Generate_Number(false);
    }
 }
 
