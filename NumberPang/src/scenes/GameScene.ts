@@ -82,7 +82,7 @@ export default class GameScene extends Phaser.Scene {
       
       let initCount = Phaser.Math.Between(3, 5);
 
-      // { initCount = 100; }//TEST
+      // { initCount = 30; }//TEST
       // { initCount = 2; }//TEST
 
       for(var n=0; n<initCount; n++) {
