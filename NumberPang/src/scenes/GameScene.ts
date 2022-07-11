@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 
 import { Number, NumberRadius } from '../obj/Number';
 import GameHUD, { HUD_Curatin_State } from './GameHUD';
+import { ResKey_Images_BGs } from './PreLoader';
 
 export default class GameScene extends Phaser.Scene {
 
@@ -16,20 +17,11 @@ export default class GameScene extends Phaser.Scene {
 
    _bgs!: Phaser.GameObjects.Image[];
 
-   KeysBG = [
-      "bg-dend",
-      "bg-sindo",
-      "bg-taw",
-   ];
-
    constructor() {
       super({ key: 'GameScene' })
    }
 
    preload() {
-      // this.load.image(this.KeysBG[0], 'assets/bg-dend.png');
-      // this.load.image(this.KeysBG[1], 'assets/bg-sindo.png');
-      // this.load.image(this.KeysBG[2], 'assets/bg-taw.png');
    }
 
    create() {
@@ -38,10 +30,13 @@ export default class GameScene extends Phaser.Scene {
       this.CanvasWidth = this.sys.canvas.width;
       this.CanvasHeight = this.sys.canvas.height;
 
+      
       this._bgs = [];
-      for(var n=0; n<this.KeysBG.length; n++) {
+      for(var n=0; n<ResKey_Images_BGs.length; n++) {
          this._bgs.push(this.add.image(this.CanvasWidth / 2, this.CanvasHeight / 2
-            , this.KeysBG[n]));
+            , ResKey_Images_BGs[n]));
+
+         this._bgs[n].setVisible(false);
       }
 
       this._dict_Number = new Map();
