@@ -74,7 +74,6 @@ export /*default*/ class Number extends Phaser.GameObjects.Container {
          text.setColor(NumberColor2.rgba);
          text.setStroke(`#000000`, 8);
       }
-      // this.add(text);
       this.Add_ContainerItem(text);
 
       this.Set_Position(__position);
