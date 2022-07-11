@@ -27,9 +27,9 @@ export default class GameScene extends Phaser.Scene {
    }
 
    preload() {
-      this.load.image(this.KeysBG[0], 'assets/bg-dend.png');
-      this.load.image(this.KeysBG[1], 'assets/bg-sindo.png');
-      this.load.image(this.KeysBG[2], 'assets/bg-taw.png');
+      // this.load.image(this.KeysBG[0], 'assets/bg-dend.png');
+      // this.load.image(this.KeysBG[1], 'assets/bg-sindo.png');
+      // this.load.image(this.KeysBG[2], 'assets/bg-taw.png');
    }
 
    create() {

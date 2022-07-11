@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 
+import PreLoader from './scenes/PreLoader'
 import GameScene from './scenes/GameScene'
 import GameHUD from './scenes/GameHUD'
 
@@ -19,7 +20,7 @@ const config: Phaser.Types.Core.GameConfig = {
 	// 		gravity: { y: 200 }
 	// 	}
 	// },
-	scene: [GameScene, GameHUD],
+	scene: [PreLoader, GameScene, GameHUD],
 }
 
 export default new Phaser.Game(config)
