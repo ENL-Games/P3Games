@@ -70,6 +70,14 @@ export default class GameHUD extends Phaser.Scene {
             font: "bold 200px Arial"
          });
 
+         const gradient = this._text_GameStart.context.createLinearGradient(0, 0, 0, this._text_GameStart.height);
+         {
+            gradient.addColorStop(0, '#ff974b');
+            gradient.addColorStop(.5, '#fff435');
+            gradient.addColorStop(1, '#ff9543');
+         }
+         this._text_GameStart.setFill(gradient);
+
          this._text_GameStart.setVisible(false);
       }
 
