@@ -20,6 +20,8 @@ export default class GameHUD extends Phaser.Scene {
 
    private _curtain!: Phaser.GameObjects.Rectangle;
 
+   private _text_GameStart!: Phaser.GameObjects.Text;
+
    private _text_GameOver!: Phaser.GameObjects.Text;
    private _text_FinalScore!: Phaser.GameObjects.Text;
    private _text_Retry!: Phaser.GameObjects.Text;
@@ -58,6 +60,19 @@ export default class GameHUD extends Phaser.Scene {
          });//이벤트 처리
       }
 
+      this._text_GameStart = this.add.text(this.sys.canvas.width / 2, this.sys.canvas.height / 2
+         , "START"
+         );
+      {
+         this._text_GameStart.setColor(`#00ff00`);
+         this._text_GameStart.setOrigin(0.5, 0.5);
+         this._text_GameStart.setStyle({
+            font: "bold 200px Arial"
+         });
+
+         this._text_GameStart.setVisible(false);
+      }
+
       this._text_GameOver = this.add.text(this.sys.canvas.width / 2, 280, "Game Over");
       {
          this._text_GameOver.setColor(`#ff0000`);
@@ -87,28 +102,59 @@ export default class GameHUD extends Phaser.Scene {
          });
 
          this._text_Retry.setInteractive().on('pointerdown', (pointer, localX, localY) => {
-            this.Ready_Game(true);
+            this.Animation_GameStart(true);
          });//이벤트 처리
 
          this._text_Retry.setVisible(false);
       }
 
-      this.Ready_Game(false);
+      this.Animation_GameStart(false);
    }
 
-   private Ready_Game(__isRetry: boolean) {
-
-      this.Set_Score(0);
+   private Animation_GameStart(__isRetry: boolean) {
 
       if(__isRetry) {
-         var core = this.scene.get('GameScene') as GameScene;
-         core.Retry_Game();
+         this.Enable_GameOver(false);//Retry일 때
       }
+      this.Enable_Curtain(HUD_Curatin_State.default);
+
+      this._text_GameStart.setVisible(true);
+      this._text_GameStart.setScale(1, 1);
+      this._text_GameStart.alpha = 1;
 
       this._sec = FullTimeSeconds;
       this.Update_TimerText();
 
-      this.Enable_GameOver(false);
+      this.tweens.add({
+         targets: this._text_GameStart,
+         scale: 1.5,
+         alpha: 0,
+         duration: 300,
+         delay: 1000,
+
+         onStart: () => {
+         },
+
+         onComplete: () => {
+            this.Enable_Curtain(HUD_Curatin_State.NONE);
+            this._text_GameStart.setVisible(false);
+            // console.log("complete");
+            this.Ready_Game();
+         }
+      });
+   }
+
+   private Ready_Game() {
+
+      this.Set_Score(0);
+
+      {
+         var core = this.scene.get('GameScene') as GameScene;
+         core.Reset_Game();
+      }
+
+      this._sec = FullTimeSeconds;
+      this.Update_TimerText();
       
       this.Run_Tick();
    }
