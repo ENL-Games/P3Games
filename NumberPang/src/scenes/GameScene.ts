@@ -45,8 +45,6 @@ export default class GameScene extends Phaser.Scene {
       }
 
       this._dict_Number = new Map();
-
-      this.Game_Start();
    }
 
    private Choose_BG() {
@@ -59,8 +57,8 @@ export default class GameScene extends Phaser.Scene {
       }
    }
 
-   Retry_Game() {
-      //console.log(`Retry_Game()`);
+   Reset_Game() {
+      //console.log(`Reset_Game()`);
 
       if(0 < this._dict_Number.size) {
          for(const [key, values] of this._dict_Number) {
