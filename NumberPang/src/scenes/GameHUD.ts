@@ -87,21 +87,23 @@ export default class GameHUD extends Phaser.Scene {
          });
 
          this._text_Retry.setInteractive().on('pointerdown', (pointer, localX, localY) => {
-            this.Ready_Game();
+            this.Ready_Game(true);
          });//이벤트 처리
 
          this._text_Retry.setVisible(false);
       }
 
-      this.Ready_Game();
+      this.Ready_Game(false);
    }
 
-   private Ready_Game() {
+   private Ready_Game(__isRetry: boolean) {
 
       this.Set_Score(0);
 
-      var core = this.scene.get('GameScene') as GameScene;
-      core.Retry_Game();
+      if(__isRetry) {
+         var core = this.scene.get('GameScene') as GameScene;
+         core.Retry_Game();
+      }
 
       this._sec = FullTimeSeconds;
       this.Update_TimerText();
