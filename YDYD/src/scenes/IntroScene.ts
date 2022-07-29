@@ -99,7 +99,8 @@ export default class IntroScene extends Phaser.Scene {
          });
 
          this._txtBtn_NewGame.setInteractive().on('pointerdown', (pointer, localX, localY) => {
-            console.log("새 게임");
+            // console.log("새 게임");
+            this.scene.switch(`GameScene`);
          });//이벤트 처리
 
          this._txtBtn_NewGame.setVisible(false);

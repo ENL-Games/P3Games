@@ -12,6 +12,10 @@ export default class PreLoader extends Phaser.Scene {
       this.load.image('bg-ppt-1', 'assets/bg-ppt-1.png');
       this.load.image('bg-ppt-2', 'assets/bg-ppt-2.png');
       this.load.image('bg-ppt-3', 'assets/bg-ppt-3.png');
+
+      this.load.image('bg-ingame-0', 'assets/bg-ingame-0.png');
+      this.load.image('bg-ingame-1', 'assets/bg-ingame-1.png');
+      this.load.image('bg-ingame-2', 'assets/bg-ingame-2.png');
    }
 
    create() {

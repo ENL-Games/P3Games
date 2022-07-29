@@ -4,6 +4,7 @@ import PreLoader from './scenes/PreLoader';
 import IntroScene from './scenes/IntroScene';
 
 import PTScene from './scenes/PTScene';
+import GameScene from './scenes/GameScene';
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
@@ -23,6 +24,7 @@ const config: Phaser.Types.Core.GameConfig = {
 	// },
 	scene: [PreLoader, IntroScene,
 		PTScene,
+		GameScene,
 	]
 }
 
