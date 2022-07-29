@@ -40,10 +40,14 @@ export /*default*/ class GameNarrative extends Phaser.GameObjects.Container {
          this._curtain.setVisible(false);
       }
 
-      this._objText = this.scene.add.text(30, 30, "");
+      let padding: number = 30;
+      this._objText = this.scene.add.text(padding, padding, "");
       {
          this._objText.setColor(`#ffffff`);
          this._objText.setLineSpacing(10);
+         this._objText.setFontSize(26);
+
+         this._objText.setWordWrapWidth(this.scene.sys.canvas.width - (padding  *2));
 
          this.Add_ContainerItem(this._objText);
       }
