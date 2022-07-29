@@ -25,7 +25,7 @@ export default class IntroScene extends Phaser.Scene {
       {
          this._text_Title.setOrigin(0.5, 0.5);
          this._text_Title.setStyle({
-            font: "bold 100px Arial"
+            font: "bold 150px Arial"
          });
 
          this._text_Title.setColor(`#00ff00`);
@@ -48,16 +48,14 @@ export default class IntroScene extends Phaser.Scene {
 
    Setup_TextButtons(__canvasWidth: number, __canvasHeight: number) {
 
-      let X_TxtButton = this.sys.canvas.width - 20;
-
       let YInterval_TxtButton = 60;
       let YBottom_TxtButton = __canvasHeight - 60;
 
       let PY = YBottom_TxtButton;
 
-      this._txtBtn_Config = this.add.text(X_TxtButton, YBottom_TxtButton, "설정");
+      this._txtBtn_Config = this.add.text(this.sys.canvas.width, YBottom_TxtButton, "설정");
       {
-         this._txtBtn_Config.setOrigin(1, 0.5);
+         this._txtBtn_Config.setOrigin(0, 0.5);
          this._txtBtn_Config.setStyle({
             font: "bold 40px Arial"
          });
@@ -67,13 +65,13 @@ export default class IntroScene extends Phaser.Scene {
          //    console.log("설정");
          // });//이벤트 처리
 
-         this._txtBtn_Config.setVisible(false);
+         // this._txtBtn_Config.setVisible(false);
       }
 
       PY -= YInterval_TxtButton;
-      this._txtBtn_Load = this.add.text(X_TxtButton, PY, "불러오기");
+      this._txtBtn_Load = this.add.text(this.sys.canvas.width, PY, "불러오기");
       {
-         this._txtBtn_Load.setOrigin(1, 0.5);
+         this._txtBtn_Load.setOrigin(0, 0.5);
          this._txtBtn_Load.setStyle({
             font: "bold 40px Arial"
          });
@@ -87,9 +85,9 @@ export default class IntroScene extends Phaser.Scene {
       }
 
       PY -= YInterval_TxtButton;
-      this._txtBtn_NewGame = this.add.text(X_TxtButton, PY, "새 게임");
+      this._txtBtn_NewGame = this.add.text(this.sys.canvas.width, PY, "새 게임");
       {
-         this._txtBtn_NewGame.setOrigin(1, 0.5);
+         this._txtBtn_NewGame.setOrigin(0, 0.5);
          this._txtBtn_NewGame.setStyle({
             font: "bold 40px Arial"
          });
@@ -119,6 +117,48 @@ export default class IntroScene extends Phaser.Scene {
          onComplete: () => {
             // this._text_Title.setAlpha(1);
          }
+      });
+
+      let X_TxtButton = this.sys.canvas.width - 20;
+      let Delay = 1500;
+      let Duration = 500;
+
+      this.tweens.add({
+         targets: this._txtBtn_Config,
+         x: { value: X_TxtButton, duration: Duration, delay: Delay },
+
+         onStart: () => {
+            this._txtBtn_Config.setOrigin(1, 0.5);
+            this._txtBtn_Config.setVisible(true);
+         },
+
+         // onComplete: () => {}
+      });
+
+      Delay += 500;
+      this.tweens.add({
+         targets: this._txtBtn_Load,
+         x: { value: X_TxtButton, duration: Duration, delay: Delay },
+
+         onStart: () => {
+            this._txtBtn_Load.setOrigin(1, 0.5);
+            this._txtBtn_Load.setVisible(true);
+         },
+
+         // onComplete: () => {}
+      });
+
+      Delay += 500;
+      this.tweens.add({
+         targets: this._txtBtn_NewGame,
+         x: { value: X_TxtButton, duration: Duration, delay: Delay },
+
+         onStart: () => {
+            this._txtBtn_NewGame.setOrigin(1, 0.5);
+            this._txtBtn_NewGame.setVisible(true);
+         },
+
+         // onComplete: () => {}
       });
    }
 }
