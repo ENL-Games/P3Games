@@ -3,6 +3,8 @@ import Phaser from 'phaser'
 import PreLoader from './scenes/PreLoader';
 import IntroScene from './scenes/IntroScene';
 
+import PTScene from './scenes/PTScene';
+
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
 	backgroundColor: '#4e4e4e',
@@ -19,7 +21,9 @@ const config: Phaser.Types.Core.GameConfig = {
 	// 		gravity: { y: 200 }
 	// 	}
 	// },
-	scene: [PreLoader, IntroScene]
+	scene: [PreLoader, IntroScene,
+		PTScene,
+	]
 }
 
 export default new Phaser.Game(config)

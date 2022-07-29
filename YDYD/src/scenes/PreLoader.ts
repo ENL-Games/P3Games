@@ -7,6 +7,11 @@ export default class PreLoader extends Phaser.Scene {
 
    preload() {
       this.load.image('bg-intro', 'assets/bg-intro.png');
+
+      this.load.image('bg-ppt-0', 'assets/bg-ppt-0.png');
+      this.load.image('bg-ppt-1', 'assets/bg-ppt-1.png');
+      this.load.image('bg-ppt-2', 'assets/bg-ppt-2.png');
+      this.load.image('bg-ppt-3', 'assets/bg-ppt-3.png');
    }
 
    create() {
