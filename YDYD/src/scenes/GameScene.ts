@@ -7,6 +7,8 @@ export default class GameScene extends Phaser.Scene {
    _bgs!: Phaser.GameObjects.Image[];
    _indexBG: number = 0;
 
+   _narrative!: GameNarrative;
+
    constructor() {
       super({ key: 'GameScene' })
    }
@@ -26,10 +28,10 @@ export default class GameScene extends Phaser.Scene {
          this._bgs[n].setVisible(false);
       }
 
+      this._narrative = new GameNarrative(this);
+
       this._indexBG = 0;
       this.Update_BG();
-
-      let narrative = new GameNarrative(this);
    }
 
    Update_BG() {
@@ -38,5 +40,20 @@ export default class GameScene extends Phaser.Scene {
          let visible: boolean = (n == this._indexBG ? true : false);
          this._bgs[n].setVisible(visible);
       }
+
+      this._narrative.Set_Page(this._indexBG);
+   }
+
+   NextPage() {
+      // console.log(`Foo`);
+
+      this._indexBG += 1;
+
+      if(this._bgs.length <= this._indexBG) {
+         console.log(`NextPage: complete(${this._indexBG})`);
+         return;
+      }
+
+      this.Update_BG();
    }
 }
