@@ -8,6 +8,10 @@ export default class IntroScene extends Phaser.Scene {
    private _txtBtn_Load!: Phaser.GameObjects.Text;
    private _txtBtn_Config!: Phaser.GameObjects.Text;
 
+   private _txtBtn_PT!: Phaser.GameObjects.Text;
+
+   private X_TxtButton: number = 0;
+
    constructor() {
       super({ key: 'IntroScene' })
    }
@@ -18,6 +22,8 @@ export default class IntroScene extends Phaser.Scene {
    create() {
       let canvasWidth = this.sys.canvas.width;
       let canvasHeight = this.sys.canvas.height;
+
+      this.X_TxtButton = canvasWidth - 20;
 
       this.add.image(canvasWidth / 2, canvasHeight / 2, 'bg-intro');
 
@@ -65,7 +71,7 @@ export default class IntroScene extends Phaser.Scene {
          //    console.log("설정");
          // });//이벤트 처리
 
-         // this._txtBtn_Config.setVisible(false);
+         this._txtBtn_Config.setVisible(false);
       }
 
       PY -= YInterval_TxtButton;
@@ -98,6 +104,22 @@ export default class IntroScene extends Phaser.Scene {
 
          this._txtBtn_NewGame.setVisible(false);
       }
+
+      this._txtBtn_PT = this.add.text(__canvasWidth - 50, 40, "PPT");
+      {
+         this._txtBtn_PT.setOrigin(0.5, 0.5);
+         this._txtBtn_PT.setStyle({
+            font: "bold 40px Arial"
+         });
+         this._txtBtn_PT.setColor(`#00ff00`);
+
+         this._txtBtn_PT.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+            // console.log("PPT");
+            this.scene.switch(`PTScene`);
+         });//이벤트 처리
+
+         this._txtBtn_PT.setVisible(false);
+      }
    }
 
    Visible_UI() {
@@ -119,13 +141,12 @@ export default class IntroScene extends Phaser.Scene {
          }
       });
 
-      let X_TxtButton = this.sys.canvas.width - 20;
       let Delay = 1500;
       let Duration = 500;
 
       this.tweens.add({
          targets: this._txtBtn_Config,
-         x: { value: X_TxtButton, duration: Duration, delay: Delay },
+         x: { value: this.X_TxtButton, duration: Duration, delay: Delay },
 
          onStart: () => {
             this._txtBtn_Config.setOrigin(1, 0.5);
@@ -138,7 +159,7 @@ export default class IntroScene extends Phaser.Scene {
       Delay += 500;
       this.tweens.add({
          targets: this._txtBtn_Load,
-         x: { value: X_TxtButton, duration: Duration, delay: Delay },
+         x: { value: this.X_TxtButton, duration: Duration, delay: Delay },
 
          onStart: () => {
             this._txtBtn_Load.setOrigin(1, 0.5);
@@ -151,12 +172,27 @@ export default class IntroScene extends Phaser.Scene {
       Delay += 500;
       this.tweens.add({
          targets: this._txtBtn_NewGame,
-         x: { value: X_TxtButton, duration: Duration, delay: Delay },
+         x: { value: this.X_TxtButton, duration: Duration, delay: Delay },
 
          onStart: () => {
             this._txtBtn_NewGame.setOrigin(1, 0.5);
             this._txtBtn_NewGame.setVisible(true);
          },
+
+         // onComplete: () => {}
+      });
+
+      this.tweens.add({
+         targets: this._txtBtn_PT,
+         scale: { value: 1, duration: 650, delay: Delay },
+
+         onStart: () => {
+            this._txtBtn_PT.setVisible(true);
+            this._txtBtn_PT.setScale(0.8);
+         },
+
+         repeat: -1,//infinity
+         yoyo: true,
 
          // onComplete: () => {}
       });
