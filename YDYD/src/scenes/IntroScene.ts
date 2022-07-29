@@ -4,6 +4,10 @@ export default class IntroScene extends Phaser.Scene {
 
    private _text_Title!: Phaser.GameObjects.Text;
 
+   private _txtBtn_NewGame!: Phaser.GameObjects.Text;
+   private _txtBtn_Load!: Phaser.GameObjects.Text;
+   private _txtBtn_Config!: Phaser.GameObjects.Text;
+
    constructor() {
       super({ key: 'IntroScene' })
    }
@@ -35,6 +39,64 @@ export default class IntroScene extends Phaser.Scene {
          this._text_Title.setFill(gradient);
 
          // this._text_Title.setVisible(false);
+      }
+
+      this.Setup_TextButtons(canvasWidth, canvasHeight);
+   }
+
+   Setup_TextButtons(__canvasWidth: number, __canvasHeight: number) {
+
+      let X_TxtButton = this.sys.canvas.width - 20;
+
+      let YInterval_TxtButton = 60;
+      let YBottom_TxtButton = __canvasHeight - 60;
+
+      let PY = YBottom_TxtButton;
+
+      this._txtBtn_Config = this.add.text(X_TxtButton, YBottom_TxtButton, "설정");
+      {
+         this._txtBtn_Config.setOrigin(1, 0.5);
+         this._txtBtn_Config.setStyle({
+            font: "bold 40px Arial"
+         });
+         this._txtBtn_Config.setColor(`#7d7d7d`);
+
+         this._txtBtn_Config.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+            console.log("설정");
+         });//이벤트 처리
+
+         // this._txtBtn_Config.setVisible(false);
+      }
+
+      PY -= YInterval_TxtButton;
+      this._txtBtn_Load = this.add.text(X_TxtButton, PY, "불러오기");
+      {
+         this._txtBtn_Load.setOrigin(1, 0.5);
+         this._txtBtn_Load.setStyle({
+            font: "bold 40px Arial"
+         });
+         this._txtBtn_Load.setColor(`#7d7d7d`);
+
+         this._txtBtn_Load.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+            console.log("불러오기");
+         });//이벤트 처리
+
+         // this._txtBtn_Load.setVisible(false);
+      }
+
+      PY -= YInterval_TxtButton;
+      this._txtBtn_NewGame = this.add.text(X_TxtButton, PY, "새 게임");
+      {
+         this._txtBtn_NewGame.setOrigin(1, 0.5);
+         this._txtBtn_NewGame.setStyle({
+            font: "bold 40px Arial"
+         });
+
+         this._txtBtn_NewGame.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+            console.log("새 게임");
+         });//이벤트 처리
+
+         // this._txtBtn_NewGame.setVisible(false);
       }
    }
 }
