@@ -38,10 +38,12 @@ export default class IntroScene extends Phaser.Scene {
          }
          this._text_Title.setFill(gradient);
 
-         // this._text_Title.setVisible(false);
+         this._text_Title.setVisible(false);
       }
 
       this.Setup_TextButtons(canvasWidth, canvasHeight);
+
+      this.Visible_UI();
    }
 
    Setup_TextButtons(__canvasWidth: number, __canvasHeight: number) {
@@ -61,11 +63,11 @@ export default class IntroScene extends Phaser.Scene {
          });
          this._txtBtn_Config.setColor(`#7d7d7d`);
 
-         this._txtBtn_Config.setInteractive().on('pointerdown', (pointer, localX, localY) => {
-            console.log("설정");
-         });//이벤트 처리
+         // this._txtBtn_Config.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+         //    console.log("설정");
+         // });//이벤트 처리
 
-         // this._txtBtn_Config.setVisible(false);
+         this._txtBtn_Config.setVisible(false);
       }
 
       PY -= YInterval_TxtButton;
@@ -77,11 +79,11 @@ export default class IntroScene extends Phaser.Scene {
          });
          this._txtBtn_Load.setColor(`#7d7d7d`);
 
-         this._txtBtn_Load.setInteractive().on('pointerdown', (pointer, localX, localY) => {
-            console.log("불러오기");
-         });//이벤트 처리
+         // this._txtBtn_Load.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+         //    console.log("불러오기");
+         // });//이벤트 처리
 
-         // this._txtBtn_Load.setVisible(false);
+         this._txtBtn_Load.setVisible(false);
       }
 
       PY -= YInterval_TxtButton;
@@ -96,7 +98,27 @@ export default class IntroScene extends Phaser.Scene {
             console.log("새 게임");
          });//이벤트 처리
 
-         // this._txtBtn_NewGame.setVisible(false);
+         this._txtBtn_NewGame.setVisible(false);
       }
+   }
+
+   Visible_UI() {
+
+      //_text_Title visible
+      this.tweens.add({
+         targets: this._text_Title,
+         alpha: { value: 1, duration: 1000 },
+         scale: { value: 1, duration: 1000 },
+
+         onStart: () => {
+            this._text_Title.setScale(0, 0);
+            this._text_Title.setAlpha(0);
+            this._text_Title.setVisible(true);
+         },
+
+         onComplete: () => {
+            // this._text_Title.setAlpha(1);
+         }
+      });
    }
 }
