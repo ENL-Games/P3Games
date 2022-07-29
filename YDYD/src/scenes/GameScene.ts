@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 
+import { GameNarrative } from './GameNarrative';
+
 export default class GameScene extends Phaser.Scene {
 
    _bgs!: Phaser.GameObjects.Image[];
@@ -26,6 +28,8 @@ export default class GameScene extends Phaser.Scene {
 
       this._indexBG = 0;
       this.Update_BG();
+
+      let narrative = new GameNarrative(this);
    }
 
    Update_BG() {
