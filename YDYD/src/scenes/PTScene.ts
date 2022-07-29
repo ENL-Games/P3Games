@@ -26,6 +26,23 @@ export default class PTScene extends Phaser.Scene {
 
       this._indexBG = 0;
       this.Update_BG();
+
+      this.input.on('pointerdown', (pointer, localX, localY) => {
+         this.Tapped_Screen();
+      });//이벤트 처리
+
+      // this.input.on('pointerdown', this.Tapped_Screen);
+   }
+
+   Tapped_Screen() {
+      this._indexBG += 1;
+      console.log(`Tapped_Screen(): ${this._indexBG}`);
+      
+      this.Update_BG();
+
+      if(this._bgs.length <= this._indexBG + 1) {
+         this.input.off('pointerdown');
+      }
    }
 
    Update_BG() {
