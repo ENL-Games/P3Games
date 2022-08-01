@@ -71,7 +71,7 @@ export default class PTScene extends Phaser.Scene {
 
          onComplete: () => {
             this._txtBtn_Back.setInteractive().on('pointerdown', (pointer, localX, localY) => {
-               this.scene.switch(`IntroScene`);
+               this.scene.start(`IntroScene`);
             });//이벤트 처리
          }
       });
