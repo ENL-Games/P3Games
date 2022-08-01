@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 
+import { GameDialog } from './GameDialog';
 import { GameNarrative } from './GameNarrative';
 
 export default class GameScene extends Phaser.Scene {
@@ -7,6 +8,7 @@ export default class GameScene extends Phaser.Scene {
    _bgs!: Phaser.GameObjects.Image[];
    _indexBG: number = 0;
 
+   _dialog!: GameDialog;
    _narrative!: GameNarrative;
 
    constructor() {
@@ -28,6 +30,7 @@ export default class GameScene extends Phaser.Scene {
          this._bgs[n].setVisible(false);
       }
 
+      this._dialog = new GameDialog(this);
       this._narrative = new GameNarrative(this);
 
       this._indexBG = 0;
