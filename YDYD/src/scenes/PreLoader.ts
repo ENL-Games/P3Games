@@ -16,6 +16,9 @@ export default class PreLoader extends Phaser.Scene {
       this.load.image('bg-ingame-0', 'assets/bg-ingame-0.png');
       this.load.image('bg-ingame-1', 'assets/bg-ingame-1.png');
       this.load.image('bg-ingame-2', 'assets/bg-ingame-2.png');
+
+      this.load.image('game-dialog-capgirl', 'assets/game-dialog-capgirl.png');
+      this.load.image('game-dialog-sister', 'assets/game-dialog-sister.png');
    }
 
    create() {
