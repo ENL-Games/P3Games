@@ -69,7 +69,7 @@ export /*default*/ class GameNarrative extends Phaser.GameObjects.Container {
          this._objText.setText("");
          this._curtain.setVisible(false);
 
-         this.Ready();
+         // this.Ready();
       }
    }
 

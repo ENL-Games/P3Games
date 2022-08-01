@@ -6,6 +6,9 @@ export /*default*/ class GameDialog extends Phaser.GameObjects.Container {
 
    _char!: Phaser.GameObjects.Image;
 
+   _txtName!: Phaser.GameObjects.Text;
+   _txtDialog!: Phaser.GameObjects.Text;
+
    constructor(__scene) {
       super(__scene);
       __scene.add.existing(this);
@@ -54,6 +57,26 @@ export /*default*/ class GameDialog extends Phaser.GameObjects.Container {
 
          this.Add_ContainerItem(nameTag);
          this.Add_ContainerItem(nameTagOutline);
+      }
+
+      {
+         this._txtName = this.scene.add.text(150, 520 + 12, "-");
+         this._txtName.setOrigin(0.5, 0.5);
+         this._txtName.setWordWrapWidth(196);
+         this.Add_ContainerItem(this._txtName);
+
+         let padding: number = 30;
+         this._txtDialog = this.scene.add.text(50 + padding, PY_DialogBox - 56, "가나다라마바사\nabcdefg\n0123456")
+            .setOrigin(0, 0);
+         {
+            this._txtDialog.setColor(`#ffffff`);
+            this._txtDialog.setLineSpacing(10);
+            this._txtDialog.setFontSize(24);
+
+            this._txtDialog.setWordWrapWidth(this.scene.sys.canvas.width - (padding  *2));
+
+            this.Add_ContainerItem(this._txtDialog);
+         }
       }
    }
 
