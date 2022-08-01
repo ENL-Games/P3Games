@@ -144,14 +144,14 @@ export /*default*/ class GameNarrative extends Phaser.GameObjects.Container {
    private Tapped_Screen() {
 
       if(!this._isCan_Touch) {
-         console.log(`Tapped_Screen: ${this._isCan_Touch}`);
+         // console.log(`Tapped_Screen: ${this._isCan_Touch}`);
          return;
       }
 
       // console.log(`Tapped_Screen(): _lineIndex= ${this._lineIndex}`);
       // console.log(`Tapped_Screen(): _content.length= ${this._content.length}`);
 
-      if (this._lineIndex === this._content.length) {
+      if (this._lineIndex >= this._content.length) {
 
          let gamescene = this.scene as GameScene;
          gamescene.NextPage();

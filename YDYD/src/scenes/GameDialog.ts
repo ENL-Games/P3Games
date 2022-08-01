@@ -16,6 +16,22 @@ export /*default*/ class GameDialog extends Phaser.GameObjects.Container {
       super(__scene);
       __scene.add.existing(this);
 
+      let curtain = this.scene.add.rectangle(this.scene.sys.canvas.width / 2, this.scene.sys.canvas.height / 2
+         , this.scene.sys.canvas.width, this.scene.sys.canvas.height
+         , 0x000000);
+      {
+         curtain.setAlpha(0.5);
+
+         curtain.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+            // console.log("예외처리");
+            this.Tapped_Screen();
+         });//이벤트 처리
+
+         this.Add_ContainerItem(curtain);
+
+         // curtain.setVisible(false);
+      }
+
       let PY_Char = 450;
       this._char = this.scene.add.image(this.scene.sys.canvas.width / 2, PY_Char, `game-dialog-capgirl`);
       this.Add_ContainerItem(this._char);
@@ -25,8 +41,6 @@ export /*default*/ class GameDialog extends Phaser.GameObjects.Container {
       {
          this._dialgos[0] = Dialog1;
          this._dialgos[1] = Dialog2;
-
-         this._indexDialog = 0;
       }
    }
 
@@ -90,25 +104,38 @@ export /*default*/ class GameDialog extends Phaser.GameObjects.Container {
       }
    }
 
+   Start_Dialaog() {
+      this._indexDialog = 0;
+      this.Update_Dialog();
+   }
+
    Update_Dialog() {
       // console.log(`Update_Dialog(): index= ${this._indexDialog}`);
 
       let dialog = this._dialgos[this._indexDialog];
+      // console.log(dialog);
 
       this._char.setTexture(dialog.portrait);
       this._txtName.setText(dialog.name);
       this._txtDialog.setText(dialog.text);
-
-      this._indexDialog++;
    }
 
    IsExist_NextDialog(): boolean {
 
       return (this._dialgos.length - 1 > this._indexDialog);
    }
+   Get_DialogIndex(): number {
+      return this._indexDialog;
+   }
 
    private Add_ContainerItem(__item: Phaser.GameObjects.GameObject) {
       this.add(__item);
+   }
+
+   private Tapped_Screen() {
+
+      this._indexDialog++;
+      this.Update_Dialog();
    }
 }
 
@@ -118,12 +145,12 @@ interface IDialog {
    text: string;
 }
 
-const Dialog1 = {
+const Dialog1: IDialog = {
    portrait: "game-dialog-capgirl",
    name: "인물 1",
    text: "바보\n멍충이\n똥개"
 };
-const Dialog2 = {
+const Dialog2: IDialog = {
    portrait: "game-dialog-sister",
    name: "주연급 1",
    text: "반사!!"

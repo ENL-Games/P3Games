@@ -55,7 +55,13 @@ export default class GameScene extends Phaser.Scene {
       // console.log(`NextPage: _bgs.length= ${this._bgs.length}, _indexBG= ${this._indexBG}`);
 
       if(this._bgs.length <= this._indexBG) {
-         console.log(`NextPage: complete(${this._indexBG})`);
+         // console.log(`NextPage: complete(${this._indexBG})`);
+
+         this._narrative.setVisible(false);
+
+         this._dialog.setVisible(true);
+         this._dialog.Start_Dialaog();
+
          return;
       }
 
