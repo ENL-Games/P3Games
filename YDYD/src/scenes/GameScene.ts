@@ -23,7 +23,7 @@ export default class GameScene extends Phaser.Scene {
       let canvasHeight = this.sys.canvas.height;
 
       this._bgs = [];
-      for(var n=0; n<4; n++) {
+      for(var n=0; n<3; n++) {
          let tKey = `bg-ingame-${n}`;
          this._bgs.push(this.add.image(canvasWidth / 2, canvasHeight / 2, tKey));
 
@@ -31,6 +31,7 @@ export default class GameScene extends Phaser.Scene {
       }
 
       this._dialog = new GameDialog(this);
+      this._dialog.setVisible(false);
       this._narrative = new GameNarrative(this);
 
       this._indexBG = 0;
@@ -51,6 +52,7 @@ export default class GameScene extends Phaser.Scene {
       // console.log(`Foo`);
 
       this._indexBG += 1;
+      // console.log(`NextPage: _bgs.length= ${this._bgs.length}, _indexBG= ${this._indexBG}`);
 
       if(this._bgs.length <= this._indexBG) {
          console.log(`NextPage: complete(${this._indexBG})`);

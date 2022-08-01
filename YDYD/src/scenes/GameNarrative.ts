@@ -13,7 +13,7 @@ export /*default*/ class GameNarrative extends Phaser.GameObjects.Container {
 
    _line: string[] = [];
 
-   _wordDelay: number = 120;
+   _wordDelay: number = 30;
    _lineDelay: number = 400;
 
    _objText!: Phaser.GameObjects.Text;
@@ -57,7 +57,7 @@ export /*default*/ class GameNarrative extends Phaser.GameObjects.Container {
 
    Set_Page(__page: number, __isReady: boolean = true) {
 
-      console.log(`Set_Page(${__page}, ${__isReady})`);
+      // console.log(`Set_Page(${__page}, ${__isReady})`);
 
       this._content = Books[__page];
       this._line = [];
@@ -69,7 +69,7 @@ export /*default*/ class GameNarrative extends Phaser.GameObjects.Container {
          this._objText.setText("");
          this._curtain.setVisible(false);
 
-         // this.Ready();
+         this.Ready();
       }
    }
 
@@ -147,6 +147,9 @@ export /*default*/ class GameNarrative extends Phaser.GameObjects.Container {
          console.log(`Tapped_Screen: ${this._isCan_Touch}`);
          return;
       }
+
+      // console.log(`Tapped_Screen(): _lineIndex= ${this._lineIndex}`);
+      // console.log(`Tapped_Screen(): _content.length= ${this._content.length}`);
 
       if (this._lineIndex === this._content.length) {
 
