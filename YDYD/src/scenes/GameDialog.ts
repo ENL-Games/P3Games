@@ -9,6 +9,9 @@ export /*default*/ class GameDialog extends Phaser.GameObjects.Container {
    _txtName!: Phaser.GameObjects.Text;
    _txtDialog!: Phaser.GameObjects.Text;
 
+   _dialgos: IDialog[] = [];
+   _indexDialog = -1;   
+
    constructor(__scene) {
       super(__scene);
       __scene.add.existing(this);
@@ -18,6 +21,13 @@ export /*default*/ class GameDialog extends Phaser.GameObjects.Container {
       this.Add_ContainerItem(this._char);
 
       this.Setup_DialogBox();
+
+      {
+         this._dialgos[0] = Dialog1;
+         this._dialgos[1] = Dialog2;
+
+         this._indexDialog = 0;
+      }
    }
 
    Setup_DialogBox() {
@@ -66,7 +76,7 @@ export /*default*/ class GameDialog extends Phaser.GameObjects.Container {
          this.Add_ContainerItem(this._txtName);
 
          let padding: number = 30;
-         this._txtDialog = this.scene.add.text(50 + padding, PY_DialogBox - 56, "가나다라마바사\nabcdefg\n0123456")
+         this._txtDialog = this.scene.add.text(50 + padding, PY_DialogBox - 56, "ABCDEFGhijklmn\n가나다라마바사\n0123456")
             .setOrigin(0, 0);
          {
             this._txtDialog.setColor(`#ffffff`);
@@ -80,7 +90,41 @@ export /*default*/ class GameDialog extends Phaser.GameObjects.Container {
       }
    }
 
+   Update_Dialog() {
+      // console.log(`Update_Dialog(): index= ${this._indexDialog}`);
+
+      let dialog = this._dialgos[this._indexDialog];
+
+      this._char.setTexture(dialog.portrait);
+      this._txtName.setText(dialog.name);
+      this._txtDialog.setText(dialog.text);
+
+      this._indexDialog++;
+   }
+
+   IsExist_NextDialog(): boolean {
+
+      return (this._dialgos.length - 1 > this._indexDialog);
+   }
+
    private Add_ContainerItem(__item: Phaser.GameObjects.GameObject) {
       this.add(__item);
    }
 }
+
+interface IDialog {
+   portrait: string;
+   name: string;
+   text: string;
+}
+
+const Dialog1 = {
+   portrait: "game-dialog-capgirl",
+   name: "인물 1",
+   text: "바보\n멍충이\n똥개"
+};
+const Dialog2 = {
+   portrait: "game-dialog-sister",
+   name: "주연급 1",
+   text: "반사!!"
+};
