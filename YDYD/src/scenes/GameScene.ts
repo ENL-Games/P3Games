@@ -52,6 +52,7 @@ export default class GameScene extends Phaser.Scene {
          // console.log(`NextPage: complete(${this._indexBG})`);
 
          this._narrative.setVisible(false);
+         this._bg.setTexture(this._bgKeys[0]);
 
          this._dialog.setVisible(true);
          this._dialog.Start_Dialaog();

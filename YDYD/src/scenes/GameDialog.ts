@@ -122,7 +122,7 @@ export /*default*/ class GameDialog extends Phaser.GameObjects.Container {
 
    IsExist_NextDialog(): boolean {
 
-      return (this._dialgos.length - 1 > this._indexDialog);
+      return (this._dialgos.length > this._indexDialog);
    }
    Get_DialogIndex(): number {
       return this._indexDialog;
@@ -135,6 +135,11 @@ export /*default*/ class GameDialog extends Phaser.GameObjects.Container {
    private Tapped_Screen() {
 
       this._indexDialog++;
+
+      if(!this.IsExist_NextDialog()) {
+         console.log(`Tapped_Screen complete: _indexDialog= ${this._indexDialog}`);
+         return;
+      }
       this.Update_Dialog();
    }
 }
