@@ -37,10 +37,10 @@ export default class PTScene extends Phaser.Scene {
       {
          this._txtBtn_Back.setOrigin(0.5, 0.5);
          this._txtBtn_Back.setStyle({
-            font: "bold 80px Arial"
+            font: "bold 32px Arial"
          });
-         this._txtBtn_Back.setColor(`#ffff00`);
-         this._txtBtn_Back.setStroke(`#ffffff`, 8);
+         this._txtBtn_Back.setColor(`#00ff00`);
+         this._txtBtn_Back.setStroke(`#ffffff`, 4);
          this._txtBtn_Back.setVisible(false);
       }
    }
@@ -54,12 +54,27 @@ export default class PTScene extends Phaser.Scene {
       if(this._bgs.length <= this._indexBG + 1) {
          this.input.off('pointerdown');
 
-         this._txtBtn_Back.setVisible(true);
-         this._txtBtn_Back.setInteractive().on('pointerdown', (pointer, localX, localY) => {
-            // console.log("_txtBtn_Back");
-            this.scene.switch(`IntroScene`);
-         });//이벤트 처리
+         this.Visible_BackButton();
       }
+   }
+
+   Visible_BackButton() {
+
+      this.tweens.add({
+         targets: this._txtBtn_Back,
+         alpha: { value: 1, duration: 1000, delay: 1000 },
+
+         onStart: () => {
+            this._txtBtn_Back.setAlpha(0);
+            this._txtBtn_Back.setVisible(true);
+         },
+
+         onComplete: () => {
+            this._txtBtn_Back.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+               this.scene.switch(`IntroScene`);
+            });//이벤트 처리
+         }
+      });
    }
 
    Update_BG() {
