@@ -125,15 +125,16 @@ export /*default*/ class GameDialog extends Phaser.GameObjects.Container {
       this.add(__item);
    }
 
-   Process_Dialog() {
+   Process_Dialog(): boolean {
 
       this._indexDialog++;
 
       if(!this.IsExist_NextDialog()) {
          // console.log(`Tapped_Screen complete: _indexDialog= ${this._indexDialog}`);
-         return;
+         return false;
       }
       this.Update_Dialog();
+      return true;
    }
 }
 

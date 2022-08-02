@@ -131,7 +131,8 @@ export /*default*/ class GameNarrative extends Phaser.GameObjects.Container {
       return this._isCan_Touch;
    }
 
-   private Tapped_Screen() {
+   // private Tapped_Screen() {
+   Process_Narrative() {
 
       if(!this._isCan_Touch) {
          // console.log(`Tapped_Screen: ${this._isCan_Touch}`);

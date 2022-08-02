@@ -45,6 +45,7 @@ export default class GameScene extends Phaser.Scene {
       this._narrative = new GameNarrative(this);
 
       this._selector = new GameSelector(this);
+      this._selector.setVisible(false);
 
       this._state = STATE.narrative;
 
@@ -88,11 +89,17 @@ export default class GameScene extends Phaser.Scene {
 
       if(STATE.narrative == this._state) {
          if(this._narrative.IsCan_Touch()) {
-            this.NextPage();
+            // this.NextPage();
+            this._narrative.Process_Narrative();
          }
       }
       else if(STATE.dialog == this._state) {
-         this._dialog.Process_Dialog();
+         if(!this._dialog.Process_Dialog()) {
+            this._dialog.setVisible(false);
+
+            this._state = STATE.selector;
+            this._selector.setVisible(true);
+         }
       }
    }
 
