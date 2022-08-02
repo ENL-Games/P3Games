@@ -145,11 +145,11 @@ interface IDialog {
 
 const Dialog1: IDialog = {
    portrait: "game-dialog-capgirl",
-   name: "인물 1",
+   name: "주인공",
    text: "바보\n멍충이\n똥개"
 };
 const Dialog2: IDialog = {
    portrait: "game-dialog-sister",
-   name: "주연급 1",
+   name: "엑스트라 1",
    text: "반사!!"
 };
