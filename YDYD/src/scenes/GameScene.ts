@@ -3,6 +3,7 @@ import Phaser from 'phaser';
 import { GameCurtain } from './GameCurtain';
 import { GameDialog } from './GameDialog';
 import { GameNarrative } from './GameNarrative';
+import { GameSelector } from './GameSelector';
 
 export default class GameScene extends Phaser.Scene {
 
@@ -13,6 +14,7 @@ export default class GameScene extends Phaser.Scene {
    _curtain!: GameCurtain;
    _dialog!: GameDialog;
    _narrative!: GameNarrative;
+   _selector!: GameSelector;
 
    _state: number = STATE.NONE;
 
@@ -41,6 +43,8 @@ export default class GameScene extends Phaser.Scene {
       this._dialog.setVisible(false);
 
       this._narrative = new GameNarrative(this);
+
+      this._selector = new GameSelector(this);
 
       this._state = STATE.narrative;
 
