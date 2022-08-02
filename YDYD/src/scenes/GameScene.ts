@@ -12,14 +12,22 @@ export default class GameScene extends Phaser.Scene {
    _dialog!: GameDialog;
    _narrative!: GameNarrative;
 
+   _state: number = STATE.NONE;
+
    constructor() {
       super({ key: 'GameScene' })
+   }
+
+   foo(state: typeof STATE) {
+      //
    }
 
    preload() {
    }
 
    create() {
+      this._state = STATE.ready;
+
       let canvasWidth = this.sys.canvas.width;
       let canvasHeight = this.sys.canvas.height;
 
@@ -31,6 +39,8 @@ export default class GameScene extends Phaser.Scene {
       this._dialog = new GameDialog(this);
       this._dialog.setVisible(false);
       this._narrative = new GameNarrative(this);
+
+      this._state = STATE.narrative;
 
       this._indexBG = 0;
       this.Update_BG();
@@ -57,9 +67,19 @@ export default class GameScene extends Phaser.Scene {
          this._dialog.setVisible(true);
          this._dialog.Start_Dialaog();
 
+         this._state = STATE.dialog;
+
          return;
       }
 
       this.Update_BG();
    }
 }
+
+const STATE = {
+   NONE: -1,
+   ready: 0,
+   narrative: 1,
+   dialog: 2,
+   selector: 3,
+} as const;
