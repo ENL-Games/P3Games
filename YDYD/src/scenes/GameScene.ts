@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 
+import { GameCurtain } from './GameCurtain';
 import { GameDialog } from './GameDialog';
 import { GameNarrative } from './GameNarrative';
 
@@ -9,6 +10,7 @@ export default class GameScene extends Phaser.Scene {
    _bgKeys: string[] = [];
    _indexBG: number = 0;
 
+   _curtain!: GameCurtain;
    _dialog!: GameDialog;
    _narrative!: GameNarrative;
 
@@ -16,10 +18,6 @@ export default class GameScene extends Phaser.Scene {
 
    constructor() {
       super({ key: 'GameScene' })
-   }
-
-   foo(state: typeof STATE) {
-      //
    }
 
    preload() {
@@ -34,10 +32,14 @@ export default class GameScene extends Phaser.Scene {
       for(var n=0; n<3; n++) {
          this._bgKeys.push(`bg-ingame-${n}`);
       }
-      this._bg = this.add.image(canvasWidth / 2, canvasHeight / 2, this._bgKeys[0]);
+      this._bg = this.add.image(canvasWidth / 2, canvasHeight / 2, this._bgKeys[0]);      
+
+      this._curtain = new GameCurtain(this);
+      this.Show_Curtain(false);
 
       this._dialog = new GameDialog(this);
       this._dialog.setVisible(false);
+
       this._narrative = new GameNarrative(this);
 
       this._state = STATE.narrative;
@@ -73,6 +75,24 @@ export default class GameScene extends Phaser.Scene {
       }
 
       this.Update_BG();
+   }
+
+   Tapped_Screen() {
+      console.log(`GameScene.Tapped_Screen: _state= ${this._state}`);
+
+      if(STATE.narrative == this._state) {
+         //skip
+         if(this._narrative.IsCan_Touch()) {
+            this.NextPage();
+         }
+      }
+      else if(STATE.dialog == this._state) {
+         //dialog process
+      }
+   }
+
+   Show_Curtain(__show: boolean) {
+      this._curtain.setVisible(__show);
    }
 }
 

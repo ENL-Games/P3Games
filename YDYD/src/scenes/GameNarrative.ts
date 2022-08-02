@@ -4,8 +4,6 @@ import GameScene from './GameScene';
 
 export /*default*/ class GameNarrative extends Phaser.GameObjects.Container {
 
-   private _curtain!: Phaser.GameObjects.Rectangle;
-
    _content: string[] = [];
 
    _wordIndex: number = 0;
@@ -23,23 +21,7 @@ export /*default*/ class GameNarrative extends Phaser.GameObjects.Container {
    constructor(__scene) {
       super(__scene);
       __scene.add.existing(this);
-
-      this._curtain = this.scene.add.rectangle(this.scene.sys.canvas.width / 2, this.scene.sys.canvas.height / 2
-         , this.scene.sys.canvas.width, this.scene.sys.canvas.height
-         , 0x000000);
-      {
-         this._curtain.setAlpha(0.75);
-
-         this._curtain.setInteractive().on('pointerdown', (pointer, localX, localY) => {
-            // console.log("예외처리");
-            this.Tapped_Screen();
-         });//이벤트 처리
-
-         this.Add_ContainerItem(this._curtain);
-
-         this._curtain.setVisible(false);
-      }
-
+      
       let padding: number = 30;
       this._objText = this.scene.add.text(padding, padding, "");
       {
@@ -67,7 +49,9 @@ export /*default*/ class GameNarrative extends Phaser.GameObjects.Container {
 
       if(__isReady) {
          this._objText.setText("");
-         this._curtain.setVisible(false);
+
+         this.Get_GameScene()
+            .Show_Curtain(false);
 
          this.Ready();
       }
@@ -84,7 +68,9 @@ export /*default*/ class GameNarrative extends Phaser.GameObjects.Container {
 
    Begin_Narrative() {
 
-      this._curtain.setVisible(true);
+      this.Get_GameScene()
+         .Show_Curtain(true);
+
       this.NextLine();
    }
 
@@ -141,6 +127,10 @@ export /*default*/ class GameNarrative extends Phaser.GameObjects.Container {
       }     
    }
 
+   IsCan_Touch(): boolean {
+      return this._isCan_Touch;
+   }
+
    private Tapped_Screen() {
 
       if(!this._isCan_Touch) {
@@ -153,14 +143,19 @@ export /*default*/ class GameNarrative extends Phaser.GameObjects.Container {
 
       if (this._lineIndex >= this._content.length) {
 
-         let gamescene = this.scene as GameScene;
-         gamescene.NextPage();
+         this.Get_GameScene()
+            .NextPage();
 
          return;
       }
 
       this.NextLine();
       this._isCan_Touch = false;
+   }
+
+   private Get_GameScene(): GameScene {
+      let gamescene = this.scene as GameScene;
+      return gamescene;
    }
 
    private Add_ContainerItem(__item: Phaser.GameObjects.GameObject) {
