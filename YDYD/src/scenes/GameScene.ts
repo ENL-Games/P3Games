@@ -64,12 +64,14 @@ export default class GameScene extends Phaser.Scene {
          // console.log(`NextPage: complete(${this._indexBG})`);
 
          this._narrative.setVisible(false);
+
          this._bg.setTexture(this._bgKeys[0]);
+         this.Show_Curtain(false);
+
+         this._state = STATE.dialog;
 
          this._dialog.setVisible(true);
          this._dialog.Start_Dialaog();
-
-         this._state = STATE.dialog;
 
          return;
       }
@@ -81,13 +83,12 @@ export default class GameScene extends Phaser.Scene {
       console.log(`GameScene.Tapped_Screen: _state= ${this._state}`);
 
       if(STATE.narrative == this._state) {
-         //skip
          if(this._narrative.IsCan_Touch()) {
             this.NextPage();
          }
       }
       else if(STATE.dialog == this._state) {
-         //dialog process
+         this._dialog.Process_Dialog();
       }
    }
 

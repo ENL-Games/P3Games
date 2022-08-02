@@ -16,22 +16,6 @@ export /*default*/ class GameDialog extends Phaser.GameObjects.Container {
       super(__scene);
       __scene.add.existing(this);
 
-      let curtain = this.scene.add.rectangle(this.scene.sys.canvas.width / 2, this.scene.sys.canvas.height / 2
-         , this.scene.sys.canvas.width, this.scene.sys.canvas.height
-         , 0x000000);
-      {
-         curtain.setAlpha(0.5);
-
-         curtain.setInteractive().on('pointerdown', (pointer, localX, localY) => {
-            // console.log("예외처리");
-            this.Tapped_Screen();
-         });//이벤트 처리
-
-         this.Add_ContainerItem(curtain);
-
-         // curtain.setVisible(false);
-      }
-
       let PY_Char = 450;
       this._char = this.scene.add.image(this.scene.sys.canvas.width / 2, PY_Char, `game-dialog-capgirl`);
       this.Add_ContainerItem(this._char);
@@ -105,6 +89,10 @@ export /*default*/ class GameDialog extends Phaser.GameObjects.Container {
    }
 
    Start_Dialaog() {
+
+      this.Get_GameScene()
+         .Show_Curtain(true);
+
       this._indexDialog = 0;
       this.Update_Dialog();
    }
@@ -128,16 +116,21 @@ export /*default*/ class GameDialog extends Phaser.GameObjects.Container {
       return this._indexDialog;
    }
 
+   private Get_GameScene(): GameScene {
+      let gamescene = this.scene as GameScene;
+      return gamescene;
+   }
+
    private Add_ContainerItem(__item: Phaser.GameObjects.GameObject) {
       this.add(__item);
    }
 
-   private Tapped_Screen() {
+   Process_Dialog() {
 
       this._indexDialog++;
 
       if(!this.IsExist_NextDialog()) {
-         console.log(`Tapped_Screen complete: _indexDialog= ${this._indexDialog}`);
+         // console.log(`Tapped_Screen complete: _indexDialog= ${this._indexDialog}`);
          return;
       }
       this.Update_Dialog();
