@@ -60,6 +60,7 @@ export default class IntroScene extends Phaser.Scene {
             });//이벤트 처리
       
             txtBtn_Start.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+               this.scene.start(`GameScene`);
             });//이벤트 처리
          }
       }
