@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import IntroScene from './scenes/IntroScene'
 import PreLoader from './scenes/PreLoader'
 
 const config: Phaser.Types.Core.GameConfig = {
@@ -18,6 +19,7 @@ const config: Phaser.Types.Core.GameConfig = {
 	// 	}
 	// },
 	scene: [ PreLoader,
+		IntroScene,
 	]
 }
 
