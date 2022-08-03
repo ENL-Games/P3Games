@@ -18,16 +18,13 @@ export default class GameScene extends Phaser.Scene {
       this.add.image(canvasWidth / 2, canvasHeight / 2, `bg-game`);
 
       this.create_UI();
-
-      {//TEST
-         let block = new Block(this, 0);
-         block.setPosition(100, 100);
-
-         block = new Block(this, 1);
-         block.setPosition(200, 200);
-
-         block = new Block(this, 2);
-         block.setPosition(300, 300);
+      
+      let block!: Block;
+      for(let x=0; x<3; x++) {
+         for(let y=0; y<5; y++) {
+            block = new Block(this, x);
+            block.setPosition(PX_Blocks[x], PY_Block1 - (y * IntervalY_Block));
+         }
       }
    }
 
@@ -52,3 +49,9 @@ export default class GameScene extends Phaser.Scene {
       }
    }
 }
+
+const PX_Blocks: number[] = [
+   492, 640, 789
+];
+const PY_Block1: number = 556;
+const IntervalY_Block = 84;
