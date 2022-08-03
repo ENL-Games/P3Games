@@ -9,6 +9,7 @@ export default class PreLoader extends Phaser.Scene {
       // this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 
       this.load.image('bg-intro', 'assets/bg-intro.png');
+      this.load.image('bg-game', 'assets/bg-game.png');
 
       this.load.image('block-boss', 'assets/block-boss.png');
       this.load.image('block-boss-cracked', 'assets/block-boss-cracked.png');
