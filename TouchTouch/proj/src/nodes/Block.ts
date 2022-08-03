@@ -39,6 +39,10 @@ export default class Block extends zNode {
    Crack() {
       this._isCracked = !this._isCracked;
       this.Choose_BaseImage();
+
+      // if(this._isCracked) {//TEST
+      //    this._baseImage.setInteractive().off('pointerdown');
+      // }
    }
 }
 

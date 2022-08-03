@@ -18,6 +18,17 @@ export default class GameScene extends Phaser.Scene {
       this.add.image(canvasWidth / 2, canvasHeight / 2, `bg-game`);
 
       this.create_UI();
+
+      {//TEST
+         let block = new Block(this, 0);
+         block.setPosition(100, 100);
+
+         block = new Block(this, 1);
+         block.setPosition(200, 200);
+
+         block = new Block(this, 2);
+         block.setPosition(300, 300);
+      }
    }
 
    create_UI() {
