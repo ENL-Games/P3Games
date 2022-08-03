@@ -21,5 +21,26 @@ export default class IntroScene extends Phaser.Scene {
 
          txtTitle.setColor(`#00ff00`);
       }
+
+      let txtBtn_Start = this.add.text(canvasWidth / 2, canvasHeight - 120, `START`);
+      {
+         txtBtn_Start.setOrigin(0.5, 0.5);
+         txtBtn_Start.setStyle({
+            font: "bold 64px Arial"
+         });
+
+         txtBtn_Start.setColor(`#ff0000`);
+         {//event
+            txtBtn_Start.setInteractive().on('pointerover', (pointer, localX, localY) => {
+               txtBtn_Start.setScale(1.15, 1.15);
+            });//이벤트 처리
+            txtBtn_Start.setInteractive().on('pointerout', (pointer, localX, localY) => {
+               txtBtn_Start.setScale(1, 1);
+            });//이벤트 처리
+      
+            txtBtn_Start.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+            });//이벤트 처리
+         }
+      }
    }
 }
