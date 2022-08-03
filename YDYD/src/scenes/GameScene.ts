@@ -106,6 +106,10 @@ export default class GameScene extends Phaser.Scene {
    Show_Curtain(__show: boolean) {
       this._curtain.setVisible(__show);
    }
+
+   End_Game() {
+      this.scene.start(`IntroScene`);
+   }
 }
 
 const STATE = {
