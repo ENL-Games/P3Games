@@ -40,7 +40,7 @@ export default class GameScene extends Phaser.Scene {
          this._text_Time.setColor(`#00ff00`);
       }
 
-      this._text_Score = this.add.text(canvasWidth / 2, 118, `0`);
+      this._text_Score = this.add.text(canvasWidth / 2, 118, `SCORE: ${0}`);
       {
          this._text_Score.setOrigin(0.5, 0.5);
          this._text_Score.setStyle({
