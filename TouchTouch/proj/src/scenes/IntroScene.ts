@@ -12,6 +12,8 @@ export default class IntroScene extends Phaser.Scene {
       let canvasWidth = this.sys.canvas.width;
       let canvasHeight = this.sys.canvas.height;
 
+      this.add.image(canvasWidth / 2, canvasHeight / 2, `bg-intro`);
+
       let txtTitle = this.add.text(canvasWidth / 2, 200, `터치 터치`);
       {
          txtTitle.setOrigin(0.5, 0.5);
@@ -22,6 +24,7 @@ export default class IntroScene extends Phaser.Scene {
          // txtTitle.setFontSize(150);         
 
          txtTitle.setColor(`#00ff00`);
+         txtTitle.setStroke(`#000000`, 4);
       }
 
       let txtBtn_Start = this.add.text(canvasWidth / 2, canvasHeight - 120, `START`
@@ -32,8 +35,22 @@ export default class IntroScene extends Phaser.Scene {
          txtBtn_Start.setStyle({
             font: "bold 64px Arial"
          });
+         txtBtn_Start.setColor(`#ffff00`);
+         txtBtn_Start.setStroke(`#000000`, 2);
+         const gradient = txtBtn_Start.context.createLinearGradient(0, 0, 0, txtBtn_Start.height);
+         {
+            gradient.addColorStop(0, '#ff974b');
+            gradient.addColorStop(.5, '#fff435');
+            gradient.addColorStop(1, '#ff9543');
+         }
+         txtBtn_Start.setFill(gradient);
 
-         txtBtn_Start.setColor(`#ff0000`);
+         {
+            gradient.addColorStop(0, '#ff974b');
+            gradient.addColorStop(.5, '#fff435');
+            gradient.addColorStop(1, '#ff9543');
+         }
+
          {//event
             txtBtn_Start.setInteractive().on('pointerover', (pointer, localX, localY) => {
                txtBtn_Start.setScale(1.15, 1.15);
