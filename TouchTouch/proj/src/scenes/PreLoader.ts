@@ -2,10 +2,12 @@ import Phaser from "phaser";
 
 export default class PreLoader extends Phaser.Scene {
    constructor() {
-      super("PreLoader");
+      super(LoadConfig);
    }
 
    preload() {
+      // this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+
       this.load.image('block-boss', 'assets/block-boss.png');
       this.load.image('block-boss-cracked', 'assets/block-boss-cracked.png');
       this.load.image('block-cat', 'assets/block-cat.png');
@@ -18,3 +20,15 @@ export default class PreLoader extends Phaser.Scene {
       this.scene.start('IntroScene');
    }
 }
+
+const LoadConfig = {
+   key: "PreLoader",
+   // pack: {
+   //     files: [{
+   //         type: 'plugin',
+   //         key: 'rexwebfontloaderplugin',
+   //         url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexwebfontloaderplugin.min.js',
+   //         start: true
+   //     }]
+   // }
+};

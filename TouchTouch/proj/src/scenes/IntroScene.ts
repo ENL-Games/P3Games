@@ -16,13 +16,17 @@ export default class IntroScene extends Phaser.Scene {
       {
          txtTitle.setOrigin(0.5, 0.5);
          txtTitle.setStyle({
-            font: "bold 150px Arial"
+            font: "bold 150px Arial",
          });
+         // txtTitle.setFontFamily('NanumPen');
+         // txtTitle.setFontSize(150);         
 
          txtTitle.setColor(`#00ff00`);
       }
 
-      let txtBtn_Start = this.add.text(canvasWidth / 2, canvasHeight - 120, `START`);
+      let txtBtn_Start = this.add.text(canvasWidth / 2, canvasHeight - 120, `START`
+         // , { fontFamily: 'NanumPen' }
+         );
       {
          txtBtn_Start.setOrigin(0.5, 0.5);
          txtBtn_Start.setStyle({
