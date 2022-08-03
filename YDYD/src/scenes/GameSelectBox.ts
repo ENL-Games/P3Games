@@ -21,7 +21,7 @@ export class GameSelectBox extends Phaser.GameObjects.Container {
          // this._boxOutline.setStrokeStyle(3, 0xffff00);
          this.Set_OutlineColor();
 
-         this._text = this.scene.add.text(0, 0, "");
+         this._text = this.scene.add.text(0, -5, "");
          this.Add_ContainerItem(this._text);
          this._text.setOrigin(0.5, 0.5);
          this._text.setColor(`#ffffff`);
@@ -51,7 +51,8 @@ export class GameSelectBox extends Phaser.GameObjects.Container {
    }
 
    Set_Text(__text: string) {
-      this._text.setText(__text);
+      let text = `\n` + __text;
+      this._text.setText(text);
    }
 
    private Add_ContainerItem(__item: Phaser.GameObjects.GameObject) {
