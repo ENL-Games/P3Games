@@ -21,7 +21,8 @@ export default class Block extends zNode {
       this._kind = __kind;
       this._index = __index;
       {
-         this.setPosition(PX_Blocks[__kind], PY_Block0 - (__index * IntervalY_Block));
+         let pos = this.Get_Position();
+         this.setPosition(pos.x, pos.y);
       }
       this._isCracked = false;
 
@@ -32,6 +33,15 @@ export default class Block extends zNode {
             this.Crack();
          });//이벤트 처리
       }
+   }
+
+   private Get_Position(): Phaser.Math.Vector2 {
+      let ret = new Phaser.Math.Vector2();
+      {
+         ret.x = PX_Blocks[this._kind];
+         ret.y = PY_Block0 - (this._index * IntervalY_Block);
+      }
+      return ret;
    }
 
    Choose_BaseImage() {
