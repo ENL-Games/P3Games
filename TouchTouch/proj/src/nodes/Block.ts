@@ -17,6 +17,7 @@ export default class Block extends zNode {
 
       this._baseImage = __scene.add.image(0, 0, `block-boss`);
       this.Add_ContainerItem(this._baseImage);
+      this._baseImage.setVisible(false);
 
       this._kind = __kind;
       this._index = __index;
@@ -33,6 +34,38 @@ export default class Block extends zNode {
             this.Crack();
          });//이벤트 처리
       }
+
+      this.Show_Block();
+   }
+
+   private Show_Block() {
+      const Duration: number = 200;
+      const Delay: number = 1000;
+      const MoveY: number = 30;
+
+      let pos = this.Get_Position();
+
+      this.scene.tweens.add({
+         targets: this._baseImage,
+         alpha: { value: 1, duration: Duration,
+            // delay: 1000
+         },
+         onStart: () => {
+            this._baseImage.setAlpha(0);
+            this._baseImage.setVisible(true);
+         },
+      });
+      this.scene.tweens.add({
+         targets: this._baseImage,
+         props: {
+            y: { value: MoveY, duration: Duration, }
+         },
+         ease: Phaser.Math.Easing.Bounce.Out,
+
+         onStart: () => {
+            this.setPosition(pos.x, pos.y - MoveY);
+         },
+      });
    }
 
    private Get_Position(): Phaser.Math.Vector2 {
