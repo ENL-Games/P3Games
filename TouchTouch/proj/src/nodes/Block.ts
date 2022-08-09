@@ -40,16 +40,15 @@ export default class Block extends zNode {
 
    private Show_Block() {
       const Duration: number = 200;
-      const Delay: number = 1000;
+      const DelayInterval: number = 170;
       const MoveY: number = 30;
 
       let pos = this.Get_Position();
+      let delay = this._index * DelayInterval;
 
       this.scene.tweens.add({
          targets: this._baseImage,
-         alpha: { value: 1, duration: Duration,
-            // delay: 1000
-         },
+         alpha: { value: 1, duration: Duration, delay: delay },
          onStart: () => {
             this._baseImage.setAlpha(0);
             this._baseImage.setVisible(true);
@@ -58,7 +57,7 @@ export default class Block extends zNode {
       this.scene.tweens.add({
          targets: this._baseImage,
          props: {
-            y: { value: MoveY, duration: Duration, }
+            y: { value: MoveY, duration: Duration, delay: delay }
          },
          ease: Phaser.Math.Easing.Bounce.Out,
 
