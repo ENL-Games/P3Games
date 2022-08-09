@@ -22,8 +22,7 @@ export default class GameScene extends Phaser.Scene {
       let block!: Block;
       for(let x=0; x<3; x++) {
          for(let y=0; y<5; y++) {
-            block = new Block(this, x);
-            block.setPosition(PX_Blocks[x], PY_Block1 - (y * IntervalY_Block));
+            block = new Block(this, x, y);
          }
       }
    }
@@ -49,9 +48,3 @@ export default class GameScene extends Phaser.Scene {
       }
    }
 }
-
-const PX_Blocks: number[] = [
-   492, 640, 789
-];
-const PY_Block1: number = 556;
-const IntervalY_Block = 84;
