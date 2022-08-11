@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import zNode from "../zNode";
 
 import { BlockKind } from "../Defines";
+import GameScene from "~/scenes/GameScene";
 
 export default class Switch extends zNode {
 
@@ -34,13 +35,23 @@ export default class Switch extends zNode {
          this.setPosition(pos.x, pos.y);
       }
 
+      this._baseImage.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+         // console.log(`Switch.pointerdown(): ${this._kind}`);
+         this.Get_Scene().Crack_Block(this._kind);
+      });//이벤트 처리
+
       this.Choose_BaseImage();
    }
 
    Choose_BaseImage() {
       let texture: string = BaseImage_Texture[this._kind];
-      console.log(texture);
+      // console.log(texture);
       this._baseImage.setTexture(texture);
+   }
+
+   private Get_Scene(): GameScene {
+      var core = this.scene.scene.get('GameScene') as GameScene;
+      return core;
    }
 }
 

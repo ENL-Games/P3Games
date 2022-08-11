@@ -88,4 +88,19 @@ export default class GameScene extends Phaser.Scene {
          });
       }
    }
+
+   Crack_Block(__kind: number) {
+      // console.log(`GameScene.Crack_Block(${__kind}): _blocksCount= ${this._blocksCount[__kind]}, _blocksCurrent= ${this._blocksCurrent[__kind]}`);
+
+      let current = this._blocksCurrent[__kind];
+      let kindList = this._blocks[__kind];
+
+      if(kindList.length <= current) {
+         console.log(`GameScene.Crack_Block(${__kind}): No No ~~!!`);
+         return;
+      }
+
+      kindList[current].Crack();
+      this._blocksCurrent[__kind]++;
+   }
 }
