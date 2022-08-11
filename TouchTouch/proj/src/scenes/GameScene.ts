@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import Block from "~/nodes/Block";
+import Switch from "~/nodes/Switch";
 import { Async_Pause } from "~/Utils";
 
 export default class GameScene extends Phaser.Scene {
@@ -17,10 +18,19 @@ export default class GameScene extends Phaser.Scene {
       let canvasHeight = this.sys.canvas.height;
 
       this.add.image(canvasWidth / 2, canvasHeight / 2, `bg-game`);
-
+      
+      this.Make_Switch();
       this.create_UI();
 
       this.Regen_Blocks();
+   }
+
+   private Make_Switch() {
+      let sw!: Switch;
+
+      for(let kind=0; kind<3; kind++) {
+         sw = new Switch(this, kind);
+      }
    }
 
    async Regen_Blocks() {
