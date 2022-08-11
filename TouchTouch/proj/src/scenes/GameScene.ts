@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import Block from "~/nodes/Block";
+import { Async_Pause } from "~/Utils";
 
 export default class GameScene extends Phaser.Scene {
    _text_Time!: Phaser.GameObjects.Text;
@@ -18,11 +19,24 @@ export default class GameScene extends Phaser.Scene {
       this.add.image(canvasWidth / 2, canvasHeight / 2, `bg-game`);
 
       this.create_UI();
-      
+
+      this.Regen_Blocks();
+   }
+
+   async Regen_Blocks() {
       let block!: Block;
-      for(let x=0; x<3; x++) {
-         for(let y=0; y<5; y++) {
-            block = new Block(this, x, y);
+
+      let countList = [5, 5, 5];
+      for(let kind=0; kind<3; kind++) {
+         let count = countList[kind];
+         for(let c=0; c<count; c++) {
+            block = new Block(this, kind, c);
+
+            let lastIndex = count - 1;
+            if(lastIndex == c) {
+               let delayNextKind = (lastIndex - 1) * Block.DelayInterval_Showing;
+               await Async_Pause(delayNextKind);
+            }
          }
       }
    }
