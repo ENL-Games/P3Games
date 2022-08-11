@@ -35,11 +35,11 @@ export default class Block extends zNode {
 
       this.Choose_BaseImage();
 
-      {//TEST
-         this._baseImage.setInteractive().on('pointerdown', (pointer, localX, localY) => {
-            this.Crack();
-         });//이벤트 처리
-      }
+      // {//TEST
+      //    this._baseImage.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+      //       this.Crack();
+      //    });//이벤트 처리
+      // }
 
       this.Show_Block();
    }
