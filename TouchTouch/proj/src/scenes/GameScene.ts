@@ -34,7 +34,7 @@ export default class GameScene extends Phaser.Scene {
 
             let lastIndex = count - 1;
             if(lastIndex == c) {
-               let delayNextKind = (lastIndex - 1) * Block.DelayInterval_Showing;
+               let delayNextKind = (lastIndex) * Block.DelayInterval_Showing;
                await Async_Pause(delayNextKind);
             }
          }
