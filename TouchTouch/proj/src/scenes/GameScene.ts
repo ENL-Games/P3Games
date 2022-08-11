@@ -7,6 +7,10 @@ export default class GameScene extends Phaser.Scene {
    _text_Time!: Phaser.GameObjects.Text;
    _text_Score!: Phaser.GameObjects.Text;
 
+   _blocks: Block[][] = [];
+   _blocksCount: number[] = [0, 0, 0];
+   _blocksCurrent: number[] = [0, 0, 0];
+
    constructor() {
       super({ key: 'GameScene' })
    }
@@ -34,13 +38,24 @@ export default class GameScene extends Phaser.Scene {
    }
 
    async Regen_Blocks() {
+      this._blocks = [];
+      this._blocksCount = [0, 0, 0];
+      this._blocksCurrent = [0, 0, 0];
+
+      for(let kind=0; kind<3; kind++) {
+         let rnd = Phaser.Math.Between(1, 5);
+         this._blocksCount[kind] = rnd;
+      }
+
       let block!: Block;
 
-      let countList = [5, 5, 5];
       for(let kind=0; kind<3; kind++) {
-         let count = countList[kind];
+         let count = this._blocksCount[kind];
+
+         let items: Block[] = [];
          for(let c=0; c<count; c++) {
             block = new Block(this, kind, c);
+            items[c] = block;
 
             let lastIndex = count - 1;
             if(lastIndex == c) {
@@ -48,6 +63,8 @@ export default class GameScene extends Phaser.Scene {
                await Async_Pause(delayNextKind);
             }
          }
+
+         this._blocks[kind] = items;
       }
    }
 
