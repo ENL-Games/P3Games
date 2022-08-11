@@ -11,6 +11,12 @@ export default class Block extends zNode {
    _index: number = 0;
    _isCracked: boolean = false;
 
+   /*
+   * const
+   */
+   static Duration_Showing: number  = 200;
+   static DelayInterval_Showing: number = 170;
+
    constructor(__scene, __kind: number, __index: number = 0) {
       super(__scene);
       __scene.add.existing(this);
@@ -39,16 +45,14 @@ export default class Block extends zNode {
    }
 
    private Show_Block() {
-      const Duration: number = 200;
-      const DelayInterval: number = 170;
       const MoveY: number = 30;
 
       let pos = this.Get_Position();
-      let delay = this._index * DelayInterval;
+      let delay = this._index * Block.DelayInterval_Showing;
 
       this.scene.tweens.add({
          targets: this._baseImage,
-         alpha: { value: 1, duration: Duration, delay: delay },
+         alpha: { value: 1, duration: Block.Duration_Showing, delay: delay },
          onStart: () => {
             this._baseImage.setAlpha(0);
             this._baseImage.setVisible(true);
@@ -57,7 +61,7 @@ export default class Block extends zNode {
       this.scene.tweens.add({
          targets: this._baseImage,
          props: {
-            y: { value: MoveY, duration: Duration, delay: delay }
+            y: { value: MoveY, duration: Block.Duration_Showing, delay: delay }
          },
          ease: Phaser.Math.Easing.Bounce.Out,
 
