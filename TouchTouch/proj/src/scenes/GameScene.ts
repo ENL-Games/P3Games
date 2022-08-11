@@ -10,6 +10,7 @@ export default class GameScene extends Phaser.Scene {
    _blocks: Block[][] = [];
    _blocksCount: number[] = [0, 0, 0];
    _blocksCurrent: number[] = [0, 0, 0];
+   _blocksClear: boolean[] = [false, false, false];
 
    constructor() {
       super({ key: 'GameScene' })
@@ -41,6 +42,7 @@ export default class GameScene extends Phaser.Scene {
       this._blocks = [];
       this._blocksCount = [0, 0, 0];
       this._blocksCurrent = [0, 0, 0];
+      this._blocksClear = [false, false, false];
 
       for(let kind=0; kind<3; kind++) {
          let rnd = Phaser.Math.Between(1, 5);
@@ -96,11 +98,29 @@ export default class GameScene extends Phaser.Scene {
       let kindList = this._blocks[__kind];
 
       if(kindList.length <= current) {
-         console.log(`GameScene.Crack_Block(${__kind}): No No ~~!!`);
+         console.log(`GameScene.Crack_Block(${__kind}): Game Over ~~!!`);
          return;
       }
 
       kindList[current].Crack();
       this._blocksCurrent[__kind]++;
+
+      if(kindList.length <= this._blocksCurrent[__kind]) {
+         this._blocksClear[__kind] = true;
+
+         console.log(`GameScene.Crack_Block(${__kind}): clear`);
+
+         let allCleared: boolean = true;
+         for(let kind=0; kind<3; kind++) {
+            if(!this._blocksClear[kind]) {
+               allCleared = false;
+               break;
+            }
+         }
+
+         if(allCleared) {
+            console.log(`GameScene.Crack_Block(${__kind}): All Cleared`);
+         }
+      }
    }
 }
