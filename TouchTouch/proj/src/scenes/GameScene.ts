@@ -108,7 +108,7 @@ export default class GameScene extends Phaser.Scene {
       if(kindList.length <= this._blocksCurrent[__kind]) {
          this._blocksClear[__kind] = true;
 
-         console.log(`GameScene.Crack_Block(${__kind}): clear`);
+         // console.log(`GameScene.Crack_Block(${__kind}): clear`);
 
          let allCleared: boolean = true;
          for(let kind=0; kind<3; kind++) {
@@ -119,8 +119,23 @@ export default class GameScene extends Phaser.Scene {
          }
 
          if(allCleared) {
-            console.log(`GameScene.Crack_Block(${__kind}): All Cleared`);
+            // console.log(`GameScene.Crack_Block(${__kind}): All Cleared`);
+            this.ClearedAll();
          }
       }
+   }
+
+   private async ClearedAll() {
+
+      await Async_Pause(500);
+
+      for(let kind=0; kind<3; kind++) {
+         let count = this._blocksCount[kind];
+         for(let c=0; c<count; c++) {
+            this._blocks[kind][c].destroy();
+         }
+      }
+
+      this.Regen_Blocks();
    }
 }
