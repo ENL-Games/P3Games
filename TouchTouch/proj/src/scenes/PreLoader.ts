@@ -17,6 +17,10 @@ export default class PreLoader extends Phaser.Scene {
       this.load.image('block-gob-cracked', 'assets/block-gob-cracked.png');
       this.load.image('block-cat', 'assets/block-cat.png');
       this.load.image('block-cat-cracked', 'assets/block-cat-cracked.png');
+
+      this.load.image('switch-boss', 'assets/switch-boss.png');
+      this.load.image('switch-gob', 'assets/switch-gob.png');
+      this.load.image('switch-cat', 'assets/switch-cat.png');
    }
 
    create() {
