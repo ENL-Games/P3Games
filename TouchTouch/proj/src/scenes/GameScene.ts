@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import Block from "~/nodes/Block";
 import Switch from "~/nodes/Switch";
 import { Async_Pause } from "~/Utils";
+import { GameHUD, OX } from "./GameHUD";
 
 export default class GameScene extends Phaser.Scene {
    _blocks: Block[][] = [];
@@ -65,6 +66,9 @@ export default class GameScene extends Phaser.Scene {
 
          this._blocks[kind] = items;
       }
+
+      this.Get_GameHUD()
+         .Show_OX(OX.O, false);
    }
 
    Crack_Block(__kind: number) {
@@ -74,7 +78,9 @@ export default class GameScene extends Phaser.Scene {
       let kindList = this._blocks[__kind];
 
       if(kindList.length <= current) {
-         console.log(`GameScene.Crack_Block(${__kind}): Game Over ~~!!`);
+         // console.log(`GameScene.Crack_Block(${__kind}): Game Over ~~!!`);
+         this.Get_GameHUD()
+            .Show_OX(OX.X, true);
          return;
       }
 
@@ -103,6 +109,9 @@ export default class GameScene extends Phaser.Scene {
 
    private async ClearedAll() {
 
+      this.Get_GameHUD()
+         .Show_OX(OX.O, true);
+
       await Async_Pause(500);
 
       for(let kind=0; kind<3; kind++) {
@@ -113,5 +122,9 @@ export default class GameScene extends Phaser.Scene {
       }
 
       this.Regen_Blocks();
+   }
+
+   private Get_GameHUD(): GameHUD {
+      return this.scene.get('GameHUD') as GameHUD;
    }
 }
