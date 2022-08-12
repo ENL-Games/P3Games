@@ -100,9 +100,36 @@ class GameHUD extends Phaser.Scene {
          this._text_GameOverScore.setVisible(false);
       }
    }
+   
+   // _checkTime: boolean = false;
+   // _counting: number = 0;  
+   // _countingTime: number = 0;
+   // _accTime: number = 0;
+   // update(time, delta) {
+   //    // let tt: number = time;
+   //    // console.log(`GameHUD.update(time= ${tt}, delta= ${delta})`);
+
+   //    if(!this._checkTime) {
+   //       this._countingTime = this.time.now;
+   //       this._accTime = 0;
+
+   //       this._checkTime = true;
+   //    }
+
+   //    this._accTime += delta;
+   //    if(1000 <= this._accTime) {
+   //       this._counting += 1;
+   //       console.log(`TICK !! (${this._counting})`);
+   //       this._accTime = 0;
+   //    }
+   // }
+
+   update(time, delta) {
+      //
+   }
 
    Show_OX(__OX: Values<typeof OX>, __show: boolean) {
-      console.log(`GameHUD.Show_OX(${__OX}, ${__show})`);
+      // console.log(`GameHUD.Show_OX(${__OX}, ${__show})`);
       this._curtain_OX.setVisible(__show);
 
       this._img_OO.setVisible(false);
