@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
+import { Values } from '~/Utils';
 
-export default class GameHUD extends Phaser.Scene {
+class GameHUD extends Phaser.Scene {
    
    _text_Time!: Phaser.GameObjects.Text;
    _text_Score!: Phaser.GameObjects.Text;
@@ -45,7 +46,7 @@ export default class GameHUD extends Phaser.Scene {
             // console.log("예외처리");
          });//이벤트 처리
 
-         // curtain.setVisible(false);
+         this._curtain_OX.setVisible(false);
       }
 
       this._img_OO = this.add.image(canvasWidth / 2, canvasHeight / 2, `ui-oo`);
@@ -55,4 +56,30 @@ export default class GameHUD extends Phaser.Scene {
          this._img_XX.setVisible(false);
       }
    }
+
+   Show_OX(__OX: Values<typeof OX>, __show: boolean) {
+      let ox: Values<typeof OX> = OX.X;
+
+      this._curtain_OX.setVisible(__show);
+
+      this._img_OO.setVisible(false);
+      this._img_XX.setVisible(false);
+
+      if(__show) {
+         let img_OX = (OX.O == __OX
+            ? this._img_OO
+            : this._img_XX
+            );
+         img_OX.setVisible(true);
+      }
+   }
+}
+
+const OX = { NONE: -1,
+   X: 0,
+   O: 1,
+} as const;
+
+export { GameHUD,
+   OX,
 }
