@@ -19,15 +19,17 @@ export default class GameScene extends Phaser.Scene {
    preload() {}
 
    create() {
+      this.scene.run('GameHUD');    
+      
       let canvasWidth = this.sys.canvas.width;
       let canvasHeight = this.sys.canvas.height;
 
       this.add.image(canvasWidth / 2, canvasHeight / 2, `bg-game`);
       
       this.Make_Switch();
-      this.create_UI();
-
       this.Regen_Blocks();
+
+      this.create_UI();
    }
 
    private Make_Switch() {
