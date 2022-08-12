@@ -19,6 +19,7 @@ class GameHUD extends Phaser.Scene {
    _timeGauge!: Phaser.GameObjects.Rectangle;
 
    static Gauge_Size: Phaser.Math.Vector2 = new Phaser.Math.Vector2(204, 44);
+   static TimeMS: number = 1000;
 
    constructor() {
       super({ key: 'GameHUD' });
@@ -145,7 +146,7 @@ class GameHUD extends Phaser.Scene {
          return;
       }
 
-      let ratio = remain / 1000;
+      let ratio = remain / GameHUD.TimeMS;
          //= Phaser.Math.FloorTo(remain / 1000, -1);  
 
       // if(sec != this._sec) {
@@ -158,7 +159,7 @@ class GameHUD extends Phaser.Scene {
       this.Update_Gauge(ratio);
    }
    Reset_Time(__checking: boolean = true) {
-      this._limitTime = (this.time.now + 1000) + 100;
+      this._limitTime = (this.time.now + GameHUD.TimeMS) + 100;
       this.Update_Gauge(1);
 
       this._checkTimer = __checking;
