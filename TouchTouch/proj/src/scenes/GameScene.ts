@@ -18,7 +18,7 @@ export default class GameScene extends Phaser.Scene {
 
    create() {
       this.scene.run('GameHUD');
-
+      
       let canvasWidth = this.sys.canvas.width;
       let canvasHeight = this.sys.canvas.height;
 
@@ -76,8 +76,11 @@ export default class GameScene extends Phaser.Scene {
          this._blocks[kind] = items;
       }
 
-      this.Get_GameHUD()
-         .Show_OX(OX.O, false);
+      let HUD = this.Get_GameHUD();
+      {
+         HUD.Reset_Time();
+         HUD.Show_OX(OX.O, false);
+      }
    }
 
    Crack_Block(__kind: number) {

@@ -6,7 +6,7 @@ class GameHUD extends Phaser.Scene {
    
    _text_Time!: Phaser.GameObjects.Text;
    _text_Score!: Phaser.GameObjects.Text;
-   _score: number = 0;
+   _score: number = 0;   
 
    _curtain_OX!: Phaser.GameObjects.Rectangle;
    _img_OO!: Phaser.GameObjects.Image;
@@ -15,6 +15,8 @@ class GameHUD extends Phaser.Scene {
    _tbutton_Retry!: Phaser.GameObjects.Text;
    _text_GameOverScore!: Phaser.GameObjects.Text;
 
+   _limitTime: number = -1;
+   _timeGauge!: Phaser.GameObjects.Rectangle;
    constructor() {
       super({ key: 'GameHUD' });
    }
@@ -22,6 +24,10 @@ class GameHUD extends Phaser.Scene {
    preload() {}
 
    create() {
+      this.Make_UI();
+   }
+
+   Make_UI() {
       let canvasWidth = this.sys.canvas.width;
       let canvasHeight = this.sys.canvas.height;
 
@@ -99,6 +105,13 @@ class GameHUD extends Phaser.Scene {
 
          this._text_GameOverScore.setVisible(false);
       }
+
+      this._timeGauge = this.add.rectangle(538, 30, 204, 44
+         , 0x00ff00);
+      {
+         this._timeGauge.setOrigin(0, 0);
+         // this._timeGauge.setDisplaySize(204 * 0.5, 44);
+      }
    }
    
    // _checkTime: boolean = false;
@@ -124,8 +137,41 @@ class GameHUD extends Phaser.Scene {
    //    }
    // }
 
-   update(time, delta) {
-      //
+   update(t, dt) {
+      this.CheckTime(t);      
+   }
+   private CheckTime(__time: number) {
+      if(-1 == this._limitTime) {
+         return;
+      }
+
+      let remain = this._limitTime - __time;
+      if(0 > remain) {
+         this.Update_Gauge(0);
+         return;
+      }
+
+      let ratio = remain / 1000;
+         //= Phaser.Math.FloorTo(remain / 1000, -1);  
+
+      // if(sec != this._sec) {
+      //    this._sec = sec;
+      //    console.log(this._sec);
+      // }
+      // console.log(sec);
+      
+      // console.log(`remain: ${this._limitTime} - ${t} = ${remain}`);
+      this.Update_Gauge(ratio);
+   }
+   Reset_Time() {
+      this._limitTime = (this.time.now + 1000) + 100;
+   }
+   private Update_Gauge(__ratio: number) {
+      if(1 < __ratio) {
+         __ratio = 1.0;
+      }
+
+      this._timeGauge.setDisplaySize(204 * __ratio, 44);
    }
 
    Show_OX(__OX: Values<typeof OX>, __show: boolean) {
