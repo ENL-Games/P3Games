@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { Values } from '~/Utils';
+import GameScene from './GameScene';
 
 class GameHUD extends Phaser.Scene {
    
@@ -75,7 +76,9 @@ class GameHUD extends Phaser.Scene {
             });//이벤트 처리
       
             this._tbutton_Retry.setInteractive().on('pointerdown', (pointer, localX, localY) => {
-               console.log("Retry");
+               // console.log("Retry");
+               this.Get_GameScene()
+                  .Retry_Game();
             });//이벤트 처리
          }
 
@@ -84,24 +87,30 @@ class GameHUD extends Phaser.Scene {
    }
 
    Show_OX(__OX: Values<typeof OX>, __show: boolean) {
-      let ox: Values<typeof OX> = OX.X;
-
+      console.log(`GameHUD.Show_OX(${__OX}, ${__show})`);
       this._curtain_OX.setVisible(__show);
 
       this._img_OO.setVisible(false);
       this._img_XX.setVisible(false);
 
       if(__show) {
-         let img_OX = (OX.O == __OX
-            ? this._img_OO
-            : this._img_XX
-            );
-         img_OX.setVisible(true);
-
-         if(OX.X == __OX) {
+         if(OX.O == __OX) {
+            this._img_OO.setVisible(true);
+         }
+         else if(OX.X == __OX) {
+            this._img_XX.setVisible(true);
             this._tbutton_Retry.setVisible(true);
          }
       }
+   }
+
+   OFF_Retry() {
+      this.Show_OX(OX.X, false);
+      this._tbutton_Retry.setVisible(false);
+   }
+
+   private Get_GameScene(): GameScene {
+      return this.scene.get('GameScene') as GameScene;
    }
 }
 

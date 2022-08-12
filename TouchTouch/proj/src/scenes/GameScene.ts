@@ -36,6 +36,15 @@ export default class GameScene extends Phaser.Scene {
       }
    }
 
+   Retry_Game() {
+      this.Reset_Blocks();
+
+      this.Regen_Blocks();
+
+      this.Get_GameHUD()
+         .OFF_Retry();
+   }
+
    async Regen_Blocks() {
       this._blocks = [];
       this._blocksCount = [0, 0, 0];
@@ -114,14 +123,18 @@ export default class GameScene extends Phaser.Scene {
 
       await Async_Pause(500);
 
+      this.Reset_Blocks();
+
+      this.Regen_Blocks();
+   }
+
+   private Reset_Blocks() {
       for(let kind=0; kind<3; kind++) {
          let count = this._blocksCount[kind];
          for(let c=0; c<count; c++) {
             this._blocks[kind][c].destroy();
          }
       }
-
-      this.Regen_Blocks();
    }
 
    private Get_GameHUD(): GameHUD {
