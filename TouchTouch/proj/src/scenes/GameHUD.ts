@@ -5,6 +5,9 @@ export default class GameHUD extends Phaser.Scene {
    _text_Time!: Phaser.GameObjects.Text;
    _text_Score!: Phaser.GameObjects.Text;
 
+   _img_OO!: Phaser.GameObjects.Image;
+   _img_XX!: Phaser.GameObjects.Image;
+
    constructor() {
       super({ key: 'GameHUD' });
    }
@@ -30,6 +33,13 @@ export default class GameHUD extends Phaser.Scene {
          this._text_Score.setStyle({
             font: "bold 32px Arial",
          });
+      }
+
+      this._img_OO = this.add.image(canvasWidth / 2, canvasHeight / 2, `ui-oo`);
+      this._img_XX = this.add.image(canvasWidth / 2, canvasHeight / 2, `ui-xx`);
+      {
+         this._img_OO.setVisible(false);
+         this._img_XX.setVisible(false);
       }
    }
 }
