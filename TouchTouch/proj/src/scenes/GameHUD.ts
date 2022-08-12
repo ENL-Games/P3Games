@@ -188,7 +188,7 @@ class GameHUD extends Phaser.Scene {
          }
          else if(OX.X == __OX) {
             this._checkTimer = false;
-            
+
             this._img_XX.setVisible(true);
             this._tbutton_Retry.setVisible(true);
 
@@ -199,6 +199,8 @@ class GameHUD extends Phaser.Scene {
    }
 
    OFF_Retry() {
+      this.Reset_Time(false);
+      
       this.Show_OX(OX.X, false);
       this._tbutton_Retry.setVisible(false);
 
