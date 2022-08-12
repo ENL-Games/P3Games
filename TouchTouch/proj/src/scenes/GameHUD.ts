@@ -10,6 +10,8 @@ class GameHUD extends Phaser.Scene {
    _img_OO!: Phaser.GameObjects.Image;
    _img_XX!: Phaser.GameObjects.Image;
 
+   _tbutton_Retry!: Phaser.GameObjects.Text;
+
    constructor() {
       super({ key: 'GameHUD' });
    }
@@ -55,6 +57,30 @@ class GameHUD extends Phaser.Scene {
          this._img_OO.setVisible(false);
          this._img_XX.setVisible(false);
       }
+
+      this._tbutton_Retry = this.add.text(canvasWidth / 2, canvasHeight - 100, `RETRY`);
+      {
+         this._tbutton_Retry.setOrigin(0.5, 0.5);
+         this._tbutton_Retry.setStyle({
+            font: "bold 64px Arial"
+         });
+         this._tbutton_Retry.setColor(`#ff00ff`);
+
+         {//event
+            this._tbutton_Retry.setInteractive().on('pointerover', (pointer, localX, localY) => {
+               this._tbutton_Retry.setScale(1.15, 1.15);
+            });//이벤트 처리
+            this._tbutton_Retry.setInteractive().on('pointerout', (pointer, localX, localY) => {
+               this._tbutton_Retry.setScale(1, 1);
+            });//이벤트 처리
+      
+            this._tbutton_Retry.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+               console.log("Retry");
+            });//이벤트 처리
+         }
+
+         this._tbutton_Retry.setVisible(false);
+      }
    }
 
    Show_OX(__OX: Values<typeof OX>, __show: boolean) {
@@ -71,6 +97,10 @@ class GameHUD extends Phaser.Scene {
             : this._img_XX
             );
          img_OX.setVisible(true);
+
+         if(OX.X == __OX) {
+            this._tbutton_Retry.setVisible(true);
+         }
       }
    }
 }
