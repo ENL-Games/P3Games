@@ -2,7 +2,7 @@ import Phaser from 'phaser'
 import PreLoader from './scenes/PreLoader'
 import IntroScene from './scenes/IntroScene'
 import GameScene from './scenes/GameScene'
-import GameHUD from './scenes/GameHUD'
+import { GameHUD } from './scenes/GameHUD'
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
