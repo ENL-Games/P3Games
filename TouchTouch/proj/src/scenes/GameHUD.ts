@@ -6,6 +6,7 @@ class GameHUD extends Phaser.Scene {
    
    _text_Time!: Phaser.GameObjects.Text;
    _text_Score!: Phaser.GameObjects.Text;
+   _score: number = 0;
 
    _curtain_OX!: Phaser.GameObjects.Rectangle;
    _img_OO!: Phaser.GameObjects.Image;
@@ -38,6 +39,8 @@ class GameHUD extends Phaser.Scene {
          this._text_Score.setStyle({
             font: "bold 32px Arial",
          });
+
+         this.Set_Score(0);
       }
 
       this._curtain_OX = this.add.rectangle(canvasWidth / 2, canvasHeight / 2, canvasWidth, canvasHeight
@@ -96,6 +99,7 @@ class GameHUD extends Phaser.Scene {
       if(__show) {
          if(OX.O == __OX) {
             this._img_OO.setVisible(true);
+            this.Set_Score(this._score + 1);
          }
          else if(OX.X == __OX) {
             this._img_XX.setVisible(true);
@@ -107,10 +111,24 @@ class GameHUD extends Phaser.Scene {
    OFF_Retry() {
       this.Show_OX(OX.X, false);
       this._tbutton_Retry.setVisible(false);
+
+      this.Set_Score(0);
    }
 
    private Get_GameScene(): GameScene {
       return this.scene.get('GameScene') as GameScene;
+   }
+
+   private Set_Score(__score: number, __isUpdate: boolean = true) {
+      this._score = __score;
+
+      if(__isUpdate) {
+         this.Update_Score();
+      }
+   }
+
+   private Update_Score() {
+      this._text_Score.setText(this._score.toString());
    }
 }
 
