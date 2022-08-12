@@ -98,6 +98,7 @@ export default class GameScene extends Phaser.Scene {
 
       kindList[current].Crack();
       this._blocksCurrent[__kind]++;
+      this.Get_GameHUD().Reset_Time();
 
       if(kindList.length <= this._blocksCurrent[__kind]) {
          this._blocksClear[__kind] = true;
@@ -120,9 +121,11 @@ export default class GameScene extends Phaser.Scene {
    }
 
    private async ClearedAll() {
-
-      this.Get_GameHUD()
-         .Show_OX(OX.O, true);
+      let HUD = this.Get_GameHUD();
+      {
+         HUD.Pause_Timer();
+         HUD.Show_OX(OX.O, true);
+      }
 
       await Async_Pause(500);
 
