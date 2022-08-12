@@ -14,8 +14,12 @@ class GameHUD extends Phaser.Scene {
    _tbutton_Retry!: Phaser.GameObjects.Text;
    _text_GameOverScore!: Phaser.GameObjects.Text;
 
+   _checkTimer: boolean = false;
    _limitTime: number = -1;
    _timeGauge!: Phaser.GameObjects.Rectangle;
+
+   static Gauge_Size: Phaser.Math.Vector2 = new Phaser.Math.Vector2(204, 44);
+
    constructor() {
       super({ key: 'GameHUD' });
    }
@@ -96,11 +100,10 @@ class GameHUD extends Phaser.Scene {
          this._text_GameOverScore.setVisible(false);
       }
 
-      this._timeGauge = this.add.rectangle(538, 30, 204, 44
+      this._timeGauge = this.add.rectangle(538, 30, GameHUD.Gauge_Size.x, GameHUD.Gauge_Size.y
          , 0x00ff00);
       {
          this._timeGauge.setOrigin(0, 0);
-         // this._timeGauge.setDisplaySize(204 * 0.5, 44);
       }
    }
    
@@ -131,7 +134,7 @@ class GameHUD extends Phaser.Scene {
       this.CheckTime(t);      
    }
    private CheckTime(__time: number) {
-      if(-1 == this._limitTime) {
+      if(!this._checkTimer || -1 == this._limitTime) {
          return;
       }
 
@@ -153,15 +156,21 @@ class GameHUD extends Phaser.Scene {
       // console.log(`remain: ${this._limitTime} - ${t} = ${remain}`);
       this.Update_Gauge(ratio);
    }
-   Reset_Time() {
+   Reset_Time(__checking: boolean = true) {
       this._limitTime = (this.time.now + 1000) + 100;
+      this.Update_Gauge(1);
+
+      this._checkTimer = __checking;
    }
    private Update_Gauge(__ratio: number) {
       if(1 < __ratio) {
          __ratio = 1.0;
       }
 
-      this._timeGauge.setDisplaySize(204 * __ratio, 44);
+      this._timeGauge.setDisplaySize(GameHUD.Gauge_Size.x * __ratio, GameHUD.Gauge_Size.y);
+   }
+   Pause_Timer() {
+      this._checkTimer = false;
    }
 
    Show_OX(__OX: Values<typeof OX>, __show: boolean) {
