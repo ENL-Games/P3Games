@@ -24,6 +24,9 @@ export default class PreLoader extends Phaser.Scene {
       this.load.image('switch-gob-push', 'assets/switch-gob-push.png');
       this.load.image('switch-cat', 'assets/switch-cat.png');
       this.load.image('switch-cat-push', 'assets/switch-cat-push.png');
+
+      this.load.image('ui-oo', 'assets/ui-oo.png');
+      this.load.image('ui-xx', 'assets/ui-xx.png');
    }
 
    create() {
