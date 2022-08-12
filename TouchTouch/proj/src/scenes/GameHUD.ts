@@ -141,6 +141,7 @@ class GameHUD extends Phaser.Scene {
       let remain = this._limitTime - __time;
       if(0 > remain) {
          this.Update_Gauge(0);
+         this.Show_OX(OX.X, true);
          return;
       }
 
@@ -186,6 +187,8 @@ class GameHUD extends Phaser.Scene {
             this.Set_Score(this._score + 1);
          }
          else if(OX.X == __OX) {
+            this._checkTimer = false;
+            
             this._img_XX.setVisible(true);
             this._tbutton_Retry.setVisible(true);
 
