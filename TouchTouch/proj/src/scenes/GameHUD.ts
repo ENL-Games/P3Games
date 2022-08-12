@@ -20,6 +20,8 @@ class GameHUD extends Phaser.Scene {
 
    static Gauge_Size: Phaser.Math.Vector2 = new Phaser.Math.Vector2(204, 44);
    static TimeMS: number = 1000;
+   static Gauge_ColorFirst = new Phaser.Display.Color(0, 255, 0);
+   static Gauge_ColorSecond = new Phaser.Display.Color(128, 0, 255);
 
    constructor() {
       super({ key: 'GameHUD' });
@@ -169,7 +171,21 @@ class GameHUD extends Phaser.Scene {
          __ratio = 1.0;
       }
 
-      this._timeGauge.setDisplaySize(GameHUD.Gauge_Size.x * __ratio, GameHUD.Gauge_Size.y);
+      let gaugeWidth = GameHUD.Gauge_Size.x * __ratio;
+      this._timeGauge.setDisplaySize(gaugeWidth, GameHUD.Gauge_Size.y);
+      this._timeGauge.setFillStyle(this.Calc_GaugeColor(gaugeWidth), 1);
+   }
+   private Calc_GaugeColor(__gaugeWidth): number {
+      let cwcLength = GameHUD.Gauge_Size.x;
+      let cwcIndex = cwcLength - __gaugeWidth;
+      //first color is 0
+
+      let cwc = Phaser.Display.Color.Interpolate.ColorWithColor(GameHUD.Gauge_ColorFirst, GameHUD.Gauge_ColorSecond
+         , GameHUD.Gauge_Size.x, cwcIndex
+         );
+      let interpolate = new Phaser.Display.Color(cwc.r, cwc.g, cwc.b);
+
+      return interpolate.color32;
    }
    Pause_Timer() {
       this._checkTimer = false;
@@ -201,7 +217,7 @@ class GameHUD extends Phaser.Scene {
 
    OFF_Retry() {
       this.Reset_Time(false);
-      
+
       this.Show_OX(OX.X, false);
       this._tbutton_Retry.setVisible(false);
 
