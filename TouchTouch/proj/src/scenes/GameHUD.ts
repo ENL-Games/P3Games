@@ -13,6 +13,7 @@ class GameHUD extends Phaser.Scene {
    _img_XX!: Phaser.GameObjects.Image;
 
    _tbutton_Retry!: Phaser.GameObjects.Text;
+   _text_GameOverScore!: Phaser.GameObjects.Text;
 
    constructor() {
       super({ key: 'GameHUD' });
@@ -87,6 +88,17 @@ class GameHUD extends Phaser.Scene {
 
          this._tbutton_Retry.setVisible(false);
       }
+
+      this._text_GameOverScore = this.add.text(canvasWidth / 2, 140, `0`);
+      {
+         this._text_GameOverScore.setOrigin(0.5, 0.5);
+         this._text_GameOverScore.setStyle({
+            font: "bold 120px Arial"
+         });
+         this._text_GameOverScore.setColor(`#ffff00`);
+
+         this._text_GameOverScore.setVisible(false);
+      }
    }
 
    Show_OX(__OX: Values<typeof OX>, __show: boolean) {
@@ -104,6 +116,9 @@ class GameHUD extends Phaser.Scene {
          else if(OX.X == __OX) {
             this._img_XX.setVisible(true);
             this._tbutton_Retry.setVisible(true);
+
+            this._text_GameOverScore.setText(this._score.toString());
+            this._text_GameOverScore.setVisible(true);
          }
       }
    }
@@ -113,6 +128,7 @@ class GameHUD extends Phaser.Scene {
       this._tbutton_Retry.setVisible(false);
 
       this.Set_Score(0);
+      this._text_GameOverScore.setVisible(false);
    }
 
    private Get_GameScene(): GameScene {
