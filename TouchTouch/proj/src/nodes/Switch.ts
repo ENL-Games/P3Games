@@ -38,14 +38,22 @@ export default class Switch extends zNode {
       this._baseImage.setInteractive().on('pointerdown', (pointer, localX, localY) => {
          // console.log(`Switch.pointerdown(): ${this._kind}`);
          this.Get_Scene().Crack_Block(this._kind);
+         this.Choose_BaseImage(true);
+      });//이벤트 처리
+      this._baseImage.setInteractive().on('pointerup', (pointer, localX, localY) => {
+         // console.log(`Switch.pointerdown(): ${this._kind}`);
+         this.Choose_BaseImage(false);
       });//이벤트 처리
 
       this.Choose_BaseImage();
    }
 
-   Choose_BaseImage() {
+   Choose_BaseImage(__push: boolean = false) {
       let texture: string = BaseImage_Texture[this._kind];
       // console.log(texture);
+      if(__push) {
+         texture += "-push";
+      }
       this._baseImage.setTexture(texture);
    }
 
