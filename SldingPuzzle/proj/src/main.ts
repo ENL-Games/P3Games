@@ -3,6 +3,8 @@ import Phaser from 'phaser'
 import PreLoader from './scenes/PreLoader'
 import IntroScene from './scenes/IntroScene'
 
+import GameScene from './scenes/GameScene'
+
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
 	backgroundColor: '#4e4e4e',
@@ -21,6 +23,7 @@ const config: Phaser.Types.Core.GameConfig = {
 	// },
 	scene: [ PreLoader,
 		IntroScene,
+		GameScene,
 	]
 }
 
