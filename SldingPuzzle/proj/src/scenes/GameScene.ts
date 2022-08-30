@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import Thumbnail from "~/obje/Thumbnail";
 
 export default class GameScene extends Phaser.Scene {
 
@@ -12,6 +13,6 @@ export default class GameScene extends Phaser.Scene {
         let canvasWidth = this.sys.canvas.width;
         let canvasHeight = this.sys.canvas.height;
 
-        let txtTitle = this.add.text(canvasWidth / 2, 200, `In Game`);
+        let thumb = new Thumbnail(this);
     }
 }
