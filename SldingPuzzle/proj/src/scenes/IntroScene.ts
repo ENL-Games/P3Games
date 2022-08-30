@@ -12,6 +12,8 @@ export default class IntroScene extends Phaser.Scene {
       let canvasWidth = this.sys.canvas.width;
       let canvasHeight = this.sys.canvas.height;
 
+      this.add.image(canvasWidth / 2, canvasHeight / 2, `bg-intro`);
+
       let txtTitle = this.add.text(canvasWidth / 2, 200, `SLIDING PUZZLE`);
       {
          txtTitle.setOrigin(0.5, 0.5);
