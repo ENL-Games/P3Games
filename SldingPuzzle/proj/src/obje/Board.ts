@@ -16,7 +16,10 @@ export default class Board extends zNode {
       // bg.setAlpha(0.5);
       // }
 
-    //   this.setSize(600, 600);
+      let bg = __scene.add.rectangle(__scene.sys.canvas.width /2, __scene.sys.canvas.height / 2, 600, 600, 0xffffff);
+      this.Add_ContainerItem(bg);
+
+      // this.setSize(600, 600);
 
       this.Add_ChipSheet(__scene);
 
@@ -54,6 +57,12 @@ export default class Board extends zNode {
          this._chips[n].Update_Position(orders[n]);
          this._chips[n].Show_Number(true);
          // this._chips[n].Enable_Collider(true);
+      }
+      {//last chip delete
+         // console.log(this._chips);
+         this._chips[15].destroy();
+         this._chips.pop();
+         // console.log(this._chips);
       }
    }
 
