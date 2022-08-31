@@ -15,13 +15,12 @@ export default class Board extends zNode {
       // this.Add_ContainerItem(bg);
       // bg.setAlpha(0.5);
       // }
+      this.Add_ChipSheet(__scene);
 
       let bg = __scene.add.rectangle(__scene.sys.canvas.width /2, __scene.sys.canvas.height / 2, 600, 600, 0xffffff);
+      // this.setSize(600, 600);
       this.Add_ContainerItem(bg);
 
-      // this.setSize(600, 600);
-
-      this.Add_ChipSheet(__scene);
 
       this.Setup_Game(this.scene);
    }
