@@ -21,6 +21,12 @@ export default class Board extends zNode {
       // this.setSize(600, 600);
       this.Add_ContainerItem(bg);
 
+      let boxOutline = this.scene.add.rectangle(__scene.sys.canvas.width /2, __scene.sys.canvas.height / 2, 610, 610);
+      {
+         this.Add_ContainerItem(boxOutline);
+         boxOutline.setStrokeStyle(10, 0xf1200c);
+         // boxOutline.setAlpha(0.5);
+      }
 
       this.Setup_Game(this.scene);
    }
