@@ -11,9 +11,11 @@ export default class BoardChip extends zNode {
 
    _collider: boolean = false;
 
+   static readonly ChipSize: number = 150;
+
    constructor(__scene, __index: number, __order: number, __stage: string) {
       super(__scene);
-      this.setSize(ChipSize, ChipSize);
+      this.setSize(BoardChip.ChipSize, BoardChip.ChipSize);
 
       this._index = __index;
       
@@ -75,8 +77,8 @@ export default class BoardChip extends zNode {
       let v = new Phaser.Math.Vector2(415, 135);
          //= new Phaser.Math.Vector2(300 + 340, 300 + 60);
       let pos = this.Get_Pos(__order);
-      v.x += (ChipSize * pos.x);
-      v.y += (ChipSize * pos.y);
+      v.x += (BoardChip.ChipSize * pos.x);
+      v.y += (BoardChip.ChipSize * pos.y);
       // {//TEST
       //    v.x += (pos.x * 10);
       //    v.y += (pos.y * 10);
@@ -94,10 +96,8 @@ export default class BoardChip extends zNode {
    private Get_CropPos(__order: number): Phaser.Math.Vector2 {
       let v = new Phaser.Math.Vector2(0, 0);
       let pos = this.Get_Pos(__order);
-      v.x = pos.x * ChipSize;
-      v.y = pos.y * ChipSize;
+      v.x = pos.x * BoardChip.ChipSize;
+      v.y = pos.y * BoardChip.ChipSize;
       return v;
    }
 }
-
-const ChipSize: number = 150;
