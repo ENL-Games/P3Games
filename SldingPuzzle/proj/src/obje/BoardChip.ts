@@ -5,14 +5,14 @@ export default class BoardChip extends zNode {
 
    _index: number = -1;
 
-   constructor(__scene, __index: number, __order: number) {
+   constructor(__scene, __index: number, __order: number, __stage: string) {
       super(__scene);
       this.setSize(ChipSize, ChipSize);
 
       this._index = __index;
       
       let bg: Phaser.GameObjects.Sprite = __scene.add.sprite(0, 0, ``);
-      bg.play(`puzzle-kkang-${__index}`);
+      bg.play(`${__stage}-${__index}`);
       this.Add_ContainerItem(bg);
 
       let v2 = this.Get_Position(__order);
