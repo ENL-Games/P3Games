@@ -13,8 +13,21 @@ export default class Board extends zNode {
 
     //   this.setSize(600, 600);
 
+      this.Add_ChipSheet(__scene);
+
       for(let n=0; n<16; n++) {
          let chip = new BoardChip(__scene, n, n);
+      }
+   }
+
+   Add_ChipSheet(__scene) {
+
+      let puzzle = 'puzzle-kkang';
+      for (let n = 0; n < 16; n++) {
+         __scene.anims.create({
+            key: `${puzzle}-${n}`,
+            frames: __scene.anims.generateFrameNumbers(puzzle, { frames: [n] }),
+         });
       }
    }
 }

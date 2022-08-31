@@ -10,29 +10,34 @@ export default class BoardChip extends zNode {
       this.setSize(ChipSize, ChipSize);
 
       this._index = __index;
-
-      let bg = __scene.add.image(0, 0, `yd-kkang`);
+      
+      let bg: Phaser.GameObjects.Sprite = __scene.add.sprite(0, 0, ``);
+      bg.play(`puzzle-kkang-${__index}`);
       this.Add_ContainerItem(bg);
-      {
-         let cropPos = this.Get_CropPos(__order);
-         console.log(cropPos);
-         // bg.setCrop(cropPos.x, cropPos.y, ChipSize, ChipSize);
-         
-         bg.setCrop(0, 0, ChipSize, ChipSize);
-      }
 
       let v2 = this.Get_Position(__order);
       this.setPosition(v2.x, v2.y);
       {
          // bg.setPosition(500, 500);
       }
+
+      {//TEST
+         this.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+            console.log(`${__index}`);
+         });//이벤트 처리
+      }
    }
 
    private Get_Position(__order: number): Phaser.Math.Vector2 {
-      let v = new Phaser.Math.Vector2(300 + 340, 300 + 60);
+      let v = new Phaser.Math.Vector2(450, 120);
+         //= new Phaser.Math.Vector2(300 + 340, 300 + 60);
       let pos = this.Get_Pos(__order);
       v.x += (ChipSize * pos.x);
       v.y += (ChipSize * pos.y);
+      // {//TEST
+      //    v.x += (pos.x * 10);
+      //    v.y += (pos.y * 10);
+      // }
       return v;
    }
 
