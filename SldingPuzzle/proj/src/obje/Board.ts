@@ -7,9 +7,11 @@ export default class Board extends zNode {
    constructor(__scene) {
       super(__scene);
 
-      let bg = __scene.add.image(__scene.sys.canvas.width /2, __scene.sys.canvas.height / 2, `yd-kkang`);
-      this.Add_ContainerItem(bg);
-      bg.setAlpha(0.5);
+      // {//BG
+      // let bg = __scene.add.image(__scene.sys.canvas.width /2, __scene.sys.canvas.height / 2, `yd-kkang`);
+      // this.Add_ContainerItem(bg);
+      // bg.setAlpha(0.5);
+      // }
 
     //   this.setSize(600, 600);
 

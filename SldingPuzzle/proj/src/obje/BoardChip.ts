@@ -29,7 +29,7 @@ export default class BoardChip extends zNode {
    }
 
    private Get_Position(__order: number): Phaser.Math.Vector2 {
-      let v = new Phaser.Math.Vector2(450, 120);
+      let v = new Phaser.Math.Vector2(415, 135);
          //= new Phaser.Math.Vector2(300 + 340, 300 + 60);
       let pos = this.Get_Pos(__order);
       v.x += (ChipSize * pos.x);
