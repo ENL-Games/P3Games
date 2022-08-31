@@ -7,6 +7,8 @@ export default class Board extends zNode {
 
    _chips: BoardChip[] = [];
 
+   _chips_Last: BoardChip | undefined;
+
    constructor(__scene) {
       super(__scene);
 
@@ -17,7 +19,7 @@ export default class Board extends zNode {
       // }
       this.Add_ChipSheet(__scene);
 
-      let bg = __scene.add.rectangle(__scene.sys.canvas.width /2, __scene.sys.canvas.height / 2, 600, 600, 0xffffff);
+      let bg = __scene.add.rectangle(__scene.sys.canvas.width /2, __scene.sys.canvas.height / 2, 600, 600, 0xf1200c);
       // this.setSize(600, 600);
       this.Add_ContainerItem(bg);
 
@@ -65,8 +67,10 @@ export default class Board extends zNode {
       }
       {//last chip delete
          // console.log(this._chips);
-         this._chips[15].destroy();
-         this._chips.pop();
+         // this._chips[15].destroy();
+         this._chips_Last = this._chips.pop();
+         this._chips_Last?.setVisible(false);
+         // console.log(`last chip is: ${this._chips_Last?.Index}`);
          // console.log(this._chips);
       }
    }
