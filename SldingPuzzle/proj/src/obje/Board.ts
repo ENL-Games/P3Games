@@ -63,6 +63,7 @@ export default class Board extends zNode {
       for(let n=0; n<16; n++) {
          this._chips[n].Update_Position(orders[n]);
          this._chips[n].Show_Number(true);
+         this._chips[n].Show_Outline(true);
          // this._chips[n].Enable_Collider(true);
       }
       {//last chip delete

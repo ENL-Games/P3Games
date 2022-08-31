@@ -9,6 +9,8 @@ export default class BoardChip extends zNode {
    private _circle_NumberInner!: Phaser.GameObjects.Graphics;
    private _text_Number!: Phaser.GameObjects.Text;
 
+   private _rectangle_Outline!: Phaser.GameObjects.Rectangle;
+
    private _collider: boolean = false;
 
    get Index() {
@@ -50,6 +52,13 @@ export default class BoardChip extends zNode {
       }
       this.Show_Number(false);
 
+      this._rectangle_Outline = this.scene.add.rectangle(0, 0, 150, 150);
+      {
+         this.Add_ContainerItem(this._rectangle_Outline);
+         this._rectangle_Outline.setStrokeStyle(1, 0x000000);
+         this._rectangle_Outline.setVisible(false);
+      }
+
       this.Update_Position(__order);
 
       this.setInteractive().on('pointerdown', (pointer, localX, localY) => {
@@ -75,6 +84,10 @@ export default class BoardChip extends zNode {
 
    Enable_Collider(__enable: boolean) {
       this._collider = __enable;
+   }
+
+   Show_Outline(__show: boolean) {
+      this._rectangle_Outline.setVisible(__show);
    }
 
    private Get_Position(__order: number): Phaser.Math.Vector2 {
