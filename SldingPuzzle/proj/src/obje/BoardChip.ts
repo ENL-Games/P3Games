@@ -5,6 +5,10 @@ export default class BoardChip extends zNode {
 
    _index: number = -1;
 
+   _circle_NumberOuter!: Phaser.GameObjects.Graphics;
+   _circle_NumberInner!: Phaser.GameObjects.Graphics;
+   _text_Number!: Phaser.GameObjects.Text;
+
    constructor(__scene, __index: number, __order: number, __stage: string) {
       super(__scene);
       this.setSize(ChipSize, ChipSize);
@@ -21,33 +25,40 @@ export default class BoardChip extends zNode {
          // bg.setPosition(500, 500);
       }
 
-      let numberCircle_Outer = __scene.add.circle(-52, -52, 18, 0x000000);
+      this._circle_NumberOuter = __scene.add.circle(-52, -52, 18, 0x000000);
       {
-         this.Add_ContainerItem(numberCircle_Outer);
-         numberCircle_Outer.setAlpha(0.5);
+         this.Add_ContainerItem(this._circle_NumberOuter);
+         this._circle_NumberOuter.setAlpha(0.5);
 
-         let numberCircle_Inner = __scene.add.circle(-52, -52, 16, 0xffff00);
-         this.Add_ContainerItem(numberCircle_Inner);
-         numberCircle_Inner.setAlpha(0.5);
+         this._circle_NumberInner = __scene.add.circle(-52, -52, 16, 0xffff00);
+         this.Add_ContainerItem(this._circle_NumberInner);
+         this._circle_NumberInner.setAlpha(0.5);
 
-         let txtNumber = __scene.add.text(-52, -52, `${__index + 1}`);
+         this._text_Number = __scene.add.text(-52, -52, `${__index + 1}`);
          {
-            this.Add_ContainerItem(txtNumber);
+            this.Add_ContainerItem(this._text_Number);
 
-            txtNumber.setOrigin(0.5, 0.5);
-            txtNumber.setStyle({
+            this._text_Number.setOrigin(0.5, 0.5);
+            this._text_Number.setStyle({
                font: "bold 20px Arial",
             });
-            txtNumber.setColor(`#ff0000`);
-            txtNumber.setAlpha(0.5);
+            this._text_Number.setColor(`#ff0000`);
+            this._text_Number.setAlpha(0.5);
          }
       }
+      this.Show_Number(false);
 
       {//TEST
          this.setInteractive().on('pointerdown', (pointer, localX, localY) => {
             console.log(`${__index}`);
          });//이벤트 처리
       }
+   }
+
+   private Show_Number(__show: boolean) {
+      this._circle_NumberOuter.setVisible(__show);
+      this._circle_NumberInner.setVisible(__show);
+      this._text_Number.setVisible(__show);
    }
 
    private Get_Position(__order: number): Phaser.Math.Vector2 {
