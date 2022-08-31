@@ -3,13 +3,17 @@ import zNode from "../zNode";
 
 export default class BoardChip extends zNode {
 
-   _index: number = -1;
+   private _index: number = -1;
 
-   _circle_NumberOuter!: Phaser.GameObjects.Graphics;
-   _circle_NumberInner!: Phaser.GameObjects.Graphics;
-   _text_Number!: Phaser.GameObjects.Text;
+   private _circle_NumberOuter!: Phaser.GameObjects.Graphics;
+   private _circle_NumberInner!: Phaser.GameObjects.Graphics;
+   private _text_Number!: Phaser.GameObjects.Text;
 
-   _collider: boolean = false;
+   private _collider: boolean = false;
+
+   get Index() {
+      return this._index;
+   }
 
    static readonly ChipSize: number = 150;
 
@@ -90,14 +94,6 @@ export default class BoardChip extends zNode {
       let v = new Phaser.Math.Vector2(0, 0);
       v.x = __order % 4;
       v.y = Phaser.Math.FloorTo(__order / 4);
-      return v;
-   }
-
-   private Get_CropPos(__order: number): Phaser.Math.Vector2 {
-      let v = new Phaser.Math.Vector2(0, 0);
-      let pos = this.Get_Pos(__order);
-      v.x = pos.x * BoardChip.ChipSize;
-      v.y = pos.y * BoardChip.ChipSize;
       return v;
    }
 }
