@@ -7,7 +7,6 @@ export default class Thumbnail extends zNode {
 
    constructor(__scene) {
       super(__scene);
-      __scene.add.existing(this);
 
       this._baseImage = __scene.add.image(0, 0, `yd-kkang`);
       this.Add_ContainerItem(this._baseImage);

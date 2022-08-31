@@ -7,8 +7,9 @@ export default class BoardChip extends zNode {
 
    constructor(__scene, __index: number, __order: number) {
       super(__scene);
-      __scene.add.existing(this);
       this.setSize(ChipSize, ChipSize);
+
+      this._index = __index;
 
       let bg = __scene.add.image(0, 0, `yd-kkang`);
       this.Add_ContainerItem(bg);
