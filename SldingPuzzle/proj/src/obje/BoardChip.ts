@@ -9,6 +9,8 @@ export default class BoardChip extends zNode {
    _circle_NumberInner!: Phaser.GameObjects.Graphics;
    _text_Number!: Phaser.GameObjects.Text;
 
+   _collider: boolean = false;
+
    constructor(__scene, __index: number, __order: number, __stage: string) {
       super(__scene);
       this.setSize(ChipSize, ChipSize);
@@ -18,12 +20,6 @@ export default class BoardChip extends zNode {
       let bg: Phaser.GameObjects.Sprite = __scene.add.sprite(0, 0, ``);
       bg.play(`${__stage}-${__index}`);
       this.Add_ContainerItem(bg);
-
-      let v2 = this.Get_Position(__order);
-      this.setPosition(v2.x, v2.y);
-      {
-         // bg.setPosition(500, 500);
-      }
 
       this._circle_NumberOuter = __scene.add.circle(-52, -52, 18, 0x000000);
       {
@@ -48,17 +44,31 @@ export default class BoardChip extends zNode {
       }
       this.Show_Number(false);
 
-      {//TEST
-         this.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+      this.Update_Position(__order);
+
+      this.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+         if (this._collider) {
             console.log(`${__index}`);
-         });//이벤트 처리
+         }
+      });//이벤트 처리
+   }
+
+   Update_Position(__order) {
+      let v2 = this.Get_Position(__order);
+      this.setPosition(v2.x, v2.y);
+      {
+         // bg.setPosition(500, 500);
       }
    }
 
-   private Show_Number(__show: boolean) {
+   Show_Number(__show: boolean) {
       this._circle_NumberOuter.setVisible(__show);
       this._circle_NumberInner.setVisible(__show);
       this._text_Number.setVisible(__show);
+   }
+
+   Enable_Collider(__enable: boolean) {
+      this._collider = __enable;
    }
 
    private Get_Position(__order: number): Phaser.Math.Vector2 {

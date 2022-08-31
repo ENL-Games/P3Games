@@ -1,8 +1,11 @@
 import Phaser from "phaser";
+import { Async_Pause } from "~/Utils";
 import zNode from "../zNode";
 import BoardChip from "./BoardChip";
 
 export default class Board extends zNode {
+
+   _chips: BoardChip[] = [];
 
    constructor(__scene) {
       super(__scene);
@@ -21,6 +24,22 @@ export default class Board extends zNode {
    }
 
    Setup_Game(__scene) {
+      for(let n=0; n<this._chips.length; n++) {
+         this._chips[n].destroy();
+      }
+      this._chips = [];
+
+      for(let n=0; n<16; n++) {
+         let chip = new BoardChip(__scene, n, n, `puzzle-kkang`);
+         this._chips.push(chip);
+      }
+
+      this.Shuffle_Chips();
+   }
+
+   private async Shuffle_Chips() {
+      await Async_Pause(1000);
+
       let orders: number[] = [];
       {//shuffle
          for (let n = 0; n < 16; n++) {
@@ -32,7 +51,9 @@ export default class Board extends zNode {
       }
 
       for(let n=0; n<16; n++) {
-         let chip = new BoardChip(__scene, n, orders[n], `puzzle-kkang`);
+         this._chips[n].Update_Position(orders[n]);
+         this._chips[n].Show_Number(true);
+         // this._chips[n].Enable_Collider(true);
       }
    }
 
