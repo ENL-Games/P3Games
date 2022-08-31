@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import zNode from "../zNode";
+import BoardChip from "./BoardChip";
 
 export default class Board extends zNode {
 
@@ -9,5 +10,12 @@ export default class Board extends zNode {
 
       let bg = __scene.add.image(__scene.sys.canvas.width /2, __scene.sys.canvas.height / 2, `yd-kkang`);
       this.Add_ContainerItem(bg);
+      bg.setAlpha(0.5);
+
+    //   this.setSize(600, 600);
+
+      for(let n=0; n<16; n++) {
+         let chip = new BoardChip(__scene, n, n);
+      }
    }
 }
