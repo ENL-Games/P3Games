@@ -7,7 +7,7 @@ export default class Board extends zNode {
 
    _chips: BoardChip[] = [];
 
-   _chips_Last: BoardChip | undefined;
+   // _chips_Last: BoardChip | undefined;
 
    constructor(__scene) {
       super(__scene);
@@ -69,8 +69,9 @@ export default class Board extends zNode {
       {//last chip delete
          // console.log(this._chips);
          // this._chips[15].destroy();
-         this._chips_Last = this._chips.pop();
-         this._chips_Last?.setVisible(false);
+         // this._chips_Last = this._chips.pop();
+         // this._chips_Last?.setVisible(false);
+         this._chips[15].setVisible(false);
          // console.log(`last chip is: ${this._chips_Last?.Index}`);
          // console.log(this._chips);
       }
