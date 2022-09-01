@@ -9,6 +9,7 @@ class ResManager {
       `ship`,
       `hak`,
       `shadow`,
+      `kkcity`,
    ];
 
    constructor() {}
