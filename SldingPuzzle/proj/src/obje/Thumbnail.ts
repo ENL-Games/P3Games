@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { ResManager } from "~/ResManager";
 import zNode from "../zNode";
 
 export default class Thumbnail extends zNode {
@@ -8,7 +9,7 @@ export default class Thumbnail extends zNode {
    constructor(__scene) {
       super(__scene);
 
-      this._baseImage = __scene.add.image(0, 0, `yd-kkang`);
+      this._baseImage = __scene.add.image(0, 0, ResManager.Get_Puzzle_ThumbKey(0));
       this.Add_ContainerItem(this._baseImage);
 
       let boxOutline = this.scene.add.rectangle(0, 0, 600, 600);
@@ -22,4 +23,8 @@ export default class Thumbnail extends zNode {
 
        this.setPosition(90, 90);
    }
+
+   Change_Image(__indexPuzzle: number) {
+      this._baseImage.setTexture(ResManager.Get_Puzzle_ThumbKey(__indexPuzzle));
+   }   
 }

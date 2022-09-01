@@ -4,6 +4,7 @@ import GameScene from './GameScene';
 
 export default class GameHUD extends Phaser.Scene {
 
+   _thumbnail: Thumbnail | undefined = undefined;
    _count: number = 0;
    _txt_Count!: Phaser.GameObjects.Text;
 
@@ -22,7 +23,7 @@ export default class GameHUD extends Phaser.Scene {
    }
 
    private Make_UI() {
-      let thumb = new Thumbnail(this);
+      this._thumbnail = new Thumbnail(this);
 
       let canvasWidth = this.sys.canvas.width;
       let canvasHeight = this.sys.canvas.height;
@@ -172,6 +173,10 @@ export default class GameHUD extends Phaser.Scene {
    }
    Update_Count() {
       this._txt_Count.setText(this._count.toString());
+   }
+
+   Change_Thumbnail(__indexPuzzle: number) {
+      this._thumbnail?.Change_Image(__indexPuzzle);
    }
 
    private Get_Scene(): GameScene {

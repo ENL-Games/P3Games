@@ -43,9 +43,11 @@ export default class GameScene extends Phaser.Scene {
         // console.log(`Reset_Game`);
         this.Get_GameHUD().Show_Clear(false);
         
-        this._Board.Setup_Game();
+        let indexPuzzle = 1;
+        this._Board.Setup_Game(indexPuzzle);
 
         let HUD = this.Get_GameHUD();
+        HUD.Change_Thumbnail(indexPuzzle);
         HUD.Reset_Count();
         HUD.Enable_Curtain(true);
     }

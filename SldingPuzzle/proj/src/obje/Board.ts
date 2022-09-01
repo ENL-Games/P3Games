@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { ResManager } from "~/ResManager";
 import GameScene from "~/scenes/GameScene";
 import { Async_Pause } from "~/Utils";
 import zNode from "../zNode";
@@ -33,7 +34,7 @@ export default class Board extends zNode {
       }
    }
 
-   Setup_Game() {
+   Setup_Game(__indexPuzzle: number) {
 
       for(let n=0; n<this._chips.length; n++) {
          this._chips[n].destroy();
@@ -44,7 +45,9 @@ export default class Board extends zNode {
       this._blankSeq = -1;
 
       for(let n=0; n<16; n++) {
-         let chip = new BoardChip(this.scene, this, n, n, `puzzle-kkang`);
+         let chip = new BoardChip(this.scene, this, n, n
+            , ResManager.Get_Puzzle_SpriteSheet(__indexPuzzle)
+            );
          this._chips.push(chip);
       }
 
@@ -104,13 +107,15 @@ export default class Board extends zNode {
    }
 
    Add_ChipSheet(__scene) {
+      for(let n=0; n<ResManager.Get_Puzzle_Count(); n++) {
+         for(let f=0; f<16; f++) {
+            let puzzle = ResManager.Get_Puzzle_SpriteSheet(n);
 
-      let puzzle = 'puzzle-kkang';
-      for (let n = 0; n < 16; n++) {
-         __scene.anims.create({
-            key: `${puzzle}-${n}`,
-            frames: __scene.anims.generateFrameNumbers(puzzle, { frames: [n] }),
-         });
+            __scene.anims.create({
+               key: `${puzzle}-${f}`,
+               frames: __scene.anims.generateFrameNumbers(puzzle, { frames: [f] }),
+            });
+         }
       }
    }
 
