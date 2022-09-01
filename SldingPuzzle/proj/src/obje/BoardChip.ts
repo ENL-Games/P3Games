@@ -74,7 +74,7 @@ export default class BoardChip extends zNode {
    }
 
    Update_Position(__seq) {
-      let v2 = this.Get_Position(__seq);
+      let v2 = BoardChip.Get_Position(__seq);
       this.setPosition(v2.x, v2.y);
       {
          // bg.setPosition(500, 500);
@@ -99,10 +99,10 @@ export default class BoardChip extends zNode {
       this._rectangle_Outline.setVisible(__show);
    }
 
-   private Get_Position(__order: number): Phaser.Math.Vector2 {
+   private static Get_Position(__order: number): Phaser.Math.Vector2 {
       let v = new Phaser.Math.Vector2(415, 135);
          //= new Phaser.Math.Vector2(300 + 340, 300 + 60);
-      let pos = this.Get_Pos(__order);
+      let pos = BoardChip.Get_Pos(__order);
       v.x += (BoardChip.ChipSize * pos.x);
       v.y += (BoardChip.ChipSize * pos.y);
       // {//TEST
@@ -112,7 +112,7 @@ export default class BoardChip extends zNode {
       return v;
    }
 
-   private Get_Pos(__order: number): Phaser.Math.Vector2 {
+   private static Get_Pos(__order: number): Phaser.Math.Vector2 {
       let v = new Phaser.Math.Vector2(0, 0);
       v.x = __order % 4;
       v.y = Phaser.Math.FloorTo(__order / 4);
