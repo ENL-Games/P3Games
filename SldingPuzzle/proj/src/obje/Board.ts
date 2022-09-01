@@ -87,6 +87,10 @@ export default class Board extends zNode {
          // console.log(`last chip is: ${this._chips_Last?.Index}`);
          // console.log(this._chips);
       }
+
+      {//collide chip finding
+         this.Find_IndexList_CollideChip(this._blankSeq);
+      }
    }
 
    Add_ChipSheet(__scene) {
@@ -98,5 +102,41 @@ export default class Board extends zNode {
             frames: __scene.anims.generateFrameNumbers(puzzle, { frames: [n] }),
          });
       }
+   }
+
+   Find_IndexList_CollideChip(__seqBlank: number): number[] {
+      let ret: number[] = [];
+      if(-1 != __seqBlank) {
+         let indexL = -1;
+         let indexT = -1;
+         let indexR = -1;
+         let indexB = -1;
+
+         if(-1 == [0, 4, 8, 12].indexOf(__seqBlank)) {
+            indexL = __seqBlank - 1;
+         }
+         if(4 <= __seqBlank) {
+            indexT = __seqBlank - 4;
+         }
+         if(-1 == [3, 7, 11, 15].indexOf(__seqBlank)) {
+            indexR = __seqBlank + 1;
+         }
+         if(12 > __seqBlank) {
+            indexB = __seqBlank + 4;
+         }
+
+         let list = [ indexL, indexT, indexR, indexB ];
+         list.forEach((v, i, a) => {
+            if(-1 != v) {               
+               ret.push(v);
+            }
+            // else {
+            //    console.log(`[${i}] ${v}`);
+            // }
+               
+         });
+         // console.log(ret);
+      }
+      return ret;
    }
 }
