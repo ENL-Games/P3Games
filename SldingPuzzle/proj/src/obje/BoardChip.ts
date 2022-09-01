@@ -13,13 +13,13 @@ export default class BoardChip extends zNode {
 
    private _collider: boolean = false;
 
-   get Index() {
+   get Index(): number {
       return this._index;
    }
 
    static readonly ChipSize: number = 150;
 
-   constructor(__scene, __index: number, __order: number, __stage: string) {
+   constructor(__scene, __index: number, __seq: number, __stage: string) {
       super(__scene);
       this.setSize(BoardChip.ChipSize, BoardChip.ChipSize);
 
@@ -59,7 +59,7 @@ export default class BoardChip extends zNode {
          this._rectangle_Outline.setVisible(false);
       }
 
-      this.Update_Position(__order);
+      this.Update_Position(__seq);
 
       this.setInteractive().on('pointerdown', (pointer, localX, localY) => {
          if (this._collider) {
@@ -68,8 +68,8 @@ export default class BoardChip extends zNode {
       });//이벤트 처리
    }
 
-   Update_Position(__order) {
-      let v2 = this.Get_Position(__order);
+   Update_Position(__seq) {
+      let v2 = this.Get_Position(__seq);
       this.setPosition(v2.x, v2.y);
       {
          // bg.setPosition(500, 500);
