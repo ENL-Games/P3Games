@@ -86,7 +86,7 @@ export default class GameHUD extends Phaser.Scene {
          , canvasWidth, canvasHeight
          , 0x000000);
       {
-         this._curtain.setAlpha(0.05);
+         this._curtain.setAlpha(0.01);
 
          this._curtain.setInteractive().on('pointerdown', (pointer, localX, localY) => {
             // console.log("예외처리");

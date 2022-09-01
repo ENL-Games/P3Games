@@ -34,7 +34,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     private async Start_Game() {
-        await Async_Pause(500);
+        await Async_Pause(1);
 
         this.Reset_Game();
     }
