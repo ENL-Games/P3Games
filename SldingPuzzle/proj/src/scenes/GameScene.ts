@@ -35,7 +35,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     Reset_Game() {
-        console.log(`Reset_Game`);
+        // console.log(`Reset_Game`);
 
         this._Board.Setup_Game();
         this._GameHUD.Reset_Count();
