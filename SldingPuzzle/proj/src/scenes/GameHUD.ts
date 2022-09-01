@@ -49,8 +49,7 @@ export default class GameHUD extends Phaser.Scene {
 
          {
             txtBtn_Reset.setInteractive().on('pointerdown', (pointer, localX, localY) => {
-               this.Get_Scene()
-                  .Reset_Game();
+               this.Reset_Game();
             });//이벤트 처리
 
             txtBtn_Reset.setInteractive().on('pointerover', (pointer, localX, localY) => {
@@ -73,7 +72,8 @@ export default class GameHUD extends Phaser.Scene {
 
          {
             txtBtn_Exit.setInteractive().on('pointerdown', (pointer, localX, localY) => {
-               this.Reset_Game();
+               this.Get_Scene()
+                  .Exit_Game();
             });//이벤트 처리
 
             txtBtn_Exit.setInteractive().on('pointerover', (pointer, localX, localY) => {
