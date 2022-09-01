@@ -31,13 +31,9 @@ export default class Board extends zNode {
          boxOutline.setStrokeStyle(10, 0xf1200c);
          // boxOutline.setAlpha(0.5);
       }
-
-      // this.Setup_Game(this.scene);
    }
 
    Setup_Game() {
-      this.Get_Scene().Get_GameHUD()
-         .Reset_Count();
 
       for(let n=0; n<this._chips.length; n++) {
          this._chips[n].destroy();

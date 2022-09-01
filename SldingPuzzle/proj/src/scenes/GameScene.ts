@@ -4,6 +4,7 @@ import GameHUD from "./GameHUD";
 
 export default class GameScene extends Phaser.Scene {
 
+    _Board!: Board;
     _GameHUD!: GameHUD;
 
     constructor() {
@@ -27,10 +28,17 @@ export default class GameScene extends Phaser.Scene {
             // bg.setBlendMode(Phaser.BlendModes.DIFFERENCE);
         }
 
-        let board = new Board(this);
+        this._Board = new Board(this);
         this._GameHUD = new GameHUD(this);
 
-        board.Setup_Game();
+        this.Reset_Game();
+    }
+
+    Reset_Game() {
+        console.log(`Reset_Game`);
+
+        this._Board.Setup_Game();
+        this._GameHUD.Reset_Count();
     }
 
     Get_GameHUD(): GameHUD {

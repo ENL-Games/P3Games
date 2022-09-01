@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import Thumbnail from '~/obje/Thumbnail';
 import zNode from '~/zNode';
+import GameScene from './GameScene';
 
 export default class GameHUD extends zNode {
 
@@ -23,6 +24,34 @@ export default class GameHUD extends zNode {
          this._txt_Count.setColor(`#000000`);
          this._txt_Count.setStroke(`#ffffff`, 4);
       }
+
+      let txtBtn_Reset = __scene.add.text(__scene.sys.canvas.width - 140, __scene.sys.canvas.height - 56, `RESET`);
+      {
+         this.Add_ContainerItem(txtBtn_Reset);
+
+         txtBtn_Reset.setOrigin(0.5, 0.5);
+         txtBtn_Reset.setStyle({
+            font: "bold 60px Arial",
+         });
+         txtBtn_Reset.setColor(`#ff0000`);
+         txtBtn_Reset.setStroke(`#ffffff`, 2);
+
+         {
+            txtBtn_Reset.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+               this.Get_Scene()
+                  .Reset_Game();
+            });//이벤트 처리
+
+            txtBtn_Reset.setInteractive().on('pointerover', (pointer, localX, localY) => {
+               // console.log("over: " + this._text.text);
+               txtBtn_Reset.setScale(1.25, 1.25);
+            });//이벤트 처리
+            txtBtn_Reset.setInteractive().on('pointerout', (pointer, localX, localY) => {
+               // console.log("out: " + this._text.text);
+               txtBtn_Reset.setScale(1, 1);
+            });//이벤트 처리
+         }
+      }
    }
 
    Reset_Count() {
@@ -37,5 +66,9 @@ export default class GameHUD extends zNode {
    }
    Update_Count() {
       this._txt_Count.setText(this._count.toString());
+   }
+
+   private Get_Scene(): GameScene {
+      return this.scene as GameScene;
    }
 }
