@@ -90,10 +90,15 @@ export default class BoardChip extends zNode {
 
    Enable_Collider(__enable: boolean) {
       this._collider = __enable;
-      {//DEV TEST
-         let colorTint: number = (__enable ? 0xffffff : 0x4e4e4e);
-         this._bg.tint = colorTint;
-      }
+      // {//DEV TEST
+      //    let colorTint: number = (__enable ? 0xffffff : 0x4e4e4e);
+      //    this._bg.tint = colorTint;
+
+      //    // if(15 == this.Index) {
+      //    //    this.setVisible(true);
+      //    //    this._bg.tint = 0xff0000;
+      //    // }
+      // }
    }
 
    Show_Outline(__show: boolean) {

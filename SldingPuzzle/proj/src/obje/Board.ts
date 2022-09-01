@@ -160,6 +160,15 @@ export default class Board extends zNode {
       let index = __chip.Index;
 
       let sequence = this._list_Sequence[index];
-      console.log(`End_ChipSliding(index= ${index}, sequence= ${sequence})`);
+      // console.log(`End_ChipSliding(index= ${index}, sequence= ${sequence} => ${this._blankSeq})`);
+      
+      //마지막 칩 위치 변경
+      this._list_Sequence[15] = sequence;
+      this._chips[15].Update_Position(sequence);
+      
+      this._list_Sequence[index] = this._blankSeq;//이동한 칩의 seq 변경
+      this._blankSeq = sequence;//빈 seq에 이동한 칩의 seq 대입
+
+      this.Enable_ChipsCollider();
    }
 }
