@@ -80,9 +80,6 @@ export default class BoardChip extends zNode {
    Update_Position(__seq) {
       let v2 = BoardChip.Get_Position(__seq);
       this.setPosition(v2.x, v2.y);
-      {
-         // bg.setPosition(500, 500);
-      }
    }
 
    Show_Number(__show: boolean) {

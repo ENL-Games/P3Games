@@ -7,7 +7,6 @@ export default class Board extends zNode {
 
    _chips: BoardChip[] = [];
 
-   // _chips_Last: BoardChip | undefined;
    _list_Sequence: number[] = [];
    _blankSeq: number = -1;
 
@@ -71,19 +70,10 @@ export default class Board extends zNode {
          this._chips[n].Show_Outline(true);
 
          this._list_Sequence[n] = orders[n];
-         // this._chips[n].Enable_Collider(true);
       }
       {//last chip delete
-         // console.log(this._chips);
-         // this._chips[15].destroy();
-         // this._chips_Last = this._chips.pop();
-         // this._chips_Last?.setVisible(false);
-
          this._blankSeq = this._list_Sequence[15];
          this._chips[15].setVisible(false);
-
-         // console.log(`last chip is: ${this._chips_Last?.Index}`);
-         // console.log(this._chips);
       }
 
       this.Enable_ChipsCollider();
