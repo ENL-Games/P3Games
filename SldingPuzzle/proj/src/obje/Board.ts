@@ -45,7 +45,7 @@ export default class Board extends zNode {
       this._blankSeq = -1;
 
       for(let n=0; n<16; n++) {
-         let chip = new BoardChip(__scene, n, n, `puzzle-kkang`);
+         let chip = new BoardChip(__scene, this, n, n, `puzzle-kkang`);
          this._chips.push(chip);
       }
 
@@ -152,5 +152,21 @@ export default class Board extends zNode {
          // console.log(ret);
       }
       return ret;
+   }
+
+   Tapped_Chip(__chip: BoardChip) {
+      let index = __chip.Index;
+
+      // let sequence = this._list_Sequence[index];
+      // console.log(`Tapped_Chip(index= ${index}, sequence= ${sequence})`);
+
+      this._chips[index].Sliding_ToBlank(this._blankSeq);
+   }
+
+   End_ChipSliding(__chip: BoardChip) {
+      let index = __chip.Index;
+
+      let sequence = this._list_Sequence[index];
+      console.log(`End_ChipSliding(index= ${index}, sequence= ${sequence})`);
    }
 }

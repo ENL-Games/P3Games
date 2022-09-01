@@ -4,6 +4,8 @@ import Board from "./Board";
 
 export default class BoardChip extends zNode {
 
+   private _board: Board | undefined = undefined;
+
    private _index: number = -1;
 
    private _bg!: Phaser.GameObjects.Sprite;
@@ -25,6 +27,8 @@ export default class BoardChip extends zNode {
    constructor(__scene, __board: Board, __index: number, __seq: number, __stage: string) {
       super(__scene);
       this.setSize(BoardChip.ChipSize, BoardChip.ChipSize);
+
+      this._board = __board;
 
       this._index = __index;
       
@@ -97,6 +101,54 @@ export default class BoardChip extends zNode {
 
    Show_Outline(__show: boolean) {
       this._rectangle_Outline.setVisible(__show);
+   }
+
+   Sliding_ToBlank(__blankSequence: number) {      
+      let toV2 = BoardChip.Get_Position(__blankSequence);
+      // {//DEV LOG
+      //    let toP = BoardChip.Get_Pos(__blankSequence);
+
+      //    let LOG = `Sliding_ToBlank(${__blankSequence})`;
+      //    LOG += ` => pos= (${toP.x}, ${toP.y}), position= (${toV2.x}, ${toV2.y})`;
+      //    LOG += `, MyPosition= (${this.x}, ${this.y})`;
+      //    console.log(LOG );
+      // }
+
+      let DurationMoving = 200;
+
+      let propsTween;
+      if(this.x == toV2.x) {
+         propsTween = {
+            y: { value: toV2.y, duration: DurationMoving
+               // , delay: delay
+            }
+         }
+
+         // console.log(`Move Y: ${this.y} => ${toV2.y}`);
+      }
+      else if(this.y == toV2.y) {
+         propsTween = {
+            x: { value: toV2.x, duration: DurationMoving
+               // , delay: delay
+            }
+         }
+
+         // console.log(`Move X: ${this.x} => ${toV2.x}`);
+      }
+
+      this.scene.tweens.add({
+         targets: this,
+         props: propsTween,
+         // ease: Phaser.Math.Easing.Bounce.Out,
+
+         onStart: () => {
+            // this.setPosition(pos.x, pos.y - MoveY);
+         },
+         onComplete: () => {
+            this.setPosition(toV2.x, toV2.y);
+            this._board?.End_ChipSliding(this);
+         }
+      });
    }
 
    private static Get_Position(__order: number): Phaser.Math.Vector2 {
