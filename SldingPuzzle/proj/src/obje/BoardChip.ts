@@ -1,9 +1,12 @@
 import Phaser from "phaser";
 import zNode from "../zNode";
+import Board from "./Board";
 
 export default class BoardChip extends zNode {
 
    private _index: number = -1;
+
+   private _bg!: Phaser.GameObjects.Sprite;
 
    private _circle_NumberOuter!: Phaser.GameObjects.Graphics;
    private _circle_NumberInner!: Phaser.GameObjects.Graphics;
@@ -19,15 +22,15 @@ export default class BoardChip extends zNode {
 
    static readonly ChipSize: number = 150;
 
-   constructor(__scene, __index: number, __seq: number, __stage: string) {
+   constructor(__scene, __board: Board, __index: number, __seq: number, __stage: string) {
       super(__scene);
       this.setSize(BoardChip.ChipSize, BoardChip.ChipSize);
 
       this._index = __index;
       
-      let bg: Phaser.GameObjects.Sprite = __scene.add.sprite(0, 0, ``);
-      bg.play(`${__stage}-${__index}`);
-      this.Add_ContainerItem(bg);
+      this._bg = __scene.add.sprite(0, 0, ``);
+      this._bg.play(`${__stage}-${__index}`);
+      this.Add_ContainerItem(this._bg);
 
       this._circle_NumberOuter = __scene.add.circle(-52, -52, 18, 0x000000);
       {
@@ -64,7 +67,8 @@ export default class BoardChip extends zNode {
 
       this.setInteractive().on('pointerdown', (pointer, localX, localY) => {
          if (this._collider) {
-            console.log(`${__index}`);
+            // console.log(`pointerdown= ${__index}`);
+            __board.Tapped_Chip(this);
          }
       });//이벤트 처리
    }
@@ -85,6 +89,10 @@ export default class BoardChip extends zNode {
 
    Enable_Collider(__enable: boolean) {
       this._collider = __enable;
+      {//DEV TEST
+         let colorTint: number = (__enable ? 0xffffff : 0x4e4e4e);
+         this._bg.tint = colorTint;
+      }
    }
 
    Show_Outline(__show: boolean) {
