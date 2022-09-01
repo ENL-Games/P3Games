@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import GameScene from "~/scenes/GameScene";
 import { Async_Pause } from "~/Utils";
 import zNode from "../zNode";
 import BoardChip from "./BoardChip";
@@ -31,10 +32,13 @@ export default class Board extends zNode {
          // boxOutline.setAlpha(0.5);
       }
 
-      this.Setup_Game(this.scene);
+      // this.Setup_Game(this.scene);
    }
 
-   Setup_Game(__scene) {
+   Setup_Game() {
+      this.Get_Scene().Get_GameHUD()
+         .Reset_Count();
+
       for(let n=0; n<this._chips.length; n++) {
          this._chips[n].destroy();
       }
@@ -44,7 +48,7 @@ export default class Board extends zNode {
       this._blankSeq = -1;
 
       for(let n=0; n<16; n++) {
-         let chip = new BoardChip(__scene, this, n, n, `puzzle-kkang`);
+         let chip = new BoardChip(this.scene, this, n, n, `puzzle-kkang`);
          this._chips.push(chip);
       }
 
@@ -154,6 +158,9 @@ export default class Board extends zNode {
       // console.log(`Tapped_Chip(index= ${index}, sequence= ${sequence})`);
 
       this._chips[index].Sliding_ToBlank(this._blankSeq);
+
+      this.Get_Scene().Get_GameHUD()
+         .Add_Count();
    }
 
    End_ChipSliding(__chip: BoardChip) {
@@ -170,5 +177,9 @@ export default class Board extends zNode {
       this._blankSeq = sequence;//빈 seq에 이동한 칩의 seq 대입
 
       this.Enable_ChipsCollider();
+   }
+
+   private Get_Scene(): GameScene {
+      return this.scene as GameScene;
    }
 }

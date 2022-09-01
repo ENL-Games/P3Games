@@ -1,7 +1,10 @@
 import Phaser from "phaser";
 import Board from "~/obje/Board";
+import GameHUD from "./GameHUD";
 
 export default class GameScene extends Phaser.Scene {
+
+    _GameHUD!: GameHUD;
 
     constructor() {
         super({ key: 'GameScene' })
@@ -25,5 +28,12 @@ export default class GameScene extends Phaser.Scene {
         }
 
         let board = new Board(this);
+        this._GameHUD = new GameHUD(this);
+
+        board.Setup_Game();
+    }
+
+    Get_GameHUD(): GameHUD {
+        return this._GameHUD;
     }
 }
