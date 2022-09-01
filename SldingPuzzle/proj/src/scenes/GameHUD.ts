@@ -8,12 +8,17 @@ export default class GameHUD extends zNode {
    _count: number = 0;
    _txt_Count!: Phaser.GameObjects.Text;
 
+   _curtain!: Phaser.GameObjects.Rectangle;
+
    constructor(__scene) {
       super(__scene);
 
       let thumb = new Thumbnail(__scene);
 
-      this._txt_Count = __scene.add.text(__scene.sys.canvas.width - 20, 64, `0`);
+      let canvasWidth = __scene.sys.canvas.width;
+      let canvasHeight = __scene.sys.canvas.height;
+
+      this._txt_Count = __scene.add.text(canvasWidth - 20, 64, `0`);
       {
          this.Add_ContainerItem(this._txt_Count);
 
@@ -25,7 +30,7 @@ export default class GameHUD extends zNode {
          this._txt_Count.setStroke(`#ffffff`, 4);
       }
 
-      let txtBtn_Reset = __scene.add.text(__scene.sys.canvas.width - 140, __scene.sys.canvas.height - 56, `RESET`);
+      let txtBtn_Reset = __scene.add.text(canvasWidth - 140, canvasHeight - 56, `RESET`);
       {
          this.Add_ContainerItem(txtBtn_Reset);
 
@@ -51,7 +56,7 @@ export default class GameHUD extends zNode {
          }
       }
 
-      let txtBtn_Exit = __scene.add.text(140, __scene.sys.canvas.height - 56, `EXIT`);
+      let txtBtn_Exit = __scene.add.text(140, canvasHeight - 56, `EXIT`);
       {
          this.Add_ContainerItem(txtBtn_Exit);
 
@@ -76,6 +81,24 @@ export default class GameHUD extends zNode {
             });//이벤트 처리
          }
       }
+
+      this._curtain = __scene.add.rectangle(__scene.sys.canvas.width / 2, __scene.sys.canvas.height / 2
+         , canvasWidth, canvasHeight
+         , 0x000000);
+      {
+         this.Add_ContainerItem(this._curtain);
+         this._curtain.setAlpha(0.05);
+
+         this._curtain.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+            // console.log("예외처리");
+         });//이벤트 처리
+
+         // this.Enable_Curtain(false);
+      }
+   }
+
+   Enable_Curtain(__enable: boolean) {
+      this._curtain.setVisible(__enable);
    }
 
    Reset_Count() {

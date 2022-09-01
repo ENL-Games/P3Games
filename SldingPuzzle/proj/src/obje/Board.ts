@@ -98,6 +98,9 @@ export default class Board extends zNode {
          //    }
          // }
       });
+
+      this.Get_Scene().Get_GameHUD()
+         .Enable_Curtain(false);
    }
 
    Add_ChipSheet(__scene) {
@@ -148,6 +151,9 @@ export default class Board extends zNode {
    }
 
    Tapped_Chip(__chip: BoardChip) {
+      this.Get_Scene().Get_GameHUD()
+         .Enable_Curtain(true);
+
       let index = __chip.Index;
 
       // let sequence = this._list_Sequence[index];
