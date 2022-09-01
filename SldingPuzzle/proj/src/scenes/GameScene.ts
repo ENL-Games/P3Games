@@ -1,11 +1,11 @@
 import Phaser from "phaser";
 import Board from "~/obje/Board";
+import { Async_Pause } from "~/Utils";
 import GameHUD from "./GameHUD";
 
 export default class GameScene extends Phaser.Scene {
 
     _Board!: Board;
-    _GameHUD!: GameHUD;
 
     constructor() {
         super({ key: 'GameScene' })
@@ -29,7 +29,12 @@ export default class GameScene extends Phaser.Scene {
         }
 
         this._Board = new Board(this);
-        this._GameHUD = new GameHUD(this);
+
+        this.Start_Game();
+    }
+
+    private async Start_Game() {
+        await Async_Pause(500);
 
         this.Reset_Game();
     }
@@ -38,7 +43,8 @@ export default class GameScene extends Phaser.Scene {
         // console.log(`Reset_Game`);
 
         this._Board.Setup_Game();
-        this._GameHUD.Reset_Count();
+        this.Get_GameHUD()
+            .Reset_Count();
     }
 
     Exit_Game() {
@@ -46,6 +52,6 @@ export default class GameScene extends Phaser.Scene {
     }
 
     Get_GameHUD(): GameHUD {
-        return this._GameHUD;
+        return this.scene.get(`GameHUD`) as GameHUD;
     }
 }
