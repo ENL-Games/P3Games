@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import Thumbnail from '~/obje/Thumbnail';
 
 export default class GameHUD extends Phaser.Scene {
 
@@ -9,6 +10,7 @@ export default class GameHUD extends Phaser.Scene {
    preload() {}
 
    create() {
+      let thumb = new Thumbnail(this);
    }
    // update(t, dt) {}
 }

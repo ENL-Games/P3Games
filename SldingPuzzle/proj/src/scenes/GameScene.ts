@@ -1,6 +1,5 @@
 import Phaser from "phaser";
 import Board from "~/obje/Board";
-import Thumbnail from "~/obje/Thumbnail";
 
 export default class GameScene extends Phaser.Scene {
 
@@ -12,7 +11,7 @@ export default class GameScene extends Phaser.Scene {
 
     create() {
         this.scene.run('GameHUD');
-        
+
         let canvasWidth = this.sys.canvas.width;
         let canvasHeight = this.sys.canvas.height;
 
@@ -24,8 +23,6 @@ export default class GameScene extends Phaser.Scene {
             box.setAlpha(0.75);
             // bg.setBlendMode(Phaser.BlendModes.DIFFERENCE);
         }
-
-        let thumb = new Thumbnail(this);
 
         let board = new Board(this);
     }
