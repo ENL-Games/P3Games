@@ -89,7 +89,21 @@ export default class Board extends zNode {
       }
 
       {//collide chip finding
-         this.Find_IndexList_CollideChip(this._blankSeq);
+         let indexList_CollideChip = this.Find_IndexList_CollideChip(this._blankSeq);
+
+         this._list_Sequence.forEach((v, i, a) => {
+            let enableCollide = (-1 != indexList_CollideChip.indexOf(v));
+            this._chips[i].Enable_Collider(enableCollide);
+
+            // {//DEBUG LOG
+            //    if (enableCollide) {
+            //       let index = this._chips[i].Index;
+            //       console.log(
+            //          `enableCollide> sequence= ${this._list_Sequence[i]}, index= ${index}, number= ${index + 1}`
+            //       );
+            //    }
+            // }
+         });
       }
    }
 
