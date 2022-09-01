@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import Board from "~/obje/Board";
+import { ResManager } from "~/ResManager";
 import { Async_Pause } from "~/Utils";
 import GameHUD from "./GameHUD";
 
@@ -43,7 +44,7 @@ export default class GameScene extends Phaser.Scene {
         // console.log(`Reset_Game`);
         this.Get_GameHUD().Show_Clear(false);
         
-        let indexPuzzle = 1;
+        let indexPuzzle = Phaser.Math.Between(0, ResManager.Get_Puzzle_Count() - 1);
         this._Board.Setup_Game(indexPuzzle);
 
         let HUD = this.Get_GameHUD();
@@ -58,6 +59,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     Exit_Game() {
+        this.scene.sleep(`GameHUD`);
         this.scene.start(`IntroScene`);
     }
 
