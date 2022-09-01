@@ -82,29 +82,32 @@ export default class Board extends zNode {
          this._blankSeq = this._list_Sequence[15];
          this._chips[15].setVisible(false);
 
-         // console.log(this._list_Sequence);
-         // console.log(`_blankSeq= ${this._blankSeq}`);
          // console.log(`last chip is: ${this._chips_Last?.Index}`);
          // console.log(this._chips);
       }
 
-      {//collide chip finding
-         let indexList_CollideChip = this.Find_IndexList_CollideChip(this._blankSeq);
+      this.Enable_ChipsCollider();
+   }
 
-         this._list_Sequence.forEach((v, i, a) => {
-            let enableCollide = (-1 != indexList_CollideChip.indexOf(v));
-            this._chips[i].Enable_Collider(enableCollide);
+   Enable_ChipsCollider() {
+      // console.log(this._list_Sequence);
+      // console.log(`_blankSeq= ${this._blankSeq}`);
 
-            // {//DEBUG LOG
-            //    if (enableCollide) {
-            //       let index = this._chips[i].Index;
-            //       console.log(
-            //          `enableCollide> sequence= ${this._list_Sequence[i]}, index= ${index}, number= ${index + 1}`
-            //       );
-            //    }
-            // }
-         });
-      }
+      let indexList_CollideChip = this.Find_IndexList_CollideChip(this._blankSeq);
+
+      this._list_Sequence.forEach((v, i, a) => {
+         let enableCollide = (-1 != indexList_CollideChip.indexOf(v));
+         this._chips[i].Enable_Collider(enableCollide);
+
+         // {//DEBUG LOG
+         //    if (enableCollide) {
+         //       let index = this._chips[i].Index;
+         //       console.log(
+         //          `enableCollide> sequence= ${this._list_Sequence[i]}, index= ${index}, number= ${index + 1}`
+         //       );
+         //    }
+         // }
+      });
    }
 
    Add_ChipSheet(__scene) {
