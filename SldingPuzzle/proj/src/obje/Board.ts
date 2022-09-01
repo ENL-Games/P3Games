@@ -178,10 +178,37 @@ export default class Board extends zNode {
       this._list_Sequence[index] = this._blankSeq;//이동한 칩의 seq 변경
       this._blankSeq = sequence;//빈 seq에 이동한 칩의 seq 대입
 
-      this.Enable_ChipsCollider();
+      if(this.Check_Clear()) {
+         this.Get_Scene()
+            .Clear_Game();
+      }
+      else {
+         this.Enable_ChipsCollider();
+      }
    }
 
    private Get_Scene(): GameScene {
       return this.scene as GameScene;
+   }
+
+   Check_Clear(): boolean {
+      let isCleared = true;
+      for(let n=0; n<16; n++) {
+         if(n != this._list_Sequence[n]) {
+            isCleared = false;
+            break;
+         }
+      }
+
+      // console.log(isCleared);
+      return isCleared;
+   }
+
+   Clear_Game() {
+      for(let n=0; n<16; n++) {
+         this._chips[n].setVisible(true);
+         this._chips[n].Show_Number(false);
+         this._chips[n].Show_Outline(false);
+      }
    }
 }
