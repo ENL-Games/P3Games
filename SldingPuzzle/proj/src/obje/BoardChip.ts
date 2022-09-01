@@ -116,7 +116,7 @@ export default class BoardChip extends zNode {
       //    console.log(LOG );
       // }
 
-      let DurationMoving = 200;
+      let DurationMoving = 100;
 
       let propsTween;
       if(this.x == toV2.x) {
