@@ -56,6 +56,7 @@ export default class BoardChip extends zNode {
       {
          this.Add_ContainerItem(this._rectangle_Outline);
          this._rectangle_Outline.setStrokeStyle(1, 0x000000);
+         this._rectangle_Outline.setAlpha(0.25);
          this._rectangle_Outline.setVisible(false);
       }
 
