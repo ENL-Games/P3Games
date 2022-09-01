@@ -6,6 +6,9 @@ class ResManager {
    static readonly PuzzleKeys = [
       `kkang`,
       `club`,
+      `ship`,
+      `hak`,
+      `shadow`,
    ];
 
    constructor() {}
