@@ -41,6 +41,10 @@ export default class GameScene extends Phaser.Scene {
         this._GameHUD.Reset_Count();
     }
 
+    Exit_Game() {
+        this.scene.start(`IntroScene`);
+    }
+
     Get_GameHUD(): GameHUD {
         return this._GameHUD;
     }

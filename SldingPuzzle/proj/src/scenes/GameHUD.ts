@@ -43,12 +43,36 @@ export default class GameHUD extends zNode {
             });//이벤트 처리
 
             txtBtn_Reset.setInteractive().on('pointerover', (pointer, localX, localY) => {
-               // console.log("over: " + this._text.text);
                txtBtn_Reset.setScale(1.25, 1.25);
             });//이벤트 처리
             txtBtn_Reset.setInteractive().on('pointerout', (pointer, localX, localY) => {
-               // console.log("out: " + this._text.text);
                txtBtn_Reset.setScale(1, 1);
+            });//이벤트 처리
+         }
+      }
+
+      let txtBtn_Exit = __scene.add.text(140, __scene.sys.canvas.height - 56, `EXIT`);
+      {
+         this.Add_ContainerItem(txtBtn_Exit);
+
+         txtBtn_Exit.setOrigin(0.5, 0.5);
+         txtBtn_Exit.setStyle({
+            font: "bold 60px Arial",
+         });
+         txtBtn_Exit.setColor(`#00ff00`);
+         txtBtn_Exit.setStroke(`#ffffff`, 2);
+
+         {
+            txtBtn_Exit.setInteractive().on('pointerdown', (pointer, localX, localY) => {
+               this.Get_Scene()
+                  .Exit_Game();
+            });//이벤트 처리
+
+            txtBtn_Exit.setInteractive().on('pointerover', (pointer, localX, localY) => {
+               txtBtn_Exit.setScale(1.25, 1.25);
+            });//이벤트 처리
+            txtBtn_Exit.setInteractive().on('pointerout', (pointer, localX, localY) => {
+               txtBtn_Exit.setScale(1, 1);
             });//이벤트 처리
          }
       }
